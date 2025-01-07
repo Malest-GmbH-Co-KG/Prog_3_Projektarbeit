@@ -6,7 +6,7 @@
 ### KRITERIEN:
   - KRITERIUM 1: Nutzer haben Nutzername, Passwort, KontoID, ID(Schlüssel)
   - KRITERIUM 2: Konto haben KontoID (Schlüssel), Kontostand
-  - KRITERIUM 3: Transaktion als 1:1 Beziehungstyp zwischen Konto und Nutzer 
+  - KRITERIUM 3: Transaktion als N:M Beziehungstyp zwischen Konto und Nutzer 
 ### ANMERKUNGEN UND DETAILS:
 - Datenbank kann später noch erweitert werden -> Besprechung im Team 
 
