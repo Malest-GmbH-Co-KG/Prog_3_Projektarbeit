@@ -12,7 +12,7 @@
 
 ## USER-STORY 2: Benutzer anlegen
 ### BESCHREIBUNG:  
-- ALS Benutzer + WILL ICH neue Benutzer anlegen + WARUM damit mehrere Benutzer auf einem Endgerät die Anwendung verwenden können
+- ALS Benutzer + WILL ICH neue Benutzer anlegen + WARUM damit mehrere Benutzer die Anwendung verwenden können
 ### KRITERIEN:
 - KRITERIUM 1: jeder Nutzer hat seine individualen Benutzer Namen 
 ### ANMERKUNGEN UND DETAILS:
@@ -20,7 +20,7 @@
 
 ## USER-STORY 3: Benutzer erweitern
 ### BESCHREIBUNG:  
-- ALS Benutzer + WILL ICH  meinem Benutzer ein Passwort hinzufügen + WARUM damit mehrere Benutzer auf einem Endgerät die Anwendung verwenden können,  aber nicht gegenseitig ihre Profile einsehen können
+- ALS Benutzer + WILL ICH  meinem Benutzer ein Passwort hinzufügen + WARUM damit mehrere Benutzer die Anwendung verwenden können und die Sicherheit erhöht wird 
 ### KRITERIEN:
   - KRITERIUM 1: jeder Nutzer hat seine individualens Passwort welches in der Datenbank gespeichert ist 
 ### ANMERKUNGEN UND DETAILS:
