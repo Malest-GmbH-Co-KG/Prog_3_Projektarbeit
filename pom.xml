@@ -25,7 +25,7 @@
             <version>3.19.15</version>
         </dependency>
 
-        <!-- These may not be required, unless you use the GenerationTool manually for code generation -->
+        
         <dependency>
             <groupId>org.jooq</groupId>
             <artifactId>jooq-meta</artifactId>
@@ -41,18 +41,7 @@
     <build>
         <plugins>
             <plugin>
-                <!-- Specify the maven code generator plugin -->
-                <!-- Use org.jooq                for the Open Source Edition
-                         org.jooq.pro            for commercial editions with Java 17 support,
-                         org.jooq.pro-java-11    for commercial editions with Java 11 support,
-                         org.jooq.pro-java-8     for commercial editions with Java 8 support,
-                         org.jooq.trial          for the free trial edition with Java 17 support,
-                         org.jooq.trial-java-11  for the free trial edition with Java 11 support,
-                         org.jooq.trial-java-8   for the free trial edition with Java 8 support
-
-                 Note: Only the Open Source Edition is hosted on Maven Central.
-                       Install the others locally using the provided scripts, or access them from here: https://repo.jooq.org
-                       See the JDK version support matrix here: https://www.jooq.org/download/support-matrix-jdk -->
+                
 
                 <groupId>org.jooq</groupId>
                 <artifactId>jooq-codegen-maven</artifactId>
