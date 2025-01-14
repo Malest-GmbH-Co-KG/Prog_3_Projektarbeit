@@ -4,9 +4,10 @@
 package com.Prog_3_Projektarbeit.generated;
 
 
-import com.Prog_3_Projektarbeit.generated.tables.Accounts;
+import com.Prog_3_Projektarbeit.generated.tables.Budget;
+import com.Prog_3_Projektarbeit.generated.tables.Have;
 import com.Prog_3_Projektarbeit.generated.tables.Transactions;
-import com.Prog_3_Projektarbeit.generated.tables.Users;
+import com.Prog_3_Projektarbeit.generated.tables.User;
 
 
 /**
@@ -16,17 +17,22 @@ import com.Prog_3_Projektarbeit.generated.tables.Users;
 public class Tables {
 
     /**
-     * The table <code>accounts</code>.
+     * The table <code>Budget</code>.
      */
-    public static final Accounts ACCOUNTS = Accounts.ACCOUNTS;
+    public static final Budget BUDGET = Budget.BUDGET;
 
     /**
-     * The table <code>transactions</code>.
+     * The table <code>Have</code>.
+     */
+    public static final Have HAVE = Have.HAVE;
+
+    /**
+     * The table <code>Transactions</code>.
      */
     public static final Transactions TRANSACTIONS = Transactions.TRANSACTIONS;
 
     /**
-     * The table <code>users</code>.
+     * The table <code>User</code>.
      */
-    public static final Users USERS = Users.USERS;
+    public static final User USER = User.USER;
 }

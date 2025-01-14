@@ -6,9 +6,11 @@ package com.Prog_3_Projektarbeit.generated.tables;
 
 import com.Prog_3_Projektarbeit.generated.DefaultSchema;
 import com.Prog_3_Projektarbeit.generated.Keys;
-import com.Prog_3_Projektarbeit.generated.tables.Accounts.AccountsPath;
+import com.Prog_3_Projektarbeit.generated.tables.Budget.BudgetPath;
+import com.Prog_3_Projektarbeit.generated.tables.User.UserPath;
 import com.Prog_3_Projektarbeit.generated.tables.records.TransactionsRecord;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collection;
@@ -17,7 +19,6 @@ import java.util.List;
 import org.jooq.Condition;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.InverseForeignKey;
 import org.jooq.Name;
 import org.jooq.Path;
@@ -46,7 +47,7 @@ public class Transactions extends TableImpl<TransactionsRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>transactions</code>
+     * The reference instance of <code>Transactions</code>
      */
     public static final Transactions TRANSACTIONS = new Transactions();
 
@@ -59,29 +60,45 @@ public class Transactions extends TableImpl<TransactionsRecord> {
     }
 
     /**
-     * The column <code>transactions.id</code>.
+     * @deprecated Unknown data type. If this is a qualified, user-defined type,
+     * it may have been excluded from code generation. If this is a built-in
+     * type, you can define an explicit {@link org.jooq.Binding} to specify how
+     * this type should be handled. Deprecation can be turned off using
+     * {@literal <deprecationOnUnknownTypes/>} in your code generator
+     * configuration.
      */
-    public final TableField<TransactionsRecord, Integer> ID = createField(DSL.name("id"), SQLDataType.INTEGER.identity(true), this, "");
+    @Deprecated
+    public final TableField<TransactionsRecord, Object> TRANSACTION_ID = createField(DSL.name("transaction_id"), org.jooq.impl.SQLDataType.OTHER, this, "");
 
     /**
-     * The column <code>transactions.account_id</code>.
+     * The column <code>Transactions.budget_id</code>.
      */
-    public final TableField<TransactionsRecord, Integer> ACCOUNT_ID = createField(DSL.name("account_id"), SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<TransactionsRecord, Integer> BUDGET_ID = createField(DSL.name("budget_id"), SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
-     * The column <code>transactions.date</code>.
+     * The column <code>Transactions.user_id</code>.
+     */
+    public final TableField<TransactionsRecord, String> USER_ID = createField(DSL.name("user_id"), SQLDataType.VARCHAR(255).nullable(false), this, "");
+
+    /**
+     * The column <code>Transactions.category</code>.
+     */
+    public final TableField<TransactionsRecord, String> CATEGORY = createField(DSL.name("category"), SQLDataType.VARCHAR(255).nullable(false), this, "");
+
+    /**
+     * The column <code>Transactions.ammount</code>.
+     */
+    public final TableField<TransactionsRecord, BigDecimal> AMMOUNT = createField(DSL.name("ammount"), SQLDataType.NUMERIC(10, 2).nullable(false), this, "");
+
+    /**
+     * The column <code>Transactions.date</code>.
      */
     public final TableField<TransactionsRecord, LocalDate> DATE = createField(DSL.name("date"), SQLDataType.LOCALDATE.nullable(false), this, "");
 
     /**
-     * The column <code>transactions.category</code>.
+     * The column <code>Transactions.description</code>.
      */
-    public final TableField<TransactionsRecord, String> CATEGORY = createField(DSL.name("category"), SQLDataType.CLOB.nullable(false), this, "");
-
-    /**
-     * The column <code>transactions.amount</code>.
-     */
-    public final TableField<TransactionsRecord, Float> AMOUNT = createField(DSL.name("amount"), SQLDataType.REAL.nullable(false), this, "");
+    public final TableField<TransactionsRecord, String> DESCRIPTION = createField(DSL.name("description"), SQLDataType.CLOB, this, "");
 
     private Transactions(Name alias, Table<TransactionsRecord> aliased) {
         this(alias, aliased, (Field<?>[]) null, null);
@@ -92,24 +109,24 @@ public class Transactions extends TableImpl<TransactionsRecord> {
     }
 
     /**
-     * Create an aliased <code>transactions</code> table reference
+     * Create an aliased <code>Transactions</code> table reference
      */
     public Transactions(String alias) {
         this(DSL.name(alias), TRANSACTIONS);
     }
 
     /**
-     * Create an aliased <code>transactions</code> table reference
+     * Create an aliased <code>Transactions</code> table reference
      */
     public Transactions(Name alias) {
         this(alias, TRANSACTIONS);
     }
 
     /**
-     * Create a <code>transactions</code> table reference
+     * Create a <code>Transactions</code> table reference
      */
     public Transactions() {
-        this(DSL.name("transactions"), null);
+        this(DSL.name("Transactions"), null);
     }
 
     public <O extends Record> Transactions(Table<O> path, ForeignKey<O, TransactionsRecord> childPath, InverseForeignKey<O, TransactionsRecord> parentPath) {
@@ -151,30 +168,37 @@ public class Transactions extends TableImpl<TransactionsRecord> {
     }
 
     @Override
-    public Identity<TransactionsRecord, Integer> getIdentity() {
-        return (Identity<TransactionsRecord, Integer>) super.getIdentity();
-    }
-
-    @Override
     public UniqueKey<TransactionsRecord> getPrimaryKey() {
         return Keys.TRANSACTIONS__PK_TRANSACTIONS;
     }
 
     @Override
     public List<ForeignKey<TransactionsRecord, ?>> getReferences() {
-        return Arrays.asList(Keys.TRANSACTIONS__FK_TRANSACTIONS_PK_ACCOUNTS);
+        return Arrays.asList(Keys.TRANSACTIONS__FK_TRANSACTIONS_PK_BUDGET, Keys.TRANSACTIONS__FK_TRANSACTIONS_PK_USER);
     }
 
-    private transient AccountsPath _accounts;
+    private transient BudgetPath _budget;
 
     /**
-     * Get the implicit join path to the <code>accounts</code> table.
+     * Get the implicit join path to the <code>Budget</code> table.
      */
-    public AccountsPath accounts() {
-        if (_accounts == null)
-            _accounts = new AccountsPath(this, Keys.TRANSACTIONS__FK_TRANSACTIONS_PK_ACCOUNTS, null);
+    public BudgetPath budget() {
+        if (_budget == null)
+            _budget = new BudgetPath(this, Keys.TRANSACTIONS__FK_TRANSACTIONS_PK_BUDGET, null);
 
-        return _accounts;
+        return _budget;
+    }
+
+    private transient UserPath _user;
+
+    /**
+     * Get the implicit join path to the <code>User</code> table.
+     */
+    public UserPath user() {
+        if (_user == null)
+            _user = new UserPath(this, Keys.TRANSACTIONS__FK_TRANSACTIONS_PK_USER, null);
+
+        return _user;
     }
 
     @Override

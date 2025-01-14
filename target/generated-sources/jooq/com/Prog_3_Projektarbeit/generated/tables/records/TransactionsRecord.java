@@ -6,6 +6,7 @@ package com.Prog_3_Projektarbeit.generated.tables.records;
 
 import com.Prog_3_Projektarbeit.generated.tables.Transactions;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import org.jooq.Record1;
@@ -21,73 +22,113 @@ public class TransactionsRecord extends UpdatableRecordImpl<TransactionsRecord> 
     private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>transactions.id</code>.
+     * @deprecated Unknown data type. If this is a qualified, user-defined type,
+     * it may have been excluded from code generation. If this is a built-in
+     * type, you can define an explicit {@link org.jooq.Binding} to specify how
+     * this type should be handled. Deprecation can be turned off using
+     * {@literal <deprecationOnUnknownTypes/>} in your code generator
+     * configuration.
      */
-    public void setId(Integer value) {
+    @Deprecated
+    public void setTransactionId(Object value) {
         set(0, value);
     }
 
     /**
-     * Getter for <code>transactions.id</code>.
+     * @deprecated Unknown data type. If this is a qualified, user-defined type,
+     * it may have been excluded from code generation. If this is a built-in
+     * type, you can define an explicit {@link org.jooq.Binding} to specify how
+     * this type should be handled. Deprecation can be turned off using
+     * {@literal <deprecationOnUnknownTypes/>} in your code generator
+     * configuration.
      */
-    public Integer getId() {
-        return (Integer) get(0);
+    @Deprecated
+    public Object getTransactionId() {
+        return get(0);
     }
 
     /**
-     * Setter for <code>transactions.account_id</code>.
+     * Setter for <code>Transactions.budget_id</code>.
      */
-    public void setAccountId(Integer value) {
+    public void setBudgetId(Integer value) {
         set(1, value);
     }
 
     /**
-     * Getter for <code>transactions.account_id</code>.
+     * Getter for <code>Transactions.budget_id</code>.
      */
-    public Integer getAccountId() {
+    public Integer getBudgetId() {
         return (Integer) get(1);
     }
 
     /**
-     * Setter for <code>transactions.date</code>.
+     * Setter for <code>Transactions.user_id</code>.
      */
-    public void setDate(LocalDate value) {
+    public void setUserId(String value) {
         set(2, value);
     }
 
     /**
-     * Getter for <code>transactions.date</code>.
+     * Getter for <code>Transactions.user_id</code>.
      */
-    public LocalDate getDate() {
-        return (LocalDate) get(2);
+    public String getUserId() {
+        return (String) get(2);
     }
 
     /**
-     * Setter for <code>transactions.category</code>.
+     * Setter for <code>Transactions.category</code>.
      */
     public void setCategory(String value) {
         set(3, value);
     }
 
     /**
-     * Getter for <code>transactions.category</code>.
+     * Getter for <code>Transactions.category</code>.
      */
     public String getCategory() {
         return (String) get(3);
     }
 
     /**
-     * Setter for <code>transactions.amount</code>.
+     * Setter for <code>Transactions.ammount</code>.
      */
-    public void setAmount(Float value) {
+    public void setAmmount(BigDecimal value) {
         set(4, value);
     }
 
     /**
-     * Getter for <code>transactions.amount</code>.
+     * Getter for <code>Transactions.ammount</code>.
      */
-    public Float getAmount() {
-        return (Float) get(4);
+    public BigDecimal getAmmount() {
+        return (BigDecimal) get(4);
+    }
+
+    /**
+     * Setter for <code>Transactions.date</code>.
+     */
+    public void setDate(LocalDate value) {
+        set(5, value);
+    }
+
+    /**
+     * Getter for <code>Transactions.date</code>.
+     */
+    public LocalDate getDate() {
+        return (LocalDate) get(5);
+    }
+
+    /**
+     * Setter for <code>Transactions.description</code>.
+     */
+    public void setDescription(String value) {
+        set(6, value);
+    }
+
+    /**
+     * Getter for <code>Transactions.description</code>.
+     */
+    public String getDescription() {
+        return (String) get(6);
     }
 
     // -------------------------------------------------------------------------
@@ -95,7 +136,7 @@ public class TransactionsRecord extends UpdatableRecordImpl<TransactionsRecord> 
     // -------------------------------------------------------------------------
 
     @Override
-    public Record1<Integer> key() {
+    public Record1<Object> key() {
         return (Record1) super.key();
     }
 
@@ -113,14 +154,16 @@ public class TransactionsRecord extends UpdatableRecordImpl<TransactionsRecord> 
     /**
      * Create a detached, initialised TransactionsRecord
      */
-    public TransactionsRecord(Integer id, Integer accountId, LocalDate date, String category, Float amount) {
+    public TransactionsRecord(Object transactionId, Integer budgetId, String userId, String category, BigDecimal ammount, LocalDate date, String description) {
         super(Transactions.TRANSACTIONS);
 
-        setId(id);
-        setAccountId(accountId);
-        setDate(date);
+        setTransactionId(transactionId);
+        setBudgetId(budgetId);
+        setUserId(userId);
         setCategory(category);
-        setAmount(amount);
+        setAmmount(ammount);
+        setDate(date);
+        setDescription(description);
         resetChangedOnNotNull();
     }
 
@@ -131,11 +174,13 @@ public class TransactionsRecord extends UpdatableRecordImpl<TransactionsRecord> 
         super(Transactions.TRANSACTIONS);
 
         if (value != null) {
-            setId(value.getId());
-            setAccountId(value.getAccountId());
-            setDate(value.getDate());
+            setTransactionId(value.getTransactionId());
+            setBudgetId(value.getBudgetId());
+            setUserId(value.getUserId());
             setCategory(value.getCategory());
-            setAmount(value.getAmount());
+            setAmmount(value.getAmmount());
+            setDate(value.getDate());
+            setDescription(value.getDescription());
             resetChangedOnNotNull();
         }
     }

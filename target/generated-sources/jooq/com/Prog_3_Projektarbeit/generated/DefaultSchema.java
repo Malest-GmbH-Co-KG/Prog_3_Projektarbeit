@@ -4,9 +4,10 @@
 package com.Prog_3_Projektarbeit.generated;
 
 
-import com.Prog_3_Projektarbeit.generated.tables.Accounts;
+import com.Prog_3_Projektarbeit.generated.tables.Budget;
+import com.Prog_3_Projektarbeit.generated.tables.Have;
 import com.Prog_3_Projektarbeit.generated.tables.Transactions;
-import com.Prog_3_Projektarbeit.generated.tables.Users;
+import com.Prog_3_Projektarbeit.generated.tables.User;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,19 +31,24 @@ public class DefaultSchema extends SchemaImpl {
     public static final DefaultSchema DEFAULT_SCHEMA = new DefaultSchema();
 
     /**
-     * The table <code>accounts</code>.
+     * The table <code>Budget</code>.
      */
-    public final Accounts ACCOUNTS = Accounts.ACCOUNTS;
+    public final Budget BUDGET = Budget.BUDGET;
 
     /**
-     * The table <code>transactions</code>.
+     * The table <code>Have</code>.
+     */
+    public final Have HAVE = Have.HAVE;
+
+    /**
+     * The table <code>Transactions</code>.
      */
     public final Transactions TRANSACTIONS = Transactions.TRANSACTIONS;
 
     /**
-     * The table <code>users</code>.
+     * The table <code>User</code>.
      */
-    public final Users USERS = Users.USERS;
+    public final User USER = User.USER;
 
     /**
      * No further instances allowed
@@ -60,9 +66,10 @@ public class DefaultSchema extends SchemaImpl {
     @Override
     public final List<Table<?>> getTables() {
         return Arrays.asList(
-            Accounts.ACCOUNTS,
+            Budget.BUDGET,
+            Have.HAVE,
             Transactions.TRANSACTIONS,
-            Users.USERS
+            User.USER
         );
     }
 }

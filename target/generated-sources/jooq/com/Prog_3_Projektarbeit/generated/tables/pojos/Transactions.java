@@ -5,6 +5,7 @@ package com.Prog_3_Projektarbeit.generated.tables.pojos;
 
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 
@@ -16,104 +17,152 @@ public class Transactions implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Integer id;
-    private Integer accountId;
-    private LocalDate date;
+    private Object transactionId;
+    private Integer budgetId;
+    private String userId;
     private String category;
-    private Float amount;
+    private BigDecimal ammount;
+    private LocalDate date;
+    private String description;
 
     public Transactions() {}
 
     public Transactions(Transactions value) {
-        this.id = value.id;
-        this.accountId = value.accountId;
-        this.date = value.date;
+        this.transactionId = value.transactionId;
+        this.budgetId = value.budgetId;
+        this.userId = value.userId;
         this.category = value.category;
-        this.amount = value.amount;
+        this.ammount = value.ammount;
+        this.date = value.date;
+        this.description = value.description;
     }
 
     public Transactions(
-        Integer id,
-        Integer accountId,
-        LocalDate date,
+        Object transactionId,
+        Integer budgetId,
+        String userId,
         String category,
-        Float amount
+        BigDecimal ammount,
+        LocalDate date,
+        String description
     ) {
-        this.id = id;
-        this.accountId = accountId;
-        this.date = date;
+        this.transactionId = transactionId;
+        this.budgetId = budgetId;
+        this.userId = userId;
         this.category = category;
-        this.amount = amount;
-    }
-
-    /**
-     * Getter for <code>transactions.id</code>.
-     */
-    public Integer getId() {
-        return this.id;
-    }
-
-    /**
-     * Setter for <code>transactions.id</code>.
-     */
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    /**
-     * Getter for <code>transactions.account_id</code>.
-     */
-    public Integer getAccountId() {
-        return this.accountId;
-    }
-
-    /**
-     * Setter for <code>transactions.account_id</code>.
-     */
-    public void setAccountId(Integer accountId) {
-        this.accountId = accountId;
-    }
-
-    /**
-     * Getter for <code>transactions.date</code>.
-     */
-    public LocalDate getDate() {
-        return this.date;
-    }
-
-    /**
-     * Setter for <code>transactions.date</code>.
-     */
-    public void setDate(LocalDate date) {
+        this.ammount = ammount;
         this.date = date;
+        this.description = description;
     }
 
     /**
-     * Getter for <code>transactions.category</code>.
+     * @deprecated Unknown data type. If this is a qualified, user-defined type,
+     * it may have been excluded from code generation. If this is a built-in
+     * type, you can define an explicit {@link org.jooq.Binding} to specify how
+     * this type should be handled. Deprecation can be turned off using
+     * {@literal <deprecationOnUnknownTypes/>} in your code generator
+     * configuration.
+     */
+    @Deprecated
+    public Object getTransactionId() {
+        return this.transactionId;
+    }
+
+    /**
+     * @deprecated Unknown data type. If this is a qualified, user-defined type,
+     * it may have been excluded from code generation. If this is a built-in
+     * type, you can define an explicit {@link org.jooq.Binding} to specify how
+     * this type should be handled. Deprecation can be turned off using
+     * {@literal <deprecationOnUnknownTypes/>} in your code generator
+     * configuration.
+     */
+    @Deprecated
+    public void setTransactionId(Object transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    /**
+     * Getter for <code>Transactions.budget_id</code>.
+     */
+    public Integer getBudgetId() {
+        return this.budgetId;
+    }
+
+    /**
+     * Setter for <code>Transactions.budget_id</code>.
+     */
+    public void setBudgetId(Integer budgetId) {
+        this.budgetId = budgetId;
+    }
+
+    /**
+     * Getter for <code>Transactions.user_id</code>.
+     */
+    public String getUserId() {
+        return this.userId;
+    }
+
+    /**
+     * Setter for <code>Transactions.user_id</code>.
+     */
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    /**
+     * Getter for <code>Transactions.category</code>.
      */
     public String getCategory() {
         return this.category;
     }
 
     /**
-     * Setter for <code>transactions.category</code>.
+     * Setter for <code>Transactions.category</code>.
      */
     public void setCategory(String category) {
         this.category = category;
     }
 
     /**
-     * Getter for <code>transactions.amount</code>.
+     * Getter for <code>Transactions.ammount</code>.
      */
-    public Float getAmount() {
-        return this.amount;
+    public BigDecimal getAmmount() {
+        return this.ammount;
     }
 
     /**
-     * Setter for <code>transactions.amount</code>.
+     * Setter for <code>Transactions.ammount</code>.
      */
-    public void setAmount(Float amount) {
-        this.amount = amount;
+    public void setAmmount(BigDecimal ammount) {
+        this.ammount = ammount;
+    }
+
+    /**
+     * Getter for <code>Transactions.date</code>.
+     */
+    public LocalDate getDate() {
+        return this.date;
+    }
+
+    /**
+     * Setter for <code>Transactions.date</code>.
+     */
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    /**
+     * Getter for <code>Transactions.description</code>.
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
+     * Setter for <code>Transactions.description</code>.
+     */
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
@@ -125,23 +174,23 @@ public class Transactions implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         final Transactions other = (Transactions) obj;
-        if (this.id == null) {
-            if (other.id != null)
+        if (this.transactionId == null) {
+            if (other.transactionId != null)
                 return false;
         }
-        else if (!this.id.equals(other.id))
+        else if (!this.transactionId.equals(other.transactionId))
             return false;
-        if (this.accountId == null) {
-            if (other.accountId != null)
+        if (this.budgetId == null) {
+            if (other.budgetId != null)
                 return false;
         }
-        else if (!this.accountId.equals(other.accountId))
+        else if (!this.budgetId.equals(other.budgetId))
             return false;
-        if (this.date == null) {
-            if (other.date != null)
+        if (this.userId == null) {
+            if (other.userId != null)
                 return false;
         }
-        else if (!this.date.equals(other.date))
+        else if (!this.userId.equals(other.userId))
             return false;
         if (this.category == null) {
             if (other.category != null)
@@ -149,11 +198,23 @@ public class Transactions implements Serializable {
         }
         else if (!this.category.equals(other.category))
             return false;
-        if (this.amount == null) {
-            if (other.amount != null)
+        if (this.ammount == null) {
+            if (other.ammount != null)
                 return false;
         }
-        else if (!this.amount.equals(other.amount))
+        else if (!this.ammount.equals(other.ammount))
+            return false;
+        if (this.date == null) {
+            if (other.date != null)
+                return false;
+        }
+        else if (!this.date.equals(other.date))
+            return false;
+        if (this.description == null) {
+            if (other.description != null)
+                return false;
+        }
+        else if (!this.description.equals(other.description))
             return false;
         return true;
     }
@@ -162,11 +223,13 @@ public class Transactions implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
-        result = prime * result + ((this.accountId == null) ? 0 : this.accountId.hashCode());
-        result = prime * result + ((this.date == null) ? 0 : this.date.hashCode());
+        result = prime * result + ((this.transactionId == null) ? 0 : this.transactionId.hashCode());
+        result = prime * result + ((this.budgetId == null) ? 0 : this.budgetId.hashCode());
+        result = prime * result + ((this.userId == null) ? 0 : this.userId.hashCode());
         result = prime * result + ((this.category == null) ? 0 : this.category.hashCode());
-        result = prime * result + ((this.amount == null) ? 0 : this.amount.hashCode());
+        result = prime * result + ((this.ammount == null) ? 0 : this.ammount.hashCode());
+        result = prime * result + ((this.date == null) ? 0 : this.date.hashCode());
+        result = prime * result + ((this.description == null) ? 0 : this.description.hashCode());
         return result;
     }
 
@@ -174,11 +237,13 @@ public class Transactions implements Serializable {
     public String toString() {
         StringBuilder sb = new StringBuilder("Transactions (");
 
-        sb.append(id);
-        sb.append(", ").append(accountId);
-        sb.append(", ").append(date);
+        sb.append(transactionId);
+        sb.append(", ").append(budgetId);
+        sb.append(", ").append(userId);
         sb.append(", ").append(category);
-        sb.append(", ").append(amount);
+        sb.append(", ").append(ammount);
+        sb.append(", ").append(date);
+        sb.append(", ").append(description);
 
         sb.append(")");
         return sb.toString();
