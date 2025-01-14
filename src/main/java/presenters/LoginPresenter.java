@@ -30,7 +30,16 @@ public class LoginPresenter {
         if (success) {
             view.showSuccess("User created successfully");
         } else {
-            view.showError("Error creating user");
+            if (userModel.isVornameEmpty(vorname) || userModel.isNachnameEmpty(nachname) || userModel.isUsernameEmpty(username) || userModel.isPasswordEmpty(password)) {
+                view.showError("Please fill all fields");
+            }else {
+            if(!userModel.isUsernameAvailable(username)){
+                view.showError("Username already exists");
+            }else {
+                view.showError("Error creating user");
+            }
+            }
+
         }
     }
 

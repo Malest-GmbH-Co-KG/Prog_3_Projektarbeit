@@ -15,7 +15,7 @@ public class UserModel {
         this.userDao = userDao;}
 
     public boolean addUser(String username,String vorname, String nachname, String password) {
-        if (vorname.isEmpty() || nachname.isEmpty() || username.isEmpty() || password.isEmpty()) {
+        if (isVornameEmpty(vorname) || isNachnameEmpty(nachname) || isUsernameEmpty(username) || isPasswordEmpty(password)) {
             return false;
         }
 
@@ -53,13 +53,30 @@ public class UserModel {
 
 
 
-    private boolean isUsernameAvailable(String username) {
+    public boolean isUsernameAvailable(String username) {
         return userDao.fetchByUserName(username).isEmpty();
     }
     private User getUserByUsername(String username) {
         List<User> users = userDao.fetchByUserName(username);
         return users.isEmpty() ? null : users.get(0);
     }
+
+    public boolean isVornameEmpty(String vorname) {
+        return vorname.isEmpty();
+    }
+
+    public boolean isNachnameEmpty(String nachname) {
+        return nachname.isEmpty();
+    }
+
+    public boolean isUsernameEmpty(String username) {
+        return username.isEmpty();
+    }
+
+    public boolean isPasswordEmpty(String password) {
+        return password.isEmpty();
+    }
+
 
 
 
