@@ -111,6 +111,7 @@ public class LoginView extends Application {
         updateUserButton.setOnAction(e -> updateUser());
 
         // Set Scene
+        grid.setStyle("-fx-alignment: center;");
         Scene scene = new Scene(grid, 600, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
