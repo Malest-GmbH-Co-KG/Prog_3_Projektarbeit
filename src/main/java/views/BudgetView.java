@@ -1,7 +1,9 @@
 package views;
 
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import presenters.BudgetPresenter;
@@ -13,6 +15,8 @@ public class BudgetView {
     private final BudgetPresenter presenter;
     private ListView<String> budgetList;
     private Label messageLabel;
+    private Label budgetNameLabel;
+    private Label budgetAmountLabel;
 
     public BudgetView(BudgetPresenter presenter) {
         this.presenter = presenter;
@@ -27,6 +31,8 @@ public class BudgetView {
         Button backButton = new Button("Back");
         Button viewMovementsButton = new Button("View Movements");
         messageLabel = new Label();
+        budgetNameLabel = new Label("Budget Name:");
+        budgetAmountLabel = new Label("Budget Amount:");
         //Aktionen für die Buttons
         addBudgetButton.setOnAction(e -> {
             String budgetName = budgetNameField.getText();
@@ -53,8 +59,24 @@ public class BudgetView {
             }
         });
         //Layout für die Budgets
-        VBox layout = new VBox(10, budgetList, budgetNameField, budgetAmountField, addBudgetButton, backButton,viewMovementsButton, messageLabel);
-        Scene scene = new Scene(layout, 600, 400);
+        GridPane grid = new GridPane();
+        grid.setPadding(new Insets(15));
+        grid.setHgap(15);
+        grid.setVgap(15);
+        grid.setStyle("-fx-alignment: center;");
+
+        grid.add(budgetList, 0, 0, 2, 1);
+        grid.add(budgetNameField, 0, 2);
+        grid.add(budgetAmountField, 1, 2);
+        grid.add(budgetNameLabel, 0, 1);
+        grid.add(budgetAmountLabel, 1, 1);
+        grid.add(addBudgetButton, 1, 3);
+        grid.add(viewMovementsButton, 0, 3);
+        grid.add(backButton, 0, 4);
+        grid.add(messageLabel, 0, 5, 2, 1);
+
+
+        Scene scene = new Scene(grid, 600, 400);
         stage.setScene(scene);
         stage.setTitle("User Budgets");
         stage.show();

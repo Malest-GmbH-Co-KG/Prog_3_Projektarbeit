@@ -48,6 +48,7 @@ public class LoginView {
         grid.setPadding(new Insets(15));
         grid.setHgap(15);
         grid.setVgap(15);
+        grid.setStyle("-fx-alignment: center;");
 
         // Login Section
         Label usernameLabel = new Label("Username:");
@@ -98,7 +99,7 @@ public class LoginView {
         updateUserButton.setOnAction(e -> updateUser());
 
         // Set Scene
-        grid.setStyle("-fx-alignment: center;");
+
         Scene scene = new Scene(grid, 600, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
