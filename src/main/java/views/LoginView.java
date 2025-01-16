@@ -1,6 +1,6 @@
 package views;
 
-import com.Prog_3_Projektarbeit.generated.tables.daos.UserDao;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -10,21 +10,15 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import model.UserModel;
-import org.jooq.DSLContext;
-import org.jooq.SQLDialect;
-import org.jooq.impl.DSL;
-import org.sqlite.SQLiteDataSource;
+
+
+
 import presenters.LoginPresenter;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 
-public class LoginView extends Application {
+
+public class LoginView {
     private LoginPresenter presenter;
-    private DSLContext dslContext;
-    private Connection connection;
-    private UserDao userDao;
 
     private TextField usernameField;
     private PasswordField passwordField;
@@ -33,27 +27,20 @@ public class LoginView extends Application {
     private TextField newNachnameField;
     private PasswordField newPasswordField;
     private Label messageLabel;
+    private Stage primaryStage;
+
+    public LoginView(Stage stage) {
+        this.primaryStage = stage;
+    }
 
     public void setPresenter(LoginPresenter presenter) {
         this.presenter = presenter;
         this.presenter.setView(this);
     }
 
-    @Override
-    public void start(Stage primaryStage) {
-        SQLiteDataSource dataSource = new SQLiteDataSource();
-        dataSource.setUrl("jdbc:sqlite:budget_planner_db.db");
-        try {
-            connection = dataSource.getConnection();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        dslContext = DSL.using(connection, SQLDialect.SQLITE);
-        userDao = new UserDao(dslContext.configuration());
 
-        UserModel userModel = new UserModel(userDao);
-        LoginPresenter loginPresenter = new LoginPresenter(userModel);
-        setPresenter(loginPresenter);
+    public void start() {
+
         primaryStage.setTitle("User Management");
 
         // Layout for the login form
@@ -147,31 +134,7 @@ public class LoginView extends Application {
         messageLabel.setStyle("-fx-text-fill: red;");
     }
 
-    public LoginPresenter getPresenter() {
-        return presenter;
-    }
-
-    public DSLContext getDslContext() {
-        return dslContext;
-    }
-
-    public Connection getConnection() {
-        return connection;
-    }
-
-    @Override
-    public void stop() throws Exception {
-        if (connection != null && !connection.isClosed()) {
-            connection.close();
-        }
-        super.stop();
-    }
-    public void navigatetoBudgetView() {
-        BudgetView budgetView = new BudgetView();
-        budgetView.start(new Stage());
-    }
-
-    public static void main(String[] args) {
-        launch(args);
+    public void closeStage() {
+        primaryStage.close(); // Schließt das aktuelle Fenster
     }
 }

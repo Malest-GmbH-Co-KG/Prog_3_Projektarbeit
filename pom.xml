@@ -86,7 +86,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>views.LoginView</mainClass>
+                    <mainClass>Main</mainClass>
                 </configuration>
             </plugin>
 

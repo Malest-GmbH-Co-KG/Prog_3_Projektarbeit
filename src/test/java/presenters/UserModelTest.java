@@ -125,8 +125,8 @@ class UserModelTest {
         String vorname = "vor";
         String nachname = "nach";
         String password = "password123";
-        boolean result = userModel.addUser(username, vorname, nachname, password);
-        assertEquals(false, result, "The result should be false for existing user");
+        User result = userModel.addUser(username, vorname, nachname, password);
+        assertNull(result, "The result should be false for existing user");
     }
 
     @Test
@@ -135,7 +135,7 @@ class UserModelTest {
         String vorname = "vor";
         String nachname = "nach";
         String password = "password123";
-        boolean result = userModel.addUser(username,vorname, nachname, password);
-        assertEquals(true, result, "The result should be true for new user");
+        User result = userModel.addUser(username,vorname, nachname, password);
+        assertNotNull(result, "The result should be true for new user");
     }
 }

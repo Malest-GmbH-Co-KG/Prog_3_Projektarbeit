@@ -1,44 +1,77 @@
 package views;
 
-import com.Prog_3_Projektarbeit.generated.tables.daos.UserDao;
-import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import model.UserModel;
-import org.jooq.DSLContext;
-import org.jooq.SQLDialect;
-import org.jooq.impl.DSL;
-import org.sqlite.SQLiteDataSource;
-import presenters.LoginPresenter;
-import views.LoginView;
+import presenters.BudgetPresenter;
+import com.Prog_3_Projektarbeit.generated.tables.pojos.Budget;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-
+import java.util.List;
 
 public class BudgetView {
-    private LoginPresenter presenter;
-    private DSLContext dslContext;
-    private Connection connection;
-    private UserDao userDao;
-    private LoginView loginView;
-
-    private TextField usernameField;
+    private final BudgetPresenter presenter;
+    private ListView<String> budgetList;
     private Label messageLabel;
 
-
-
-    public void updateBudgetList() {
-        
+    public BudgetView(BudgetPresenter presenter) {
+        this.presenter = presenter;
     }
 
-    public void start(Stage stage) {
+    public void show(Stage stage) {
+        // Layout für die Budgets
+        budgetList = new ListView<>();
+        TextField budgetNameField = new TextField();
+        TextField budgetAmountField = new TextField();
+        Button addBudgetButton = new Button("Add Budget");
+        Button backButton = new Button("Back");
+        Button viewMovementsButton = new Button("View Movements");
+        messageLabel = new Label();
+        //Aktionen für die Buttons
+        addBudgetButton.setOnAction(e -> {
+            String budgetName = budgetNameField.getText();
+            double budgetAmount;
+            try {
+                budgetAmount = Double.parseDouble(budgetAmountField.getText());
+            } catch (NumberFormatException ex) {
+                showError("Amount must be a valid number.");
+                return;
+            }
+            presenter.addBudget(budgetName, budgetAmount);
+        });
 
+        backButton.setOnAction(e -> {
+            presenter.back();
+        });
+
+        viewMovementsButton.setOnAction(e -> {
+            String selectedBudget = budgetList.getSelectionModel().getSelectedItem();
+            if (selectedBudget != null) {
+                presenter.showMovementsForBudget(selectedBudget);
+            } else {
+                showError("Please select a budget to view movements.");
+            }
+        });
+        //Layout für die Budgets
+        VBox layout = new VBox(10, budgetList, budgetNameField, budgetAmountField, addBudgetButton, backButton,viewMovementsButton, messageLabel);
+        Scene scene = new Scene(layout, 600, 400);
+        stage.setScene(scene);
+        stage.setTitle("User Budgets");
+        stage.show();
+
+        presenter.loadBudgets();
+    }
+
+
+
+    public void showError(String message) {
+        messageLabel.setText(message);
+        messageLabel.setStyle("-fx-text-fill: red;");
+    }
+
+    public void showMessage(String message) {
+        messageLabel.setText(message);
+        messageLabel.setStyle("-fx-text-fill: green;");
     }
 }
+

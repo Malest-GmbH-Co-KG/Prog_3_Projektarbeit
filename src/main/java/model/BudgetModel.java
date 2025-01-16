@@ -29,7 +29,7 @@ public class BudgetModel {
         newHave.setBudgetId(getBudgetId);
         haveDao.insert(newHave);
         if (view != null){
-            view.updateBudgetList();
+            //view.updateBudgetList();
         }
 
         return getBudgetId;

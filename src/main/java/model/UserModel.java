@@ -14,9 +14,9 @@ public class UserModel {
     public UserModel(UserDao userDao) {
         this.userDao = userDao;}
 
-    public boolean addUser(String username,String vorname, String nachname, String password) {
+    public User addUser(String username,String vorname, String nachname, String password) {
         if (isVornameEmpty(vorname) || isNachnameEmpty(nachname) || isUsernameEmpty(username) || isPasswordEmpty(password)) {
-            return false;
+            return null;
         }
 
         if (isUsernameAvailable(username)) {
@@ -26,9 +26,9 @@ public class UserModel {
             newUser.setNachname(nachname);
             newUser.setPassword(password);
             userDao.insert(newUser);
-            return true;
+            return newUser;
         }
-        return false;
+        return null;
     }
 
     public User authenticateUser(String username, String password) {
