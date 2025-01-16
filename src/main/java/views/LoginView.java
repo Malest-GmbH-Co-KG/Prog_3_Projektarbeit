@@ -147,12 +147,28 @@ public class LoginView extends Application {
         messageLabel.setStyle("-fx-text-fill: red;");
     }
 
+    public LoginPresenter getPresenter() {
+        return presenter;
+    }
+
+    public DSLContext getDslContext() {
+        return dslContext;
+    }
+
+    public Connection getConnection() {
+        return connection;
+    }
+
     @Override
     public void stop() throws Exception {
         if (connection != null && !connection.isClosed()) {
             connection.close();
         }
         super.stop();
+    }
+    public void navigatetoBudgetView() {
+        BudgetView budgetView = new BudgetView();
+        budgetView.start(new Stage());
     }
 
     public static void main(String[] args) {

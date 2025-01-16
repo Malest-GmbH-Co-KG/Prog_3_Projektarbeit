@@ -118,7 +118,7 @@
                         </generate>
                         <target>
                             <packageName>com.Prog_3_Projektarbeit.generated</packageName>
-                            <directory>target/generated-sources/jooq</directory>
+                            <directory>src/main/java/jooq/generated-sources/jooq</directory>
                         </target>
                     </generator>
                 </configuration>

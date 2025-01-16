@@ -1,11 +1,14 @@
 package presenters;
+import javafx.stage.Stage;
 import model.UserModel;
+import views.BudgetView;
 import views.LoginView;
 import com.Prog_3_Projektarbeit.generated.tables.pojos.User;
 
 public class LoginPresenter {
     private final UserModel userModel;
     private LoginView view;
+    private BudgetView budgetView;
 
     public LoginPresenter(UserModel userModel) {
         this.userModel = userModel;
@@ -14,11 +17,15 @@ public class LoginPresenter {
     public void setView(LoginView view) {
         this.view = view;
     }
+    public void setBudgetView(BudgetView budgetView) {
+        this.budgetView = budgetView;
+    }
 
     public void authenticateUser(String username, String password) {
         User user = userModel.authenticateUser(username, password);
         if (user !=null) {
             view.showSuccess("User authenticated successfully");
+            view.navigatetoBudgetView();
         } else {
             view.showError("Invalid credentials");
         }
