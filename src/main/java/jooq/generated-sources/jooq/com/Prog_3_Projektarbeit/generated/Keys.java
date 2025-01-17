@@ -31,7 +31,7 @@ public class Keys {
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
-    public static final UniqueKey<BudgetRecord> BUDGET__PK_BUDGET = Internal.createUniqueKey(Budget.BUDGET, DSL.name("pk_Budget"), new TableField[] { Budget.BUDGET.BUDGET_ID }, true);
+    public static final UniqueKey<BudgetRecord> BUDGET__PK_BUDGET = Internal.createUniqueKey(Budget.BUDGET, DSL.name("pk_budget"), new TableField[] { Budget.BUDGET.BUDGET_ID }, true);
     public static final UniqueKey<HaveRecord> HAVE__PK_HAVE = Internal.createUniqueKey(Have.HAVE, DSL.name("pk_Have"), new TableField[] { Have.HAVE.BUDGET_ID, Have.HAVE.USER_NAME }, true);
     public static final UniqueKey<TransactionsRecord> TRANSACTIONS__PK_TRANSACTIONS = Internal.createUniqueKey(Transactions.TRANSACTIONS, DSL.name("pk_Transactions"), new TableField[] { Transactions.TRANSACTIONS.TRANSACTION_ID }, true);
     public static final UniqueKey<UserRecord> USER__PK_USER = Internal.createUniqueKey(User.USER, DSL.name("pk_User"), new TableField[] { User.USER.USER_NAME }, true);
@@ -40,8 +40,8 @@ public class Keys {
     // FOREIGN KEY definitions
     // -------------------------------------------------------------------------
 
-    public static final ForeignKey<HaveRecord, BudgetRecord> HAVE__FK_HAVE_PK_BUDGET = Internal.createForeignKey(Have.HAVE, DSL.name("fk_Have_pk_Budget"), new TableField[] { Have.HAVE.BUDGET_ID }, Keys.BUDGET__PK_BUDGET, new TableField[] { Budget.BUDGET.BUDGET_ID }, true);
+    public static final ForeignKey<HaveRecord, BudgetRecord> HAVE__FK_HAVE_PK_BUDGET = Internal.createForeignKey(Have.HAVE, DSL.name("fk_Have_pk_budget"), new TableField[] { Have.HAVE.BUDGET_ID }, Keys.BUDGET__PK_BUDGET, new TableField[] { Budget.BUDGET.BUDGET_ID }, true);
     public static final ForeignKey<HaveRecord, UserRecord> HAVE__FK_HAVE_PK_USER = Internal.createForeignKey(Have.HAVE, DSL.name("fk_Have_pk_User"), new TableField[] { Have.HAVE.USER_NAME }, Keys.USER__PK_USER, new TableField[] { User.USER.USER_NAME }, true);
-    public static final ForeignKey<TransactionsRecord, BudgetRecord> TRANSACTIONS__FK_TRANSACTIONS_PK_BUDGET = Internal.createForeignKey(Transactions.TRANSACTIONS, DSL.name("fk_Transactions_pk_Budget"), new TableField[] { Transactions.TRANSACTIONS.BUDGET_ID }, Keys.BUDGET__PK_BUDGET, new TableField[] { Budget.BUDGET.BUDGET_ID }, true);
+    public static final ForeignKey<TransactionsRecord, BudgetRecord> TRANSACTIONS__FK_TRANSACTIONS_PK_BUDGET = Internal.createForeignKey(Transactions.TRANSACTIONS, DSL.name("fk_Transactions_pk_budget"), new TableField[] { Transactions.TRANSACTIONS.BUDGET_ID }, Keys.BUDGET__PK_BUDGET, new TableField[] { Budget.BUDGET.BUDGET_ID }, true);
     public static final ForeignKey<TransactionsRecord, UserRecord> TRANSACTIONS__FK_TRANSACTIONS_PK_USER = Internal.createForeignKey(Transactions.TRANSACTIONS, DSL.name("fk_Transactions_pk_User"), new TableField[] { Transactions.TRANSACTIONS.USER_ID }, Keys.USER__PK_USER, new TableField[] { User.USER.USER_NAME }, true);
 }

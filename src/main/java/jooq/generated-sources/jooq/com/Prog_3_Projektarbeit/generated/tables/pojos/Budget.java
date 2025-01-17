@@ -16,7 +16,7 @@ public class Budget implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private int budgetId;
+    private Integer budgetId;
     private String budgetName;
     private Float ammount;
     private LocalDateTime createdAt;
@@ -31,7 +31,7 @@ public class Budget implements Serializable {
     }
 
     public Budget(
-        int budgetId,
+        Integer budgetId,
         String budgetName,
         Float ammount,
         LocalDateTime createdAt
@@ -43,68 +43,56 @@ public class Budget implements Serializable {
     }
 
     /**
-     * @deprecated Unknown data type. If this is a qualified, user-defined type,
-     * it may have been excluded from code generation. If this is a built-in
-     * type, you can define an explicit {@link org.jooq.Binding} to specify how
-     * this type should be handled. Deprecation can be turned off using
-     * {@literal <deprecationOnUnknownTypes/>} in your code generator
-     * configuration.
+     * Getter for <code>budget.budget_id</code>.
      */
-    
-    public int getBudgetId() {
+    public Integer getBudgetId() {
         return this.budgetId;
     }
 
     /**
-     * @deprecated Unknown data type. If this is a qualified, user-defined type,
-     * it may have been excluded from code generation. If this is a built-in
-     * type, you can define an explicit {@link org.jooq.Binding} to specify how
-     * this type should be handled. Deprecation can be turned off using
-     * {@literal <deprecationOnUnknownTypes/>} in your code generator
-     * configuration.
+     * Setter for <code>budget.budget_id</code>.
      */
-    
-    public void setBudgetId(int budgetId) {
+    public void setBudgetId(Integer budgetId) {
         this.budgetId = budgetId;
     }
 
     /**
-     * Getter for <code>Budget.budget_name</code>.
+     * Getter for <code>budget.budget_name</code>.
      */
     public String getBudgetName() {
         return this.budgetName;
     }
 
     /**
-     * Setter for <code>Budget.budget_name</code>.
+     * Setter for <code>budget.budget_name</code>.
      */
     public void setBudgetName(String budgetName) {
         this.budgetName = budgetName;
     }
 
     /**
-     * Getter for <code>Budget.ammount</code>.
+     * Getter for <code>budget.ammount</code>.
      */
     public Float getAmmount() {
         return this.ammount;
     }
 
     /**
-     * Setter for <code>Budget.ammount</code>.
+     * Setter for <code>budget.ammount</code>.
      */
     public void setAmmount(Float ammount) {
         this.ammount = ammount;
     }
 
     /**
-     * Getter for <code>Budget.created_at</code>.
+     * Getter for <code>budget.created_at</code>.
      */
     public LocalDateTime getCreatedAt() {
         return this.createdAt;
     }
 
     /**
-     * Setter for <code>Budget.created_at</code>.
+     * Setter for <code>budget.created_at</code>.
      */
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
@@ -119,8 +107,8 @@ public class Budget implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         final Budget other = (Budget) obj;
-        if (this.budgetId == 0) {
-            if (other.budgetId != 0)
+        if (this.budgetId == null) {
+            if (other.budgetId != null)
                 return false;
         }
         else if (!this.budgetId.equals(other.budgetId))

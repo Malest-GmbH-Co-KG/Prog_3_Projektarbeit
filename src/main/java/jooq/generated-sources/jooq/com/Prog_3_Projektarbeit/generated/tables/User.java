@@ -179,7 +179,7 @@ public class User extends TableImpl<UserRecord> {
     }
 
     /**
-     * Get the implicit many-to-many join path to the <code>Budget</code> table
+     * Get the implicit many-to-many join path to the <code>budget</code> table
      */
     public BudgetPath budget() {
         return have().budget();

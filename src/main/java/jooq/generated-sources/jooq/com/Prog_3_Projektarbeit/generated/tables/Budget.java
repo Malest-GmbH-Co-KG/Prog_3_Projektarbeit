@@ -17,6 +17,7 @@ import java.util.Collection;
 import org.jooq.Condition;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Identity;
 import org.jooq.InverseForeignKey;
 import org.jooq.Name;
 import org.jooq.Path;
@@ -45,7 +46,7 @@ public class Budget extends TableImpl<BudgetRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>Budget</code>
+     * The reference instance of <code>budget</code>
      */
     public static final Budget BUDGET = new Budget();
 
@@ -58,28 +59,22 @@ public class Budget extends TableImpl<BudgetRecord> {
     }
 
     /**
-     * @deprecated Unknown data type. If this is a qualified, user-defined type,
-     * it may have been excluded from code generation. If this is a built-in
-     * type, you can define an explicit {@link org.jooq.Binding} to specify how
-     * this type should be handled. Deprecation can be turned off using
-     * {@literal <deprecationOnUnknownTypes/>} in your code generator
-     * configuration.
+     * The column <code>budget.budget_id</code>.
      */
-    @Deprecated
-    public final TableField<BudgetRecord, Object> BUDGET_ID = createField(DSL.name("budget_id"), org.jooq.impl.SQLDataType.OTHER, this, "");
+    public final TableField<BudgetRecord, Integer> BUDGET_ID = createField(DSL.name("budget_id"), SQLDataType.INTEGER.identity(true), this, "");
 
     /**
-     * The column <code>Budget.budget_name</code>.
+     * The column <code>budget.budget_name</code>.
      */
     public final TableField<BudgetRecord, String> BUDGET_NAME = createField(DSL.name("budget_name"), SQLDataType.VARCHAR(255).nullable(false), this, "");
 
     /**
-     * The column <code>Budget.ammount</code>.
+     * The column <code>budget.ammount</code>.
      */
     public final TableField<BudgetRecord, Float> AMMOUNT = createField(DSL.name("ammount"), SQLDataType.REAL.nullable(false), this, "");
 
     /**
-     * The column <code>Budget.created_at</code>.
+     * The column <code>budget.created_at</code>.
      */
     public final TableField<BudgetRecord, LocalDateTime> CREATED_AT = createField(DSL.name("created_at"), SQLDataType.LOCALDATETIME(0).defaultValue(DSL.field(DSL.raw("CURRENT_TIMESTAMP"), SQLDataType.LOCALDATETIME)), this, "");
 
@@ -92,24 +87,24 @@ public class Budget extends TableImpl<BudgetRecord> {
     }
 
     /**
-     * Create an aliased <code>Budget</code> table reference
+     * Create an aliased <code>budget</code> table reference
      */
     public Budget(String alias) {
         this(DSL.name(alias), BUDGET);
     }
 
     /**
-     * Create an aliased <code>Budget</code> table reference
+     * Create an aliased <code>budget</code> table reference
      */
     public Budget(Name alias) {
         this(alias, BUDGET);
     }
 
     /**
-     * Create a <code>Budget</code> table reference
+     * Create a <code>budget</code> table reference
      */
     public Budget() {
-        this(DSL.name("Budget"), null);
+        this(DSL.name("budget"), null);
     }
 
     public <O extends Record> Budget(Table<O> path, ForeignKey<O, BudgetRecord> childPath, InverseForeignKey<O, BudgetRecord> parentPath) {
@@ -148,6 +143,11 @@ public class Budget extends TableImpl<BudgetRecord> {
     @Override
     public Schema getSchema() {
         return aliased() ? null : DefaultSchema.DEFAULT_SCHEMA;
+    }
+
+    @Override
+    public Identity<BudgetRecord, Integer> getIdentity() {
+        return (Identity<BudgetRecord, Integer>) super.getIdentity();
     }
 
     @Override

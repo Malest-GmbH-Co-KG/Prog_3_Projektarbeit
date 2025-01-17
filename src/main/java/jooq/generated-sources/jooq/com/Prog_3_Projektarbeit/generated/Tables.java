@@ -17,7 +17,7 @@ import com.Prog_3_Projektarbeit.generated.tables.User;
 public class Tables {
 
     /**
-     * The table <code>Budget</code>.
+     * The table <code>budget</code>.
      */
     public static final Budget BUDGET = Budget.BUDGET;
 

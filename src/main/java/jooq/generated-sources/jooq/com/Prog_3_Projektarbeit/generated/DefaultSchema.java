@@ -31,7 +31,7 @@ public class DefaultSchema extends SchemaImpl {
     public static final DefaultSchema DEFAULT_SCHEMA = new DefaultSchema();
 
     /**
-     * The table <code>Budget</code>.
+     * The table <code>budget</code>.
      */
     public final Budget BUDGET = Budget.BUDGET;
 

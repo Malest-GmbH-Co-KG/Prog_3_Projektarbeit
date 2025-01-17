@@ -21,68 +21,56 @@ public class BudgetRecord extends UpdatableRecordImpl<BudgetRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * @deprecated Unknown data type. If this is a qualified, user-defined type,
-     * it may have been excluded from code generation. If this is a built-in
-     * type, you can define an explicit {@link org.jooq.Binding} to specify how
-     * this type should be handled. Deprecation can be turned off using
-     * {@literal <deprecationOnUnknownTypes/>} in your code generator
-     * configuration.
+     * Setter for <code>budget.budget_id</code>.
      */
-    @Deprecated
-    public void setBudgetId(Object value) {
+    public void setBudgetId(Integer value) {
         set(0, value);
     }
 
     /**
-     * @deprecated Unknown data type. If this is a qualified, user-defined type,
-     * it may have been excluded from code generation. If this is a built-in
-     * type, you can define an explicit {@link org.jooq.Binding} to specify how
-     * this type should be handled. Deprecation can be turned off using
-     * {@literal <deprecationOnUnknownTypes/>} in your code generator
-     * configuration.
+     * Getter for <code>budget.budget_id</code>.
      */
-    @Deprecated
-    public Object getBudgetId() {
-        return get(0);
+    public Integer getBudgetId() {
+        return (Integer) get(0);
     }
 
     /**
-     * Setter for <code>Budget.budget_name</code>.
+     * Setter for <code>budget.budget_name</code>.
      */
     public void setBudgetName(String value) {
         set(1, value);
     }
 
     /**
-     * Getter for <code>Budget.budget_name</code>.
+     * Getter for <code>budget.budget_name</code>.
      */
     public String getBudgetName() {
         return (String) get(1);
     }
 
     /**
-     * Setter for <code>Budget.ammount</code>.
+     * Setter for <code>budget.ammount</code>.
      */
     public void setAmmount(Float value) {
         set(2, value);
     }
 
     /**
-     * Getter for <code>Budget.ammount</code>.
+     * Getter for <code>budget.ammount</code>.
      */
     public Float getAmmount() {
         return (Float) get(2);
     }
 
     /**
-     * Setter for <code>Budget.created_at</code>.
+     * Setter for <code>budget.created_at</code>.
      */
     public void setCreatedAt(LocalDateTime value) {
         set(3, value);
     }
 
     /**
-     * Getter for <code>Budget.created_at</code>.
+     * Getter for <code>budget.created_at</code>.
      */
     public LocalDateTime getCreatedAt() {
         return (LocalDateTime) get(3);
@@ -93,7 +81,7 @@ public class BudgetRecord extends UpdatableRecordImpl<BudgetRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Record1<Object> key() {
+    public Record1<Integer> key() {
         return (Record1) super.key();
     }
 
@@ -111,7 +99,7 @@ public class BudgetRecord extends UpdatableRecordImpl<BudgetRecord> {
     /**
      * Create a detached, initialised BudgetRecord
      */
-    public BudgetRecord(Object budgetId, String budgetName, Float ammount, LocalDateTime createdAt) {
+    public BudgetRecord(Integer budgetId, String budgetName, Float ammount, LocalDateTime createdAt) {
         super(Budget.BUDGET);
 
         setBudgetId(budgetId);

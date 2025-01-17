@@ -180,7 +180,7 @@ public class Transactions extends TableImpl<TransactionsRecord> {
     private transient BudgetPath _budget;
 
     /**
-     * Get the implicit join path to the <code>Budget</code> table.
+     * Get the implicit join path to the <code>budget</code> table.
      */
     public BudgetPath budget() {
         if (_budget == null)
