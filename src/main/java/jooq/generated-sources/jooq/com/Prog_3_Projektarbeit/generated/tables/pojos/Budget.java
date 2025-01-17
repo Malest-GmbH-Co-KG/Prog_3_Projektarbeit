@@ -16,7 +16,7 @@ public class Budget implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Object budgetId;
+    private int budgetId;
     private String budgetName;
     private Float ammount;
     private LocalDateTime createdAt;
@@ -31,7 +31,7 @@ public class Budget implements Serializable {
     }
 
     public Budget(
-        Object budgetId,
+        int budgetId,
         String budgetName,
         Float ammount,
         LocalDateTime createdAt
@@ -50,8 +50,8 @@ public class Budget implements Serializable {
      * {@literal <deprecationOnUnknownTypes/>} in your code generator
      * configuration.
      */
-    @Deprecated
-    public Object getBudgetId() {
+    
+    public int getBudgetId() {
         return this.budgetId;
     }
 
@@ -63,8 +63,8 @@ public class Budget implements Serializable {
      * {@literal <deprecationOnUnknownTypes/>} in your code generator
      * configuration.
      */
-    @Deprecated
-    public void setBudgetId(Object budgetId) {
+    
+    public void setBudgetId(int budgetId) {
         this.budgetId = budgetId;
     }
 
@@ -119,8 +119,8 @@ public class Budget implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         final Budget other = (Budget) obj;
-        if (this.budgetId == null) {
-            if (other.budgetId != null)
+        if (this.budgetId == 0) {
+            if (other.budgetId != 0)
                 return false;
         }
         else if (!this.budgetId.equals(other.budgetId))
