@@ -25,6 +25,7 @@ public class BudgetView {
     public void show(Stage stage) {
         // Layout für die Budgets
         budgetList = new ListView<>();
+        budgetList.setItems(presenter.getBudgetList());
         TextField budgetNameField = new TextField();
         TextField budgetAmountField = new TextField();
         Button addBudgetButton = new Button("Add Budget");
@@ -36,9 +37,9 @@ public class BudgetView {
         //Aktionen für die Buttons
         addBudgetButton.setOnAction(e -> {
             String budgetName = budgetNameField.getText();
-            double budgetAmount;
+            float budgetAmount;
             try {
-                budgetAmount = Double.parseDouble(budgetAmountField.getText());
+                budgetAmount = Float.parseFloat(budgetAmountField.getText());
             } catch (NumberFormatException ex) {
                 showError("Amount must be a valid number.");
                 return;
@@ -84,7 +85,9 @@ public class BudgetView {
         presenter.loadBudgets();
     }
 
-
+    public void updateBudgetList(String username){
+        presenter.showBudgets(username);
+    }
 
     public void showError(String message) {
         messageLabel.setText(message);
