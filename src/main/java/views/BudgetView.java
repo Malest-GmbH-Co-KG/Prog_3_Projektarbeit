@@ -4,12 +4,8 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import presenters.BudgetPresenter;
-import com.Prog_3_Projektarbeit.generated.tables.pojos.Budget;
-
-import java.util.List;
 
 public class BudgetView {
     private final BudgetPresenter presenter;
@@ -54,7 +50,7 @@ public class BudgetView {
         viewMovementsButton.setOnAction(e -> {
             String selectedBudget = budgetList.getSelectionModel().getSelectedItem();
             if (selectedBudget != null) {
-                presenter.showMovementsForBudget(selectedBudget);
+                presenter.showTransacionForBudget(selectedBudget);
             } else {
                 showError("Please select a budget to view movements.");
             }
