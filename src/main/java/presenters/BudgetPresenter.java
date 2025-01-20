@@ -45,7 +45,7 @@ public class BudgetPresenter {
         budgetModel.addBudget(budgetName,budgetAmount,Username);
     }
 
-    public void showTransacionForBudget(String selectedBudget) {
+    public void showTransactionsForBudget(String selectedBudget) {
     }
 
     public void loadBudgets() {
