@@ -35,7 +35,7 @@ public class TransactionPresenter {
         int id;
         for (int i = 0;transactionIDs.size() > i ; i++) {
             id = transactionIDs.get(i);
-            //transactionNames.add(transactionsDao.fetchByTransactionId(id).stream().map(Transactions::get).toList().getFirst());
+            transactionNames.add(transactionsDao.fetchByTransactionId(id).stream().map(Transactions::getTransactionName).toList().getFirst());
         }
         transactions = FXCollections.observableList(transactionNames);
         return transactions;
