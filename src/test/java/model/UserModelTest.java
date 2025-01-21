@@ -1,6 +1,5 @@
-package presenters;
+package model;
 
-import model.UserModel;
 import org.junit.jupiter.api.Test;
 
 

@@ -1,0 +1,38 @@
+package views;
+
+import javafx.scene.control.ListCell;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.text.Text;
+
+//Klassen für die CustomListCell d.h die Anzeige der Budgets in der ListView das Name und Betrag angezeigt wird jeweils in einer eigenen Spalte
+public class CustomListCell extends ListCell<String> {
+    private HBox content;
+    private Text leftText;
+    private Text rightText;
+    private Region spacer;
+
+    public CustomListCell() {
+        super();
+        leftText = new Text();
+        rightText = new Text();
+        spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+        content = new HBox(10); // spacing between texts
+        content.getChildren().addAll(leftText, spacer, rightText);
+    }
+
+    @Override
+    protected void updateItem(String item, boolean empty) {
+        super.updateItem(item, empty);
+        if (item != null && !empty) {
+            String[] parts = item.split(" - ");
+            leftText.setText(parts[0]);
+            rightText.setText(parts.length > 1 ? parts[1] : "");
+            setGraphic(content);
+        } else {
+            setGraphic(null);
+        }
+    }
+}

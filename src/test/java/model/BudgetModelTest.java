@@ -1,14 +1,13 @@
-package presenters;
+package model;
 
 import com.Prog_3_Projektarbeit.generated.tables.pojos.Budget;
 import com.Prog_3_Projektarbeit.generated.tables.pojos.Have;
-import model.BudgetModel;
 import org.junit.jupiter.api.Test;
 
 
 import com.Prog_3_Projektarbeit.generated.tables.daos.BudgetDao;
 import com.Prog_3_Projektarbeit.generated.tables.daos.HaveDao;
-import views.BudgetView;
+import presenters.BudgetPresenter;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
@@ -16,6 +15,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
 import org.sqlite.SQLiteDataSource;
+import static org.mockito.Mockito.mock;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -30,7 +30,8 @@ class BudgetModelTest {
     private BudgetDao budgetDao;
     private BudgetModel budgetModel;
     private HaveDao haveDao;
-    private BudgetView view;
+    private BudgetPresenter presenter;
+    private HaveModel haveModel;
 
 
     @BeforeEach
@@ -66,7 +67,10 @@ class BudgetModelTest {
         // DAO und Presenter initialisieren
         budgetDao = new BudgetDao(dslContext.configuration());
         haveDao = new HaveDao(dslContext.configuration());
-        budgetModel = new BudgetModel(budgetDao,haveDao ,view);
+        haveModel = new HaveModel(dslContext);
+
+        presenter = mock(BudgetPresenter.class); // Mocking the presenter
+        budgetModel = new BudgetModel(budgetDao,haveDao ,presenter, haveModel);
     }
 
     @AfterEach
@@ -92,13 +96,29 @@ class BudgetModelTest {
         Budget checkBudget = budgetDao.fetchOneByBudgetId(budget_id);
         assertEquals(budget_name, checkBudget.getBudgetName());
         assertEquals(amount, checkBudget.getAmmount());
+    }
+
+    @Test
+    void setCurrentUser() {
+        String username = "TestUser";
+        budgetModel.setCurrentUser(username);
+        assertEquals(username, budgetModel.getUsername());
+    }
+
+    @Test
+    void deleteBudget_true() {
+        String budget_name = "TestBudget";
+        float amount = 100;
+        String username = "TestUser";
 
 
+        int budget_id = budgetModel.addBudget(budget_name, amount, username);
+        budgetModel.deleteBudget(budget_id);
 
+        assertEquals(0, haveDao.fetchByBudgetId(budget_id).size());
+    }
 
-
-
-
-
+    @Test
+    void getBudgetList() {
     }
 }

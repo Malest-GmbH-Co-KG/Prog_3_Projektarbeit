@@ -1,17 +1,15 @@
 package presenters;
 
-import javafx.collections.FXCollections;
+
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import com.Prog_3_Projektarbeit.generated.tables.daos.BudgetDao;
 import model.BudgetModel;
 import com.Prog_3_Projektarbeit.generated.tables.daos.HaveDao;
 import com.Prog_3_Projektarbeit.generated.tables.daos.UserDao;
+import model.HaveModel;
 import views.BudgetView;
-import com.Prog_3_Projektarbeit.generated.tables.pojos.Budget;
-import com.Prog_3_Projektarbeit.generated.tables.pojos.Have;
-import java.util.ArrayList;
-import java.util.List;
+
 
 
 public class BudgetPresenter {
@@ -19,24 +17,28 @@ public class BudgetPresenter {
     private BudgetDao budgetDao;
     private HaveDao haveDao;
     private BudgetView view;
-    Stage stage = new Stage();
+    Stage stage;
     LoginPresenter loginPresenter;
     BudgetModel budgetModel;
     String Username;
+    private HaveModel haveModel;
 
-    public BudgetPresenter(UserDao userDao, LoginPresenter loginPresenter) {
+    public BudgetPresenter(UserDao userDao, LoginPresenter loginPresenter, HaveModel haveModel, Stage stage) {
         this.UserDao = userDao;
         this.budgetDao = new BudgetDao(userDao.configuration());
         this.haveDao = new HaveDao(userDao.configuration());
         this.view = new BudgetView(this);
+        this.stage = stage;
         this.loginPresenter = loginPresenter;
-        this.budgetModel = new BudgetModel(budgetDao,haveDao,view);
+        this.budgetModel = new BudgetModel(budgetDao,haveDao,this, haveModel);
+
 
     }
 
     public void showBudgets(String username) {
 
         this.Username = username;
+        budgetModel.setCurrentUser(Username);
         view.show(stage);//zeigt die Budgets des angemeldeten Users
     }
 
@@ -51,23 +53,36 @@ public class BudgetPresenter {
     public void loadBudgets() {
     }
 
-    public ObservableList<String> getBudgetList(){
-        //Methode nur für budgetList in der BudgetView Klasse
+    public ObservableList<String> getBudgetList() {
+        /*
         ObservableList<String> budgets;
-        List<String> budgetNames = new ArrayList<>();
+        List<String> budgetDetails = new ArrayList<>();
         List<Integer> budgetIds = new ArrayList<>(haveDao.fetchByUserName(Username).stream().map(Have::getBudgetId).toList());
-        int id;
-        for(int i=0;budgetIds.size() > i;i++) {
-            id = budgetIds.get(i);
-            budgetNames.add(budgetDao.fetchByBudgetId(id).stream().map(Budget::getBudgetName).toList().getFirst());
+        for (int id : budgetIds) {
+            Budget budget = budgetDao.fetchOneByBudgetId(id);
+            if (budget != null) {
+                budgetDetails.add(budget.getBudgetName() + " (" + budget.getBudgetId() + ") - " + budget.getAmmount());
+            }
         }
-        budgets = FXCollections.observableArrayList(budgetNames);
+        budgets = FXCollections.observableArrayList(budgetDetails);
         return budgets;
+
+         */
+        return budgetModel.getBudgetList(Username);
     }
 
+
     public void back() {
-        loginPresenter.start(); //startet die Anwendung bzw die GUI
+        loginPresenter.start(this); //startet die Anwendung bzw die GUI
         stage.close();
 
     }
+
+    public void deleteBudget(int budgetId) {
+        budgetModel.deleteBudget(budgetId);
+
+    }
+
+
+
 }

@@ -6,10 +6,12 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import presenters.BudgetPresenter;
+import views.CustomListCell;
 
 public class BudgetView {
     private final BudgetPresenter presenter;
     private ListView<String> budgetList;
+
     private Label messageLabel;
     private Label budgetNameLabel;
     private Label budgetAmountLabel;
@@ -21,12 +23,18 @@ public class BudgetView {
     public void show(Stage stage) {
         // Layout für die Budgets
         budgetList = new ListView<>();
+        budgetList.setCellFactory(param -> new CustomListCell());
         budgetList.setItems(presenter.getBudgetList());
+
+
         TextField budgetNameField = new TextField();
         TextField budgetAmountField = new TextField();
+
         Button addBudgetButton = new Button("Add Budget");
         Button backButton = new Button("Back");
-        Button viewMovementsButton = new Button("View Movements");
+        Button viewMovementsButton = new Button("View Transactions");
+        Button deleteBudgetButton = new Button("Delete Budget");
+
         messageLabel = new Label();
         budgetNameLabel = new Label("Budget Name:");
         budgetAmountLabel = new Label("Budget Amount:");
@@ -50,9 +58,26 @@ public class BudgetView {
         viewMovementsButton.setOnAction(e -> {
             String selectedBudget = budgetList.getSelectionModel().getSelectedItem();
             if (selectedBudget != null) {
-                presenter.showTransacionForBudget(selectedBudget);
+                String[] parts = selectedBudget.split(" - ");
+                String nameAndId = parts[0];
+                //BudgetID wird aus dem String extrahiert und kann somit an Transaction Presenter weiter gegeben werden
+                int budgetId = Integer.parseInt(nameAndId.substring(nameAndId.lastIndexOf('(') + 1, nameAndId.lastIndexOf(')')));
+                //Aufruf der Methode um die Bewegungen anzuzeigen
             } else {
-                showError("Please select a budget to view movements.");
+                showError("Please select a budget to view transactions.");
+            }
+
+        });
+
+        deleteBudgetButton.setOnAction(e -> {
+            String selectedBudget = budgetList.getSelectionModel().getSelectedItem();
+            if (selectedBudget != null) {
+                String[] parts = selectedBudget.split(" - ");
+                String nameAndId = parts[0];
+                int budgetId = Integer.parseInt(nameAndId.substring(nameAndId.lastIndexOf('(') + 1, nameAndId.lastIndexOf(')')));
+                presenter.deleteBudget(budgetId);
+            } else {
+                showError("Please select a budget to delete.");
             }
         });
         //Layout für die Budgets
@@ -63,6 +88,7 @@ public class BudgetView {
         grid.setStyle("-fx-alignment: center;");
 
         grid.add(budgetList, 0, 0, 2, 1);
+
         grid.add(budgetNameField, 0, 2);
         grid.add(budgetAmountField, 1, 2);
         grid.add(budgetNameLabel, 0, 1);
@@ -71,6 +97,7 @@ public class BudgetView {
         grid.add(viewMovementsButton, 0, 3);
         grid.add(backButton, 0, 4);
         grid.add(messageLabel, 0, 5, 2, 1);
+        grid.add(deleteBudgetButton, 1, 4);
 
 
         Scene scene = new Scene(grid, 600, 400);
@@ -81,9 +108,6 @@ public class BudgetView {
         presenter.loadBudgets();
     }
 
-    public void updateBudgetList(String username){
-        presenter.showBudgets(username);
-    }
 
     public void showError(String message) {
         messageLabel.setText(message);
