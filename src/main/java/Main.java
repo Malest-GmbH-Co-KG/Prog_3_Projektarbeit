@@ -8,6 +8,7 @@ import presenters.BudgetPresenter;
 import presenters.LoginPresenter;
 import javafx.application.Application;
 import com.Prog_3_Projektarbeit.generated.tables.daos.UserDao;
+import presenters.TransactionPresenter;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -39,6 +40,7 @@ public class Main extends Application {
         LoginPresenter loginPresenter = new LoginPresenter(userDao, primaryStage);
         //BudgetPresenter wird erstellt und übergeben
         BudgetPresenter budgetPresenter = new BudgetPresenter(userDao,loginPresenter, haveModel, stage);
+
         //startet die Anwendung
         loginPresenter.startBudget(budgetPresenter);
     }

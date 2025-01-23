@@ -1,11 +1,9 @@
 package presenters;
 
-import com.Prog_3_Projektarbeit.generated.tables.User;
 import com.Prog_3_Projektarbeit.generated.tables.daos.HaveDao;
 import com.Prog_3_Projektarbeit.generated.tables.daos.TransactionsDao;
 import com.Prog_3_Projektarbeit.generated.tables.daos.UserDao;
 import com.Prog_3_Projektarbeit.generated.tables.pojos.Transactions;
-import com.Prog_3_Projektarbeit.generated.tables.pojos.Have;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
@@ -25,24 +23,27 @@ public class TransactionPresenter {
     private TransactionsDao transactionsDao;
     private HaveDao haveDao;
     private HaveModel haveModel;
-    LoginPresenter loginPresenter;
+    private int budgetId;
+    BudgetPresenter budgetPresenter;
     String Username;
     LocalDate date;
     Stage stage;
 
-    public TransactionPresenter(UserDao userDao,LoginPresenter loginPresenter, HaveModel haveModel, Stage stage) {
+    public TransactionPresenter(UserDao userDao,BudgetPresenter budgetPresenter, HaveModel haveModel, Stage stage) {
         this.UserDao = userDao;
+
         this.transactionsDao = new TransactionsDao(userDao.configuration());
         this.haveDao = new HaveDao(userDao.configuration());
         this.view = new TransactionView(this);
         this.stage = stage;
-        this.loginPresenter = loginPresenter;
+        this.budgetPresenter = budgetPresenter;
         this.transactionModel = new TransactionModel(haveDao,transactionsDao,this, haveModel);
     }
 
-    public void showTransactions(String username) {
+    public void showTransactions(int budgetId, String username) {
         this.Username = username;
-        transactionModel.setCurrentUser(Username);
+        this.budgetId = budgetId;
+        transactionModel.setCurrentUser(Username, budgetId);
         view.show(stage);
     }
 
@@ -50,7 +51,7 @@ public class TransactionPresenter {
 
 
     public void addTransaction (String transactionName, BigDecimal transactionAmount, String description) {
-        transactionModel.addTransaction(transactionName,Username, transactionAmount,description, date );
+        transactionModel.addTransaction(transactionName, transactionAmount,description,date );
     }
     public ObservableList<String> getTransactionList() {
         ObservableList<String> transactions;
@@ -69,10 +70,14 @@ public class TransactionPresenter {
     }
 
     public void back() {
-        loginPresenter.startTransaction(this);
+        budgetPresenter.showBudgets(this.Username);
         stage.close();
     }
-    public void deleteTransaction(int transactionID) {
-        transactionModel.deleteTransaction(transactionID);
+    public void deleteTransaction(int transactionID, int budgetID) {
+        transactionModel.deleteTransaction(transactionID, budgetID);
+    }
+
+    public int getBudgetId() {
+        return budgetId;
     }
 }

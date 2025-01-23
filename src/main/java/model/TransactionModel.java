@@ -17,6 +17,7 @@ public class TransactionModel {
     private final HaveModel haveModel;
     private TransactionPresenter presenter;
     private String username;
+    private int budgetId;
 
     public String getUsername() {return username;}
 
@@ -27,31 +28,35 @@ public class TransactionModel {
         this.haveModel = haveModel;
     }
 
-    public float addTransaction (String name, String username, BigDecimal amount, String description, LocalDate date) {
+    public float addTransaction (String name, BigDecimal amount, String description, LocalDate date) {
         Transactions newTransaction = new Transactions();
         newTransaction.setTransactionName(name);
+        newTransaction.setBudgetId(budgetId);
         newTransaction.setUserId(username);
         newTransaction.setAmmount(amount);
         newTransaction.setDescription(description);
         newTransaction.setDate(date);
+        transactionsDao.insert(newTransaction);
 
-        int getTransactionID = newTransaction.getBudgetId();
+        int getBudgetId = newTransaction.getBudgetId();
+        int getTransactionID =newTransaction.getTransactionId();
         Have updateHave = new Have();
         updateHave.setUserName(username);
-        updateHave.setBudgetId(getTransactionID);
+        updateHave.setBudgetId(getBudgetId);
         haveDao.update(updateHave);
         if (presenter != null) {
-            presenter.showTransactions(username);
+            presenter.showTransactions(getBudgetId, username);
         }
         return getTransactionID;
     }
 
-    public void deleteTransaction (int transactionID) {
+    public void deleteTransaction (int transactionID, int budgetID) {
         transactionsDao.deleteById(transactionID);
-        haveModel.deleteByBudgetId(transactionID);
-        presenter.showTransactions(username);
+        haveModel.deleteByBudgetId(budgetID);
+        presenter.showTransactions(budgetID, username);
     }
 
-    public void setCurrentUser (String username) {this.username = username;}
+    public void setCurrentUser (String username, int budgetID) {this.username = username;
+    this.budgetId = budgetID;}
 
 }

@@ -6,10 +6,12 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import presenters.BudgetPresenter;
+import presenters.TransactionPresenter;
 import views.CustomListCell;
 
 public class BudgetView {
     private final BudgetPresenter presenter;
+    private  TransactionPresenter transactionPresenter;
     private ListView<String> budgetList;
 
     private Label messageLabel;
@@ -18,6 +20,10 @@ public class BudgetView {
 
     public BudgetView(BudgetPresenter presenter) {
         this.presenter = presenter;
+
+    }
+    public void setTransactionPresenter(TransactionPresenter transactionPresenter) {
+        this.transactionPresenter = transactionPresenter;
     }
 
     public void show(Stage stage) {
@@ -63,6 +69,8 @@ public class BudgetView {
                 //BudgetID wird aus dem String extrahiert und kann somit an Transaction Presenter weiter gegeben werden
                 int budgetId = Integer.parseInt(nameAndId.substring(nameAndId.lastIndexOf('(') + 1, nameAndId.lastIndexOf(')')));
                 //Aufruf der Methode um die Bewegungen anzuzeigen
+
+                transactionPresenter.showTransactions(budgetId, presenter.getUsername());
             } else {
                 showError("Please select a budget to view transactions.");
             }

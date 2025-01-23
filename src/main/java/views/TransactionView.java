@@ -65,7 +65,7 @@ public class TransactionView {
                 String[] parts = selectedTransaction.split(" - ");
                 String nameAndId = parts[0];
                 int transactionId = Integer.parseInt(nameAndId.substring(nameAndId.lastIndexOf('(') + 1, nameAndId.lastIndexOf(')')));
-                presenter.deleteTransaction(transactionId);
+                presenter.deleteTransaction(transactionId, presenter.getBudgetId());
             } else {
                 showError("Select a transaction to delete");
             }

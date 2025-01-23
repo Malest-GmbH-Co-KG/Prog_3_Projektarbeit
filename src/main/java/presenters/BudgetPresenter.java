@@ -22,6 +22,7 @@ public class BudgetPresenter {
     BudgetModel budgetModel;
     String Username;
     private HaveModel haveModel;
+    private TransactionPresenter transactionPresenter;
 
     public BudgetPresenter(UserDao userDao, LoginPresenter loginPresenter, HaveModel haveModel, Stage stage) {
         this.UserDao = userDao;
@@ -31,7 +32,8 @@ public class BudgetPresenter {
         this.stage = stage;
         this.loginPresenter = loginPresenter;
         this.budgetModel = new BudgetModel(budgetDao,haveDao,this, haveModel);
-
+        this.transactionPresenter = new TransactionPresenter(userDao,this, haveModel, stage);
+        view.setTransactionPresenter(transactionPresenter);
 
     }
 
@@ -84,5 +86,7 @@ public class BudgetPresenter {
     }
 
 
-
+    public String getUsername() {
+        return Username;
+    }
 }
