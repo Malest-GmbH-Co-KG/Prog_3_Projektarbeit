@@ -1,5 +1,6 @@
 package views;
 
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -19,6 +20,12 @@ public class TransactionView {
     private Label transactionNameLabel;
     private Label transactionAmountLabel;
     private Label transactionDescriptionLabel;
+    private Label allTransactionAmmountLabel;
+    private Label allTransactionAmmountLabel1;
+    private Label BudgetAmmount;
+    private Label BudgetAmmount1;
+    private Label restAmmount;
+    private Label restAmmount1;
 
     public TransactionView(TransactionPresenter presenter) {
         this.presenter = presenter;
@@ -41,6 +48,13 @@ public class TransactionView {
         transactionNameLabel = new Label("Transaction Name:");
         transactionAmountLabel = new Label("Transaction Amount:");
         transactionDescriptionLabel = new Label("Transaction Description:");
+        BudgetAmmount = new Label("Budget Ammount:");
+        BudgetAmmount1 = new Label((String.valueOf(presenter.getBudgetAmmount())));
+        allTransactionAmmountLabel = new Label("All Transaction Ammount:");
+        allTransactionAmmountLabel1 = new Label((String.valueOf(presenter.getAllTransactions())));
+        restAmmount = new Label("Rest Ammount:");
+        restAmmount1 = new Label((String.valueOf(restAmmount())));
+
 
         addTransactButton.setOnAction(e -> {
             String transactionName = transactionNameField.getText();
@@ -89,7 +103,12 @@ public class TransactionView {
         grid.add(backButton, 0, 4);
         grid.add(deleteTransactionButton, 1, 4);
         grid.add(messageLabel, 0, 5, 2, 1);
-
+        grid.add(BudgetAmmount, 0, 6);
+        grid.add(BudgetAmmount1, 1, 6);
+        grid.add(allTransactionAmmountLabel, 0, 7);
+        grid.add(allTransactionAmmountLabel1, 1, 7);
+        grid.add(restAmmount, 0, 8);
+        grid.add(restAmmount1, 1, 8);
         Scene scene = new Scene(grid, 600, 400);
         stage.setScene(scene);
         stage.setTitle("Transaction View");
@@ -101,5 +120,9 @@ public class TransactionView {
     public void showError(String message) {
         messageLabel.setText(message);
         messageLabel.setStyle("-fx-text-fill: red;");
+    }
+
+    public Float restAmmount() {
+        return presenter.getBudgetAmmount() - (Float.parseFloat(String.valueOf(presenter.getAllTransactions())));
     }
 }

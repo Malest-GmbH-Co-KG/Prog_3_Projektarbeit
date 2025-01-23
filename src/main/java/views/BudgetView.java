@@ -126,5 +126,7 @@ public class BudgetView {
         messageLabel.setText(message);
         messageLabel.setStyle("-fx-text-fill: green;");
     }
+
+
 }
 

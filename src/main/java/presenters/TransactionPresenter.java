@@ -4,7 +4,6 @@ import com.Prog_3_Projektarbeit.generated.tables.daos.HaveDao;
 import com.Prog_3_Projektarbeit.generated.tables.daos.TransactionsDao;
 import com.Prog_3_Projektarbeit.generated.tables.daos.UserDao;
 import com.Prog_3_Projektarbeit.generated.tables.pojos.Transactions;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import model.HaveModel;
@@ -13,7 +12,6 @@ import views.TransactionView;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionPresenter {
@@ -54,6 +52,7 @@ public class TransactionPresenter {
         transactionModel.addTransaction(transactionName, transactionAmount,description,date );
     }
     public ObservableList<String> getTransactionList() {
+        /*
         ObservableList<String> transactions;
         List<String> transactionNames = new ArrayList<>();
         List<Integer> transactionIDs = transactionsDao.fetchByUserId(Username)
@@ -67,6 +66,9 @@ public class TransactionPresenter {
         }
         transactions = FXCollections.observableList(transactionNames);
         return transactions;
+
+         */
+        return transactionModel.getTransactionList();
     }
 
     public void back() {
@@ -79,5 +81,18 @@ public class TransactionPresenter {
 
     public int getBudgetId() {
         return budgetId;
+    }
+
+    public BigDecimal getAllTransactions() {
+        BigDecimal sum = new BigDecimal(0);
+        List<Transactions> transactions = transactionsDao.fetchByBudgetId(budgetId);
+        for (Transactions transaction : transactions) {
+            sum = sum.add(transaction.getAmmount());
+        }
+        return sum;
+    }
+
+    public Float getBudgetAmmount() {
+        return budgetPresenter.getBudgetAmmount(budgetId);
     }
 }

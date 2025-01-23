@@ -100,6 +100,21 @@ public class BudgetDao extends DAOImpl<BudgetRecord, com.Prog_3_Projektarbeit.ge
     }
 
     /**
+     * Fetch records that have <code>allTransactionAmmount BETWEEN
+     * lowerInclusive AND upperInclusive</code>
+     */
+    public List<com.Prog_3_Projektarbeit.generated.tables.pojos.Budget> fetchRangeOfAlltransactionammount(Float lowerInclusive, Float upperInclusive) {
+        return fetchRange(Budget.BUDGET.ALLTRANSACTIONAMMOUNT, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>allTransactionAmmount IN (values)</code>
+     */
+    public List<com.Prog_3_Projektarbeit.generated.tables.pojos.Budget> fetchByAlltransactionammount(Float... values) {
+        return fetch(Budget.BUDGET.ALLTRANSACTIONAMMOUNT, values);
+    }
+
+    /**
      * Fetch records that have <code>created_at BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */

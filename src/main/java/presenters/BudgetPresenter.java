@@ -89,4 +89,8 @@ public class BudgetPresenter {
     public String getUsername() {
         return Username;
     }
+
+    public Float getBudgetAmmount(int budgetId) {
+        return budgetModel.getBudgetAmmount(budgetId);
+    }
 }

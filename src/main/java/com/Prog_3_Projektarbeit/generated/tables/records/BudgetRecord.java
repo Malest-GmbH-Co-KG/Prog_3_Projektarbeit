@@ -63,17 +63,31 @@ public class BudgetRecord extends UpdatableRecordImpl<BudgetRecord> {
     }
 
     /**
+     * Setter for <code>budget.allTransactionAmmount</code>.
+     */
+    public void setAlltransactionammount(Float value) {
+        set(3, value);
+    }
+
+    /**
+     * Getter for <code>budget.allTransactionAmmount</code>.
+     */
+    public Float getAlltransactionammount() {
+        return (Float) get(3);
+    }
+
+    /**
      * Setter for <code>budget.created_at</code>.
      */
     public void setCreatedAt(LocalDateTime value) {
-        set(3, value);
+        set(4, value);
     }
 
     /**
      * Getter for <code>budget.created_at</code>.
      */
     public LocalDateTime getCreatedAt() {
-        return (LocalDateTime) get(3);
+        return (LocalDateTime) get(4);
     }
 
     // -------------------------------------------------------------------------
@@ -99,12 +113,13 @@ public class BudgetRecord extends UpdatableRecordImpl<BudgetRecord> {
     /**
      * Create a detached, initialised BudgetRecord
      */
-    public BudgetRecord(Integer budgetId, String budgetName, Float ammount, LocalDateTime createdAt) {
+    public BudgetRecord(Integer budgetId, String budgetName, Float ammount, Float alltransactionammount, LocalDateTime createdAt) {
         super(Budget.BUDGET);
 
         setBudgetId(budgetId);
         setBudgetName(budgetName);
         setAmmount(ammount);
+        setAlltransactionammount(alltransactionammount);
         setCreatedAt(createdAt);
         resetChangedOnNotNull();
     }
@@ -119,6 +134,7 @@ public class BudgetRecord extends UpdatableRecordImpl<BudgetRecord> {
             setBudgetId(value.getBudgetId());
             setBudgetName(value.getBudgetName());
             setAmmount(value.getAmmount());
+            setAlltransactionammount(value.getAlltransactionammount());
             setCreatedAt(value.getCreatedAt());
             resetChangedOnNotNull();
         }

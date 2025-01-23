@@ -7,7 +7,6 @@ import com.Prog_3_Projektarbeit.generated.tables.pojos.Have;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import presenters.BudgetPresenter;
-import model.HaveModel;
 
 
 import java.util.ArrayList;
@@ -75,5 +74,8 @@ public class BudgetModel {
             budgets = FXCollections.observableArrayList(budgetDetails);
             return budgets;
 
+    }
+    public Float getBudgetAmmount(int budgetId) {
+        return budgetDao.fetchOneByBudgetId(budgetId).getAmmount();
     }
 }

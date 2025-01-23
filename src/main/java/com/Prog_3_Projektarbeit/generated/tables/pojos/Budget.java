@@ -19,6 +19,7 @@ public class Budget implements Serializable {
     private Integer budgetId;
     private String budgetName;
     private Float ammount;
+    private Float alltransactionammount;
     private LocalDateTime createdAt;
 
     public Budget() {}
@@ -27,6 +28,7 @@ public class Budget implements Serializable {
         this.budgetId = value.budgetId;
         this.budgetName = value.budgetName;
         this.ammount = value.ammount;
+        this.alltransactionammount = value.alltransactionammount;
         this.createdAt = value.createdAt;
     }
 
@@ -34,11 +36,13 @@ public class Budget implements Serializable {
         Integer budgetId,
         String budgetName,
         Float ammount,
+        Float alltransactionammount,
         LocalDateTime createdAt
     ) {
         this.budgetId = budgetId;
         this.budgetName = budgetName;
         this.ammount = ammount;
+        this.alltransactionammount = alltransactionammount;
         this.createdAt = createdAt;
     }
 
@@ -85,6 +89,20 @@ public class Budget implements Serializable {
     }
 
     /**
+     * Getter for <code>budget.allTransactionAmmount</code>.
+     */
+    public Float getAlltransactionammount() {
+        return this.alltransactionammount;
+    }
+
+    /**
+     * Setter for <code>budget.allTransactionAmmount</code>.
+     */
+    public void setAlltransactionammount(Float alltransactionammount) {
+        this.alltransactionammount = alltransactionammount;
+    }
+
+    /**
      * Getter for <code>budget.created_at</code>.
      */
     public LocalDateTime getCreatedAt() {
@@ -125,6 +143,12 @@ public class Budget implements Serializable {
         }
         else if (!this.ammount.equals(other.ammount))
             return false;
+        if (this.alltransactionammount == null) {
+            if (other.alltransactionammount != null)
+                return false;
+        }
+        else if (!this.alltransactionammount.equals(other.alltransactionammount))
+            return false;
         if (this.createdAt == null) {
             if (other.createdAt != null)
                 return false;
@@ -141,6 +165,7 @@ public class Budget implements Serializable {
         result = prime * result + ((this.budgetId == null) ? 0 : this.budgetId.hashCode());
         result = prime * result + ((this.budgetName == null) ? 0 : this.budgetName.hashCode());
         result = prime * result + ((this.ammount == null) ? 0 : this.ammount.hashCode());
+        result = prime * result + ((this.alltransactionammount == null) ? 0 : this.alltransactionammount.hashCode());
         result = prime * result + ((this.createdAt == null) ? 0 : this.createdAt.hashCode());
         return result;
     }
@@ -152,6 +177,7 @@ public class Budget implements Serializable {
         sb.append(budgetId);
         sb.append(", ").append(budgetName);
         sb.append(", ").append(ammount);
+        sb.append(", ").append(alltransactionammount);
         sb.append(", ").append(createdAt);
 
         sb.append(")");

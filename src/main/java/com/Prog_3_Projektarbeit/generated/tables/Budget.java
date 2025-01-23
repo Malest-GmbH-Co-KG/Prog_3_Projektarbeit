@@ -74,6 +74,11 @@ public class Budget extends TableImpl<BudgetRecord> {
     public final TableField<BudgetRecord, Float> AMMOUNT = createField(DSL.name("ammount"), SQLDataType.REAL.nullable(false), this, "");
 
     /**
+     * The column <code>budget.allTransactionAmmount</code>.
+     */
+    public final TableField<BudgetRecord, Float> ALLTRANSACTIONAMMOUNT = createField(DSL.name("allTransactionAmmount"), SQLDataType.REAL, this, "");
+
+    /**
      * The column <code>budget.created_at</code>.
      */
     public final TableField<BudgetRecord, LocalDateTime> CREATED_AT = createField(DSL.name("created_at"), SQLDataType.LOCALDATETIME(0).defaultValue(DSL.field(DSL.raw("CURRENT_TIMESTAMP"), SQLDataType.LOCALDATETIME)), this, "");

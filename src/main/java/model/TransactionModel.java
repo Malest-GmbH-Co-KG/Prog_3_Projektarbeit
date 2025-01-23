@@ -1,15 +1,20 @@
 package model;
 
 import com.Prog_3_Projektarbeit.generated.tables.daos.TransactionsDao;
+import com.Prog_3_Projektarbeit.generated.tables.pojos.Budget;
 import com.Prog_3_Projektarbeit.generated.tables.pojos.Transactions;
 import com.Prog_3_Projektarbeit.generated.tables.daos.HaveDao;
 import com.Prog_3_Projektarbeit.generated.tables.pojos.Have;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import presenters.TransactionPresenter;
 import views.TransactionView;
 import views.BudgetView;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TransactionModel {
     private final TransactionsDao transactionsDao;
@@ -35,6 +40,7 @@ public class TransactionModel {
         newTransaction.setBudgetId(budgetId);
         newTransaction.setUserId(username);
         newTransaction.setAmmount(amount);
+
         newTransaction.setDescription(description);
         newTransaction.setDate(date);
         transactionsDao.insert(newTransaction);
@@ -60,4 +66,15 @@ public class TransactionModel {
     public void setCurrentUser (String username, int budgetID) {this.username = username;
     this.budgetId = budgetID;}
 
+    public ObservableList<String> getTransactionList() {
+        ObservableList<String> transactions;
+        List<String> transactionNames = new ArrayList<>();
+            List<Transactions> budget = transactionsDao.fetchByBudgetId(budgetId);
+            for (Transactions transaction : budget) {
+                transactionNames.add(transaction.getTransactionName() + " (" + transaction.getTransactionId() + ") - " + transaction.getAmmount());
+
+        }
+        transactions = FXCollections.observableArrayList(transactionNames);
+        return transactions;
+    }
 }
