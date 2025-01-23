@@ -31,6 +31,7 @@ public class TransactionModel {
     public float addTransaction (String name, BigDecimal amount, String description, LocalDate date) {
         Transactions newTransaction = new Transactions();
         newTransaction.setTransactionName(name);
+        newTransaction.setCategory("General");
         newTransaction.setBudgetId(budgetId);
         newTransaction.setUserId(username);
         newTransaction.setAmmount(amount);

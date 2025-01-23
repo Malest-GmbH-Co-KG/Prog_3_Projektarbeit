@@ -26,7 +26,7 @@ public class TransactionPresenter {
     private int budgetId;
     BudgetPresenter budgetPresenter;
     String Username;
-    LocalDate date;
+    LocalDate date = LocalDate.now();
     Stage stage;
 
     public TransactionPresenter(UserDao userDao,BudgetPresenter budgetPresenter, HaveModel haveModel, Stage stage) {
@@ -71,7 +71,7 @@ public class TransactionPresenter {
 
     public void back() {
         budgetPresenter.showBudgets(this.Username);
-        stage.close();
+
     }
     public void deleteTransaction(int transactionID, int budgetID) {
         transactionModel.deleteTransaction(transactionID, budgetID);
