@@ -73,7 +73,7 @@ public class BudgetPresenter {
 
 
     public void back() {
-        loginPresenter.start(this); //startet die Anwendung bzw die GUI
+        loginPresenter.startBudget(this); //startet die Anwendung bzw die GUI
         stage.close();
 
     }

@@ -4,6 +4,7 @@ import com.Prog_3_Projektarbeit.generated.tables.daos.TransactionsDao;
 import com.Prog_3_Projektarbeit.generated.tables.pojos.Transactions;
 import com.Prog_3_Projektarbeit.generated.tables.daos.HaveDao;
 import com.Prog_3_Projektarbeit.generated.tables.pojos.Have;
+import presenters.TransactionPresenter;
 import views.TransactionView;
 import views.BudgetView;
 
@@ -13,12 +14,17 @@ import java.time.LocalDate;
 public class TransactionModel {
     private final TransactionsDao transactionsDao;
     private final HaveDao haveDao;
-    private TransactionView transactionView;
+    private final HaveModel haveModel;
+    private TransactionPresenter presenter;
+    private String username;
 
-    public TransactionModel (HaveDao haveDao, TransactionsDao transactionsDao, TransactionView transactionView) {
+    public String getUsername() {return username;}
+
+    public TransactionModel (HaveDao haveDao, TransactionsDao transactionsDao, TransactionPresenter presenter, HaveModel haveModel) {
         this.transactionsDao = transactionsDao;
         this.haveDao = haveDao;
-        this.transactionView = transactionView;
+        this.presenter = presenter;
+        this.haveModel = haveModel;
     }
 
     public float addTransaction (String name, String username, BigDecimal amount, String description, LocalDate date) {
@@ -34,10 +40,18 @@ public class TransactionModel {
         updateHave.setUserName(username);
         updateHave.setBudgetId(getTransactionID);
         haveDao.update(updateHave);
-        if (transactionView != null) {
-            //transactionView.update(username)
+        if (presenter != null) {
+            presenter.showTransactions(username);
         }
         return getTransactionID;
     }
+
+    public void deleteTransaction (int transactionID) {
+        transactionsDao.deleteById(transactionID);
+        haveModel.deleteByBudgetId(transactionID);
+        presenter.showTransactions(username);
+    }
+
+    public void setCurrentUser (String username) {this.username = username;}
 
 }

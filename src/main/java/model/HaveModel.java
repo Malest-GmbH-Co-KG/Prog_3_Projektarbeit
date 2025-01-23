@@ -16,4 +16,10 @@ public class HaveModel {
                 .where(HAVE.BUDGET_ID.eq(budgetId))
                 .execute();
     }
+
+    public void deleteByTransactionId(int transactionId) {
+        dslContext.deleteFrom(HAVE)
+                .where(HAVE.BUDGET_ID.eq(transactionId))
+                .execute();
+    }
 }

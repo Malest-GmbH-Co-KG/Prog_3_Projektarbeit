@@ -40,7 +40,7 @@ public class Main extends Application {
         //BudgetPresenter wird erstellt und übergeben
         BudgetPresenter budgetPresenter = new BudgetPresenter(userDao,loginPresenter, haveModel, stage);
         //startet die Anwendung
-        loginPresenter.start(budgetPresenter);
+        loginPresenter.startBudget(budgetPresenter);
     }
     //Datenbankverbindung wird hergestellt
     //über die Klasse loginPresenter wird die Anwendung gestartet und die Datenbankverbindung übergeben

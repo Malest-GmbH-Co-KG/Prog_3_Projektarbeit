@@ -14,6 +14,7 @@ public class LoginPresenter {
     private final UserModel userModel;
     private LoginView view;
     private BudgetPresenter budgetPresenter;
+    private TransactionPresenter transactionPresenter;
 
 
 
@@ -25,12 +26,16 @@ public class LoginPresenter {
 
     }
 
-    public void start(BudgetPresenter budgetPresenter) {
+    public void startBudget(BudgetPresenter budgetPresenter) {
         //BudgetPresenter wird übergeben
         this.budgetPresenter = budgetPresenter;
         view.start( );//startet die Anwendung bzw die GUI
-
     }
+    public void startTransaction(TransactionPresenter transactionPresenter) {
+        this.transactionPresenter = transactionPresenter;
+        view.start( );
+    }
+
     public void setView(LoginView view) {
         this.view = view;
     }
