@@ -18,12 +18,13 @@ public class LoginPresenter {
 
 
 
-
+    //Konstruktor
     public LoginPresenter(UserDao userDao,  Stage stage) {
+        //UserModel wird erstellt
         this.userModel = new UserModel(userDao);
+        //LoginView wird erstellt
         this.view = new LoginView(stage);
         view.setPresenter(this);
-
     }
 
     public void startBudget(BudgetPresenter budgetPresenter) {
@@ -42,6 +43,7 @@ public class LoginPresenter {
 
 
     public boolean authenticateUser(String username, String password) {
+        //User wird authentifiziert
         User user = userModel.authenticateUser(username, password);
         if (user !=null) {
             view.showSuccess("User authenticated successfully");
@@ -56,26 +58,31 @@ public class LoginPresenter {
     }
 
     public boolean createUser(String username, String vorname, String nachname, String password) {
+        //User wird erstellt
         User newUser = userModel.addUser(username, vorname , nachname, password);
         if (newUser != null) {
-
+            //wenn User erstellt wurde wird eine Erfolgsmeldung angezeigt
                 view.showSuccess("User created successfully");
                 view.closeStage();
                 budgetPresenter.showBudgets(newUser.getUserName());
+                return true;
 
-
-            return true;
         } else {
+            //wenn User nicht erstellt wurde wird eine Fehlermeldung angezeigt
             if (userModel.isVornameEmpty(vorname) || userModel.isNachnameEmpty(nachname) || userModel.isUsernameEmpty(username) || userModel.isPasswordEmpty(password)) {
+                //wenn nicht alle Felder ausgefüllt sind wird eine Fehlermeldung angezeigt
                 view.showError("Please fill all fields");
+
             }else {
+
             if(!userModel.isUsernameAvailable(username)){
+                //wenn der Username bereits existiert wird eine Fehlermeldung angezeigt
                  view.showError("Username already exists");
+
             }else {
                  view.showError("Error creating user");
+                }
             }
-            }
-
         }
         return false;
     }

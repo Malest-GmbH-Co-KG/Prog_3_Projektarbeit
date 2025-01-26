@@ -52,7 +52,7 @@ class LoginPresenterTest {
         // LoginPresenter erstellen
         loginPresenter = new LoginPresenter(userDao, stage);
         loginPresenter.setView(view);
-        loginPresenter.start(budgetPresenter);
+        loginPresenter.startBudget(budgetPresenter);
 
 
 

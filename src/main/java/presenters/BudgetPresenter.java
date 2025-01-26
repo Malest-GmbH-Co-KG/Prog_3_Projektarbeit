@@ -37,6 +37,8 @@ public class BudgetPresenter {
 
     }
 
+
+
     public void showBudgets(String username) {
 
         this.Username = username;
@@ -56,20 +58,6 @@ public class BudgetPresenter {
     }
 
     public ObservableList<String> getBudgetList() {
-        /*
-        ObservableList<String> budgets;
-        List<String> budgetDetails = new ArrayList<>();
-        List<Integer> budgetIds = new ArrayList<>(haveDao.fetchByUserName(Username).stream().map(Have::getBudgetId).toList());
-        for (int id : budgetIds) {
-            Budget budget = budgetDao.fetchOneByBudgetId(id);
-            if (budget != null) {
-                budgetDetails.add(budget.getBudgetName() + " (" + budget.getBudgetId() + ") - " + budget.getAmmount());
-            }
-        }
-        budgets = FXCollections.observableArrayList(budgetDetails);
-        return budgets;
-
-         */
         return budgetModel.getBudgetList(Username);
     }
 

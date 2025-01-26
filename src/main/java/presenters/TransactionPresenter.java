@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class TransactionPresenter {
-    private UserDao UserDao;
+
     TransactionModel transactionModel;
     private TransactionView view;
     private TransactionsDao transactionsDao;
@@ -28,7 +28,7 @@ public class TransactionPresenter {
     Stage stage;
 
     public TransactionPresenter(UserDao userDao,BudgetPresenter budgetPresenter, HaveModel haveModel, Stage stage) {
-        this.UserDao = userDao;
+
 
         this.transactionsDao = new TransactionsDao(userDao.configuration());
         this.haveDao = new HaveDao(userDao.configuration());
@@ -52,22 +52,6 @@ public class TransactionPresenter {
         transactionModel.addTransaction(transactionName, transactionAmount,description,date );
     }
     public ObservableList<String> getTransactionList() {
-        /*
-        ObservableList<String> transactions;
-        List<String> transactionNames = new ArrayList<>();
-        List<Integer> transactionIDs = transactionsDao.fetchByUserId(Username)
-                .stream()
-                .map(Transactions::getTransactionId)
-                .toList();
-        int id;
-        for (int i = 0;transactionIDs.size() > i ; i++) {
-            id = transactionIDs.get(i);
-            transactionNames.add(transactionsDao.fetchByTransactionId(id).stream().map(Transactions::getTransactionName).toList().getFirst());
-        }
-        transactions = FXCollections.observableList(transactionNames);
-        return transactions;
-
-         */
         return transactionModel.getTransactionList();
     }
 

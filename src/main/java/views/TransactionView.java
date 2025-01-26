@@ -32,6 +32,7 @@ public class TransactionView {
     }
 
     public void show(Stage stage) {
+        //
         transactionList = new ListView<>();
         transactionList.setCellFactory(param -> new CustomListCell());
         transactionList.setItems(presenter.getTransactionList());
@@ -45,13 +46,20 @@ public class TransactionView {
         Button deleteTransactionButton = new Button("Delete Transaction");
 
         messageLabel = new Label();
+
         transactionNameLabel = new Label("Transaction Name:");
         transactionAmountLabel = new Label("Transaction Amount:");
         transactionDescriptionLabel = new Label("Transaction Description:");
+
+        //Label zum Anzeigen des Budgets
         BudgetAmmount = new Label("Budget Ammount:");
         BudgetAmmount1 = new Label((String.valueOf(presenter.getBudgetAmmount())));
+
+        //Label zum Anzeigen der Gesamttransaktionen
         allTransactionAmmountLabel = new Label("All Transaction Ammount:");
         allTransactionAmmountLabel1 = new Label((String.valueOf(presenter.getAllTransactions())));
+
+        //Label zum Anzeigen des Restbetrags
         restAmmount = new Label("Rest Ammount:");
         restAmmount1 = new Label((String.valueOf(restAmmount())));
 
@@ -123,6 +131,6 @@ public class TransactionView {
     }
 
     public Float restAmmount() {
-        return presenter.getBudgetAmmount() - (Float.parseFloat(String.valueOf(presenter.getAllTransactions())));
+        return presenter.getBudgetAmmount() + (Float.parseFloat(String.valueOf(presenter.getAllTransactions())));
     }
 }

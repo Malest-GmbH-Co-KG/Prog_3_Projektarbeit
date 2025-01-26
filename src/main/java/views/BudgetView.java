@@ -10,7 +10,7 @@ import presenters.TransactionPresenter;
 import views.CustomListCell;
 
 public class BudgetView {
-    private final BudgetPresenter presenter;
+    private  BudgetPresenter presenter;
     private  TransactionPresenter transactionPresenter;
     private ListView<String> budgetList;
 
@@ -25,6 +25,8 @@ public class BudgetView {
     public void setTransactionPresenter(TransactionPresenter transactionPresenter) {
         this.transactionPresenter = transactionPresenter;
     }
+
+
 
     public void show(Stage stage) {
         // Layout für die Budgets
@@ -62,27 +64,20 @@ public class BudgetView {
         });
 
         viewMovementsButton.setOnAction(e -> {
-            String selectedBudget = budgetList.getSelectionModel().getSelectedItem();
-            if (selectedBudget != null) {
-                String[] parts = selectedBudget.split(" - ");
-                String nameAndId = parts[0];
-                //BudgetID wird aus dem String extrahiert und kann somit an Transaction Presenter weiter gegeben werden
-                int budgetId = Integer.parseInt(nameAndId.substring(nameAndId.lastIndexOf('(') + 1, nameAndId.lastIndexOf(')')));
+            if (budgetList.getSelectionModel().getSelectedItem() != null) {
+                int budgetId = getBudgetIdfromList();
                 //Aufruf der Methode um die Bewegungen anzuzeigen
-
                 transactionPresenter.showTransactions(budgetId, presenter.getUsername());
             } else {
                 showError("Please select a budget to view transactions.");
             }
+        }
 
-        });
+        );
 
         deleteBudgetButton.setOnAction(e -> {
-            String selectedBudget = budgetList.getSelectionModel().getSelectedItem();
-            if (selectedBudget != null) {
-                String[] parts = selectedBudget.split(" - ");
-                String nameAndId = parts[0];
-                int budgetId = Integer.parseInt(nameAndId.substring(nameAndId.lastIndexOf('(') + 1, nameAndId.lastIndexOf(')')));
+            if (budgetList.getSelectionModel().getSelectedItem() != null) {
+                int budgetId = getBudgetIdfromList();
                 presenter.deleteBudget(budgetId);
             } else {
                 showError("Please select a budget to delete.");
@@ -126,6 +121,20 @@ public class BudgetView {
         messageLabel.setText(message);
         messageLabel.setStyle("-fx-text-fill: green;");
     }
+
+    public int getBudgetIdfromList() {
+        String selectedBudget = budgetList.getSelectionModel().getSelectedItem();
+        if (selectedBudget != null) {
+            String[] parts = selectedBudget.split(" - ");
+            String nameAndId = parts[0];
+            int budgetId = Integer.parseInt(nameAndId.substring(nameAndId.lastIndexOf('(') + 1, nameAndId.lastIndexOf(')')));
+            return budgetId;
+        } else {
+
+            return -1;
+        }
+    }
+
 
 
 }

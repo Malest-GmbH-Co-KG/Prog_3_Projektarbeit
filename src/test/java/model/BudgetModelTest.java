@@ -48,6 +48,7 @@ class BudgetModelTest {
         budget_id INTEGER PRIMARY KEY AUTOINCREMENT,
         budget_name TEXT NOT NULL,
         ammount INTEGER,
+        allTransactionAmmount FLOAT,
         created_at TEXT
     )
 """).execute();
