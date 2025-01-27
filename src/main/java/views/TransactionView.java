@@ -34,7 +34,35 @@ public class TransactionView {
     public void show(Stage stage) {
         //
         transactionList = new ListView<>();
-        transactionList.setCellFactory(param -> new CustomListCell());
+        transactionList.setCellFactory(param -> new ListCell<String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty) {
+                    setText(null);
+                    setStyle("");
+                } else {
+                    setText(item);
+                    String[] parts = item.split(" - ");
+                    if (parts.length > 1) {
+                        try {
+                            BigDecimal amount = new BigDecimal(parts[1]);
+                            if (amount.compareTo(BigDecimal.ZERO) > 0) {
+                                setStyle("-fx-text-fill: green;");
+                            } else if (amount.compareTo(BigDecimal.ZERO) < 0) {
+                                setStyle("-fx-text-fill: red;");
+                            } else {
+                                setStyle("-fx-text-fill: black;");
+                            }
+                        } catch (NumberFormatException e) {
+                            setStyle("-fx-text-fill: black;");
+                        }
+                    } else {
+                        setStyle("-fx-text-fill: black;");
+                    }
+                }
+            }
+        });
         transactionList.setItems(presenter.getTransactionList());
 
         TextField transactionNameField = new TextField();
@@ -82,11 +110,8 @@ public class TransactionView {
         });
 
         deleteTransactionButton.setOnAction(e -> {
-            String selectedTransaction = transactionList.getSelectionModel().getSelectedItem();
-            if (selectedTransaction != null) {
-                String[] parts = selectedTransaction.split(" - ");
-                String nameAndId = parts[0];
-                int transactionId = Integer.parseInt(nameAndId.substring(nameAndId.lastIndexOf('(') + 1, nameAndId.lastIndexOf(')')));
+            if (transactionList.getSelectionModel().getSelectedItem() != null) {
+                int transactionId = getTransactionId();
                 presenter.deleteTransaction(transactionId, presenter.getBudgetId());
             } else {
                 showError("Select a transaction to delete");
@@ -132,5 +157,18 @@ public class TransactionView {
 
     public Float restAmmount() {
         return presenter.getBudgetAmmount() + (Float.parseFloat(String.valueOf(presenter.getAllTransactions())));
+    }
+
+    public int getTransactionId(){
+        String selectedTransaction = transactionList.getSelectionModel().getSelectedItem();
+        if (selectedTransaction != null) {
+            String[] parts = selectedTransaction.split(" - ");
+            String nameAndId = parts[0];
+            int transactionId = Integer.parseInt(nameAndId.substring(nameAndId.lastIndexOf('(') + 1, nameAndId.lastIndexOf(')')));
+            return transactionId;
+        } else {
+            return -1;
+        }
+
     }
 }
