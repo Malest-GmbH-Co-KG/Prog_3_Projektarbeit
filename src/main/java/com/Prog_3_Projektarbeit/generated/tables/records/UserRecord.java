@@ -77,17 +77,31 @@ public class UserRecord extends UpdatableRecordImpl<UserRecord> {
     }
 
     /**
+     * Setter for <code>User.salt</code>.
+     */
+    public void setSalt(String value) {
+        set(4, value);
+    }
+
+    /**
+     * Getter for <code>User.salt</code>.
+     */
+    public String getSalt() {
+        return (String) get(4);
+    }
+
+    /**
      * Setter for <code>User.created_at</code>.
      */
     public void setCreatedAt(LocalDateTime value) {
-        set(4, value);
+        set(5, value);
     }
 
     /**
      * Getter for <code>User.created_at</code>.
      */
     public LocalDateTime getCreatedAt() {
-        return (LocalDateTime) get(4);
+        return (LocalDateTime) get(5);
     }
 
     // -------------------------------------------------------------------------
@@ -113,13 +127,14 @@ public class UserRecord extends UpdatableRecordImpl<UserRecord> {
     /**
      * Create a detached, initialised UserRecord
      */
-    public UserRecord(String userName, String vorname, String nachname, String password, LocalDateTime createdAt) {
+    public UserRecord(String userName, String vorname, String nachname, String password, String salt, LocalDateTime createdAt) {
         super(User.USER);
 
         setUserName(userName);
         setVorname(vorname);
         setNachname(nachname);
         setPassword(password);
+        setSalt(salt);
         setCreatedAt(createdAt);
         resetChangedOnNotNull();
     }
@@ -135,6 +150,7 @@ public class UserRecord extends UpdatableRecordImpl<UserRecord> {
             setVorname(value.getVorname());
             setNachname(value.getNachname());
             setPassword(value.getPassword());
+            setSalt(value.getSalt());
             setCreatedAt(value.getCreatedAt());
             resetChangedOnNotNull();
         }

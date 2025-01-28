@@ -34,35 +34,7 @@ public class TransactionView {
     public void show(Stage stage) {
         //
         transactionList = new ListView<>();
-        transactionList.setCellFactory(param -> new ListCell<String>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (item == null || empty) {
-                    setText(null);
-                    setStyle("");
-                } else {
-                    setText(item);
-                    String[] parts = item.split(" - ");
-                    if (parts.length > 1) {
-                        try {
-                            BigDecimal amount = new BigDecimal(parts[1]);
-                            if (amount.compareTo(BigDecimal.ZERO) > 0) {
-                                setStyle("-fx-text-fill: green;");
-                            } else if (amount.compareTo(BigDecimal.ZERO) < 0) {
-                                setStyle("-fx-text-fill: red;");
-                            } else {
-                                setStyle("-fx-text-fill: black;");
-                            }
-                        } catch (NumberFormatException e) {
-                            setStyle("-fx-text-fill: black;");
-                        }
-                    } else {
-                        setStyle("-fx-text-fill: black;");
-                    }
-                }
-            }
-        });
+        transactionList.setCellFactory(param -> new CustomListCell());
         transactionList.setItems(presenter.getTransactionList());
 
         TextField transactionNameField = new TextField();
