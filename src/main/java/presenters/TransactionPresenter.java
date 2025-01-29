@@ -79,4 +79,8 @@ public class TransactionPresenter {
     public Float getBudgetAmmount() {
         return budgetPresenter.getBudgetAmmount(budgetId);
     }
+
+    public Float getRestAmmount(int budgetId) {
+        this.budgetId = budgetId;
+        return view.getrestAmmount(); }
 }

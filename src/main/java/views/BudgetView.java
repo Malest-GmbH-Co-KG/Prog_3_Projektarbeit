@@ -108,7 +108,6 @@ public class BudgetView {
         stage.setTitle("User Budgets");
         stage.show();
 
-        presenter.loadBudgets();
     }
 
 

@@ -54,7 +54,7 @@ public class BudgetPresenter {
     public void showTransactionsForBudget(String selectedBudget) {
     }
 
-    public void loadBudgets() {
+    public void loadBudgetsrest() {
     }
 
     public ObservableList<String> getBudgetList() {
@@ -81,4 +81,6 @@ public class BudgetPresenter {
     public Float getBudgetAmmount(int budgetId) {
         return budgetModel.getBudgetAmmount(budgetId);
     }
+
+    public Float getRestAmmount(int budgetId){ return transactionPresenter.getRestAmmount(budgetId);}
 }

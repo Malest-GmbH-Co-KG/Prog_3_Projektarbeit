@@ -68,7 +68,8 @@ public class BudgetModel {
             for (int id : budgetIds) {
                 Budget budget = budgetDao.fetchOneByBudgetId(id);
                 if (budget != null) {
-                    budgetDetails.add(budget.getBudgetName() + " (" + budget.getBudgetId() + ") - " + budget.getAmmount());
+                    budgetDetails.add(budget.getBudgetName() + " (" + budget.getBudgetId() + ") - " + presenter.getRestAmmount(budget.getBudgetId()));
+
                 }
             }
             budgets = FXCollections.observableArrayList(budgetDetails);

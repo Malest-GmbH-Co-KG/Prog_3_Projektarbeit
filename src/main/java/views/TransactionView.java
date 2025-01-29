@@ -61,7 +61,7 @@ public class TransactionView {
 
         //Label zum Anzeigen des Restbetrags
         restAmmount = new Label("Rest Ammount:");
-        restAmmount1 = new Label((String.valueOf(restAmmount())));
+        restAmmount1 = new Label((String.valueOf(getrestAmmount())));
 
 
         addTransactButton.setOnAction(e -> {
@@ -130,7 +130,7 @@ public class TransactionView {
         messageLabel.setStyle("-fx-text-fill: red;");
     }
 
-    public Float restAmmount() {
+    public Float getrestAmmount() {
         return presenter.getBudgetAmmount() + (Float.parseFloat(String.valueOf(presenter.getAllTransactions())));
     }
 }
