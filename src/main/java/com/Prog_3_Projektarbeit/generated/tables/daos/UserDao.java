@@ -115,6 +115,21 @@ public class UserDao extends DAOImpl<UserRecord, com.Prog_3_Projektarbeit.genera
     }
 
     /**
+     * Fetch records that have <code>salt BETWEEN lowerInclusive AND
+     * upperInclusive</code>
+     */
+    public List<com.Prog_3_Projektarbeit.generated.tables.pojos.User> fetchRangeOfSalt(String lowerInclusive, String upperInclusive) {
+        return fetchRange(User.USER.SALT, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>salt IN (values)</code>
+     */
+    public List<com.Prog_3_Projektarbeit.generated.tables.pojos.User> fetchBySalt(String... values) {
+        return fetch(User.USER.SALT, values);
+    }
+
+    /**
      * Fetch records that have <code>created_at BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */

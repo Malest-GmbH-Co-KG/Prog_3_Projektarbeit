@@ -75,7 +75,12 @@ public class User extends TableImpl<UserRecord> {
     /**
      * The column <code>User.password</code>.
      */
-    public final TableField<UserRecord, String> PASSWORD = createField(DSL.name("password"), SQLDataType.VARCHAR(255).nullable(false), this, "");
+    public final TableField<UserRecord, String> PASSWORD = createField(DSL.name("password"), SQLDataType.VARCHAR(256).nullable(false), this, "");
+
+    /**
+     * The column <code>User.salt</code>.
+     */
+    public final TableField<UserRecord, String> SALT = createField(DSL.name("salt"), SQLDataType.VARCHAR(256), this, "");
 
     /**
      * The column <code>User.created_at</code>.

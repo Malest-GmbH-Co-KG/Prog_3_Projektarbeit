@@ -17,6 +17,7 @@ import org.jooq.impl.DSL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Base64;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -62,22 +63,21 @@ class LoginPresenterTest {
                         user_name VARCHAR(255) UNIQUE NOT NULL PRIMARY KEY,
                         Vorname VARCHAR(255) NOT NULL,
                         Nachname VARCHAR(255) NOT NULL,
-                        password VARCHAR(255) NOT NULL,
+                        password VARCHAR(256) NOT NULL,
+                        salt VARCHAR(256) NOT NULL,
                         created_at TEXT
                 )
             """).execute();
 
+        UserModel userModel = new UserModel(userDao);
 
     }
 
     @Test
     void authenticateUser_true() {
         //Arrange
-        String username = "testuser";
-        String password = "password123";
-        User user = new User(username, "vor", "nach", password, null);
-        userDao.insert(user);
-        assertEquals(true, loginPresenter.authenticateUser(username, password));
+        userModel.addUser("testuser", "vor", "nach", "password123");
+        assertEquals(true, loginPresenter.authenticateUser("testuser", "password123"));
 
     }
 
@@ -88,10 +88,6 @@ class LoginPresenterTest {
         String vorname = "John";
         String nachname = "Doe";
         String password = "newPassword";
-        User newUser = new User();
-        newUser.setUserName(username);
-
-
 
         // Act
         boolean result = loginPresenter.createUser(username, vorname, nachname, password);

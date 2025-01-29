@@ -31,6 +31,19 @@ public class CustomListCell extends ListCell<String> {
             leftText.setText(parts[0]);
             rightText.setText(parts.length > 1 ? parts[1] : "");
             setGraphic(content);
+            try {
+                float ammount = Float.parseFloat(rightText.getText());
+                if (ammount < 0) {
+                    rightText.setStyle("-fx-fill: red;");
+                } else if (ammount == 0) {
+                    rightText.setStyle("-fx-fill: blue;");
+
+                }else {
+                rightText.setStyle("-fx-fill: green;");
+                }} catch (NumberFormatException e) {
+                rightText.setStyle("-fx-fill: black;");
+            }
+
         } else {
             setGraphic(null);
         }

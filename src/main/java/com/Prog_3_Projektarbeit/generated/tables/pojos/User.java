@@ -20,6 +20,7 @@ public class User implements Serializable {
     private String vorname;
     private String nachname;
     private String password;
+    private String salt;
     private LocalDateTime createdAt;
 
     public User() {}
@@ -29,6 +30,7 @@ public class User implements Serializable {
         this.vorname = value.vorname;
         this.nachname = value.nachname;
         this.password = value.password;
+        this.salt = value.salt;
         this.createdAt = value.createdAt;
     }
 
@@ -37,12 +39,14 @@ public class User implements Serializable {
         String vorname,
         String nachname,
         String password,
+        String salt,
         LocalDateTime createdAt
     ) {
         this.userName = userName;
         this.vorname = vorname;
         this.nachname = nachname;
         this.password = password;
+        this.salt = salt;
         this.createdAt = createdAt;
     }
 
@@ -103,6 +107,20 @@ public class User implements Serializable {
     }
 
     /**
+     * Getter for <code>User.salt</code>.
+     */
+    public String getSalt() {
+        return this.salt;
+    }
+
+    /**
+     * Setter for <code>User.salt</code>.
+     */
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    /**
      * Getter for <code>User.created_at</code>.
      */
     public LocalDateTime getCreatedAt() {
@@ -149,6 +167,12 @@ public class User implements Serializable {
         }
         else if (!this.password.equals(other.password))
             return false;
+        if (this.salt == null) {
+            if (other.salt != null)
+                return false;
+        }
+        else if (!this.salt.equals(other.salt))
+            return false;
         if (this.createdAt == null) {
             if (other.createdAt != null)
                 return false;
@@ -166,6 +190,7 @@ public class User implements Serializable {
         result = prime * result + ((this.vorname == null) ? 0 : this.vorname.hashCode());
         result = prime * result + ((this.nachname == null) ? 0 : this.nachname.hashCode());
         result = prime * result + ((this.password == null) ? 0 : this.password.hashCode());
+        result = prime * result + ((this.salt == null) ? 0 : this.salt.hashCode());
         result = prime * result + ((this.createdAt == null) ? 0 : this.createdAt.hashCode());
         return result;
     }
@@ -178,6 +203,7 @@ public class User implements Serializable {
         sb.append(", ").append(vorname);
         sb.append(", ").append(nachname);
         sb.append(", ").append(password);
+        sb.append(", ").append(salt);
         sb.append(", ").append(createdAt);
 
         sb.append(")");

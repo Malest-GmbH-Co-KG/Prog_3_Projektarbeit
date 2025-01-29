@@ -82,11 +82,8 @@ public class TransactionView {
         });
 
         deleteTransactionButton.setOnAction(e -> {
-            String selectedTransaction = transactionList.getSelectionModel().getSelectedItem();
-            if (selectedTransaction != null) {
-                String[] parts = selectedTransaction.split(" - ");
-                String nameAndId = parts[0];
-                int transactionId = Integer.parseInt(nameAndId.substring(nameAndId.lastIndexOf('(') + 1, nameAndId.lastIndexOf(')')));
+            if (transactionList.getSelectionModel().getSelectedItem() != null) {
+                int transactionId = getTransactionId();
                 presenter.deleteTransaction(transactionId, presenter.getBudgetId());
             } else {
                 showError("Select a transaction to delete");
@@ -132,5 +129,18 @@ public class TransactionView {
 
     public Float getrestAmmount() {
         return presenter.getBudgetAmmount() + (Float.parseFloat(String.valueOf(presenter.getAllTransactions())));
+    }
+
+    public int getTransactionId(){
+        String selectedTransaction = transactionList.getSelectionModel().getSelectedItem();
+        if (selectedTransaction != null) {
+            String[] parts = selectedTransaction.split(" - ");
+            String nameAndId = parts[0];
+            int transactionId = Integer.parseInt(nameAndId.substring(nameAndId.lastIndexOf('(') + 1, nameAndId.lastIndexOf(')')));
+            return transactionId;
+        } else {
+            return -1;
+        }
+
     }
 }
