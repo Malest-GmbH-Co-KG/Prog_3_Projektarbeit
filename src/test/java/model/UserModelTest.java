@@ -39,17 +39,13 @@ class UserModelTest {
                         user_name VARCHAR(255) UNIQUE NOT NULL PRIMARY KEY,
                         Vorname VARCHAR(255) NOT NULL,
                         Nachname VARCHAR(255) NOT NULL,
-                        password VARCHAR(255) NOT NULL,
+                        password VARCHAR(256) NOT NULL,
+                        salt VARCHAR(256),
                         created_at TEXT
                 )
             """).execute();
 
-        // Beispiel-Daten einfügen
-        dslContext.query("""
-                INSERT INTO user (user_name,Vorname, Nachname, password) VALUES
-                ('testuser','vor', 'nach', 'password123'),
-                ('anotheruser', 'vor1', 'nach1', 'password456')
-            """).execute();
+
 
         // DAO und Presenter initialisieren
         userDao = new UserDao(dslContext.configuration());
@@ -67,6 +63,7 @@ class UserModelTest {
     @Test
     void authenticateUser_validCredentials_returnsUser() {
         // Act
+        userModel.addUser("testuser", "vor", "nach", "password123");
         User result = userModel.authenticateUser("testuser", "password123");
 
         // Assert
@@ -76,6 +73,7 @@ class UserModelTest {
 
     @Test
     void authenticateUser_invalidCredentials_returnsNull() {
+        userModel.addUser("testuser", "vor", "nach", "password123");
         // Act
          User result = userModel.authenticateUser("invaliduser", "wrongpassword");
 
@@ -94,6 +92,7 @@ class UserModelTest {
 
     @Test
     void updateUser_validCredentials_returnsTrue() {
+        userModel.addUser("testuser", "vor", "nach", "password123");
         String newUsername = "newuser";
         String newPassword = "newpassword";
         String oldUsername = "testuser";
@@ -109,6 +108,7 @@ class UserModelTest {
 
     @Test
     void updateUser_invalidCredentials_returnsFalse() {
+        userModel.addUser("testuser", "vor", "nach", "password123");
         String newUsername = "testuser"; // This username already exists
         String newPassword = "newpassword";
         String oldUsername = "testuser";
@@ -120,6 +120,7 @@ class UserModelTest {
 
     @Test
     void addUser_false(){
+        userModel.addUser("testuser", "vor", "nach", "password123");
         String username = "testuser";
         String vorname = "vor";
         String nachname = "nach";
