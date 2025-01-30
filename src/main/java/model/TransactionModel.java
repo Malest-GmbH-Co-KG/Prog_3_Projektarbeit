@@ -74,7 +74,7 @@ public class TransactionModel {
         List<String> transactionNames = new ArrayList<>();
             List<Transactions> budget = transactionsDao.fetchByBudgetId(budgetId);
             for (Transactions transaction : budget) {
-                transactionNames.add(transaction.getTransactionName() + " (" + transaction.getTransactionId() + ") - " + transaction.getAmmount());
+                transactionNames.add(transaction.getTransactionName() + " (" + transaction.getTransactionId() + ")  " + username + " - " + transaction.getAmmount());
         }
         transactions = FXCollections.observableArrayList(transactionNames);
         return transactions;
