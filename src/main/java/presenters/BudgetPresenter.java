@@ -51,12 +51,6 @@ public class BudgetPresenter {
         budgetModel.addBudget(budgetName,budgetAmount,Username);
     }
 
-    public void showTransactionsForBudget(String selectedBudget) {
-    }
-
-    public void loadBudgetsrest() {
-    }
-
     public ObservableList<String> getBudgetList() {
         return budgetModel.getBudgetList(Username);
     }
