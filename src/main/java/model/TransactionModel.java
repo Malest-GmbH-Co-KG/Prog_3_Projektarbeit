@@ -102,11 +102,14 @@ public class TransactionModel {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             for (Transactions transaction : budget) {
                 String formattedDate = transaction.getDate().format(formatter);
-                transactionNames.add(transaction.getTransactionName() + " ("
+                transactionNames.add("| " + username + " | "
+                        + transaction.getTransactionName() + " ("
                         + transaction.getTransactionId() + ")  "
-                        + username + " - "
-                        + formattedDate + " - "
-                        + transaction.getAmmount() );
+                        + " - "
+                        + transaction.getAmmount()
+                        + " - "
+                        + formattedDate );
+
         }
         transactions = FXCollections.observableArrayList(transactionNames);
         return transactions;
