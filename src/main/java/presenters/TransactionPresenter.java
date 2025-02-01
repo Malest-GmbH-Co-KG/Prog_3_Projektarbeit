@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
+
 public class TransactionPresenter {
 
     TransactionModel transactionModel;
@@ -54,6 +55,10 @@ public class TransactionPresenter {
     public ObservableList<String> getTransactionList() {
         return transactionModel.getTransactionList();
     }
+    public String getTransactionDescription(int transactionId) {
+        Transactions transaction = transactionModel.getTransactionById(transactionId);
+        return (transaction != null) ? transaction.getDescription() : "No description available.";
+    }
 
     public void back() {
         budgetPresenter.showBudgets(this.Username);
@@ -75,6 +80,7 @@ public class TransactionPresenter {
         }
         return sum;
     }
+
 
     public Float getBudgetAmmount() {
         return budgetPresenter.getBudgetAmmount(budgetId);

@@ -1,20 +1,25 @@
 package views;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.TextBoundsType;
 import javafx.stage.Stage;
 import org.jooq.Transaction;
 import presenters.TransactionPresenter;
 import views.CustomListCell;
 
+import javax.swing.*;
 import java.math.BigDecimal;
 
 public class TransactionView {
     private final TransactionPresenter presenter;
     private ListView<String> transactionList;
+
+    private TextArea showTransacDescrArea;
 
     private Label messageLabel;
     private Label transactionNameLabel;
@@ -33,16 +38,26 @@ public class TransactionView {
 
     public void show(Stage stage) {
         //
+        TextField platzhalterField = new TextField();
+        // Liste der ausgeführten Transaktionen
         transactionList = new ListView<>();
         transactionList.setCellFactory(param -> new CustomListCell());
         transactionList.setItems(presenter.getTransactionList());
+
+        // Textfeld um Descriptions anzuzeigen
+        showTransacDescrArea = new TextArea();
+        showTransacDescrArea.setEditable(false);
+        showTransacDescrArea.setWrapText(true);
+        showTransacDescrArea.setMaxWidth(Double.MAX_VALUE);
 
         TextField transactionNameField = new TextField();
         TextField transactionAmountField = new TextField();
         TextField transactionDescriptionField = new TextField();
 
         Button addTransactButton = new Button("Add Transaction");
+        Button showDescriptionButton = new Button("Show Description");
         Button backButton = new Button("Back");
+
         Button deleteTransactionButton = new Button("Delete Transaction");
 
         messageLabel = new Label();
@@ -77,9 +92,25 @@ public class TransactionView {
             presenter.addTransaction(transactionName,transactionAmount, transactionDescription);
         });
 
+        showDescriptionButton.setOnAction(e -> {
+            String selectedTransaction = transactionList.getSelectionModel().getSelectedItem();
+            if (selectedTransaction != null) {
+                int transactionId = getTransactionId();
+                if (transactionId != -1) {
+                    String description = presenter.getTransactionDescription(transactionId);
+                    showTransactionDescription(description);
+                } else {
+                    showError("Could not determine transaction ID.");
+                }
+            } else {
+                showError("Select a transaction first!");
+            }
+        });
+
         backButton.setOnAction(e -> {
             presenter.back();
         });
+
 
         deleteTransactionButton.setOnAction(e -> {
             if (transactionList.getSelectionModel().getSelectedItem() != null) {
@@ -98,6 +129,9 @@ public class TransactionView {
 
         grid.add(transactionList, 0, 0, 2, 1);
 
+        grid.add(showTransacDescrArea, 2, 0, 3, 1);
+        grid.add(showDescriptionButton, 0, 4);
+
         grid.add(transactionNameField, 0, 2);
         grid.add(transactionAmountField, 1, 2);
         grid.add(transactionDescriptionField, 2, 2);
@@ -105,8 +139,8 @@ public class TransactionView {
         grid.add(transactionAmountLabel, 1, 1);
         grid.add(transactionDescriptionLabel, 2, 1);
         grid.add(addTransactButton, 0, 3);
-        grid.add(backButton, 0, 4);
-        grid.add(deleteTransactionButton, 1, 4);
+        grid.add(backButton, 1, 4);
+        grid.add(deleteTransactionButton, 1, 3);
         grid.add(messageLabel, 0, 5, 2, 1);
         grid.add(BudgetAmmount, 0, 6);
         grid.add(BudgetAmmount1, 1, 6);
@@ -129,6 +163,10 @@ public class TransactionView {
 
     public Float getrestAmmount() {
         return presenter.getBudgetAmmount() + (Float.parseFloat(String.valueOf(presenter.getAllTransactions())));
+    }
+
+    private void showTransactionDescription(String description) {
+        showTransacDescrArea.setText(description);
     }
 
     public int getTransactionId(){
