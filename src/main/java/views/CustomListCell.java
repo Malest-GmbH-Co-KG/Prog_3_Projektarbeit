@@ -6,7 +6,10 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 
-//Klassen für die CustomListCell d.h die Anzeige der Budgets in der ListView das Name und Betrag angezeigt wird jeweils in einer eigenen Spalte
+/**
+ * <h2><b>Anzeige der Budgets in der ListView <br>
+ * Name, Betrag und Datum in jeweils einer Spalte</b></h2>
+ */
 public class CustomListCell extends ListCell<String> {
     private HBox content;
     private Text leftText;
@@ -25,6 +28,12 @@ public class CustomListCell extends ListCell<String> {
         content.getChildren().addAll(leftText, spacer, rightText, dateText);
     }
 
+    /**
+     *  <h3>Spaltenaufteilung + Farbcodierung</h3>
+     *  Rot = Abzüge<br>
+     *  Grün = Einnahmen<br>
+     *  Schwarz = Allgemeine Informationen (Bezeichnung, ID, Nutzer, Datum)
+      */
     @Override
     protected void updateItem(String item, boolean empty) {
         super.updateItem(item, empty);

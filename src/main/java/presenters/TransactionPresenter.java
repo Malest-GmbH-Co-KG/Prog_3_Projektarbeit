@@ -14,7 +14,10 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-
+/**
+ * <h2>Klasse zum Übergeben der Transaktionen an die View</h2><br>
+ * <h3>Hier werden alle Methoden instanziiert und an die TransactionView übergeben</h3>
+ */
 public class TransactionPresenter {
 
     TransactionModel transactionModel;
@@ -38,6 +41,11 @@ public class TransactionPresenter {
         this.transactionModel = new TransactionModel(haveDao,transactionsDao,this, haveModel);
     }
 
+    /** <h3>Übergibt die Transaktionen, die verlangt werden </h3>
+     *
+     * @param budgetId Aus welchem Budget die Tranaktion kommt
+     * @param username Welcher Nutzer die Transaktion getätigt hat
+     */
     public void showTransactions(int budgetId, String username) {
         this.Username = username;
         this.budgetId = budgetId;
@@ -47,22 +55,41 @@ public class TransactionPresenter {
 
     public void loadTransactions() {}
 
-
+    /** <h3>Übergibt die hinzuzufügende Transaktion</h3>
+     *
+     * @param transactionName Bezeichnung der Transaktion
+     * @param transactionAmount Betrag der Transaktion
+     * @param description Beschreibung der Transaktion
+     * @param transactionDate Datum der Transaktion
+     */
     public void addTransaction (String transactionName, BigDecimal transactionAmount, String description, LocalDate transactionDate) {
         transactionModel.addTransaction(transactionName, transactionAmount,description,transactionDate );
     }
+
+    /**
+     *
+     * @return Die Liste der Transaktionen
+     */
     public ObservableList<String> getTransactionList() {
         return transactionModel.getTransactionList();
     }
+
     public String getTransactionDescription(int transactionId) {
         Transactions transaction = transactionModel.getTransactionById(transactionId);
         return (transaction != null) ? transaction.getDescription() : "No description available.";
     }
 
+    /**
+     * <h3>Geht zum vorherigen Fenster</h3>
+     */
     public void back() {
         budgetPresenter.showBudgets(this.Username);
 
     }
+
+    /**
+     * <h3>Übergeber der zu Löschenden Transaktion</h3>
+     */
     public void deleteTransaction(int transactionID, int budgetID) {
         transactionModel.deleteTransaction(transactionID, budgetID);
     }
@@ -71,6 +98,9 @@ public class TransactionPresenter {
         return budgetId;
     }
 
+    /**
+     * @return Eine Liste aller Transaktionen
+     */
     public BigDecimal getAllTransactions() {
         BigDecimal sum = new BigDecimal(0);
         List<Transactions> transactions = transactionsDao.fetchByBudgetId(budgetId);
