@@ -12,6 +12,7 @@ import presenters.TransactionPresenter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class TransactionModel {
         this.haveModel = haveModel;
     }
     //Hinzufügen einer Transaktion
-    public int addTransaction (String name, BigDecimal amount, String description, LocalDate date) {
+    public int addTransaction (String name, BigDecimal amount, String description, LocalDate transactiondate) {
         Transactions newTransaction = new Transactions();
         newTransaction.setTransactionName(name);
         newTransaction.setCategory("General");
@@ -41,7 +42,7 @@ public class TransactionModel {
         newTransaction.setAmmount(amount);
 
         newTransaction.setDescription(description);
-        newTransaction.setDate(date);
+        newTransaction.setDate(transactiondate);
         transactionsDao.insert(newTransaction);
 
         int getBudgetId = newTransaction.getBudgetId();
@@ -73,8 +74,14 @@ public class TransactionModel {
         ObservableList<String> transactions;
         List<String> transactionNames = new ArrayList<>();
             List<Transactions> budget = transactionsDao.fetchByBudgetId(budgetId);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             for (Transactions transaction : budget) {
-                transactionNames.add(transaction.getTransactionName() + " (" + transaction.getTransactionId() + ")  " + username + " - " + transaction.getAmmount() + " - " + transaction.getDescription());
+                String formattedDate = transaction.getDate().format(formatter);
+                transactionNames.add(transaction.getTransactionName() + " ("
+                        + transaction.getTransactionId() + ")  "
+                        + username + " - "
+                        + formattedDate + " - "
+                        + transaction.getAmmount() );
         }
         transactions = FXCollections.observableArrayList(transactionNames);
         return transactions;

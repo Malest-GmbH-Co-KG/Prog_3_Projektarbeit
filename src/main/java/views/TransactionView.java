@@ -14,6 +14,7 @@ import views.CustomListCell;
 
 import javax.swing.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class TransactionView {
     private final TransactionPresenter presenter;
@@ -37,14 +38,15 @@ public class TransactionView {
     }
 
     public void show(Stage stage) {
-        //
-        TextField platzhalterField = new TextField();
+
         // Liste der ausgeführten Transaktionen
         transactionList = new ListView<>();
         transactionList.setCellFactory(param -> new CustomListCell());
-        transactionList.setItems(presenter.getTransactionList());
+        ObservableList<String> transactions = presenter.getTransactionList();
+        transactionList.setItems(transactions);
+        transactionList.refresh();
 
-        // Textfeld um Descriptions anzuzeigen
+        // TextArea um Descriptions anzuzeigen
         showTransacDescrArea = new TextArea();
         showTransacDescrArea.setEditable(false);
         showTransacDescrArea.setWrapText(true);
@@ -81,6 +83,7 @@ public class TransactionView {
 
         addTransactButton.setOnAction(e -> {
             String transactionName = transactionNameField.getText();
+            LocalDate transactiondate = LocalDate.now();
             BigDecimal transactionAmount;
             String transactionDescription = transactionDescriptionField.getText();
             try {
@@ -89,7 +92,7 @@ public class TransactionView {
                 showError("Transaction Amount is not a valid number");
                 return;
             }
-            presenter.addTransaction(transactionName,transactionAmount, transactionDescription);
+            presenter.addTransaction(transactionName,transactionAmount, transactionDescription, transactiondate);
         });
 
         showDescriptionButton.setOnAction(e -> {
@@ -129,7 +132,7 @@ public class TransactionView {
 
         grid.add(transactionList, 0, 0, 2, 1);
 
-        grid.add(showTransacDescrArea, 2, 0, 3, 1);
+        grid.add(showTransacDescrArea, 2, 0, 2, 1);
         grid.add(showDescriptionButton, 0, 4);
 
         grid.add(transactionNameField, 0, 2);

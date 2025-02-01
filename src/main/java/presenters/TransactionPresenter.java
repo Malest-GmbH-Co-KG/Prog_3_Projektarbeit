@@ -25,7 +25,6 @@ public class TransactionPresenter {
     private int budgetId;
     BudgetPresenter budgetPresenter;
     String Username;
-    LocalDate date = LocalDate.now();
     Stage stage;
 
     public TransactionPresenter(UserDao userDao,BudgetPresenter budgetPresenter, HaveModel haveModel, Stage stage) {
@@ -49,8 +48,8 @@ public class TransactionPresenter {
     public void loadTransactions() {}
 
 
-    public void addTransaction (String transactionName, BigDecimal transactionAmount, String description) {
-        transactionModel.addTransaction(transactionName, transactionAmount,description,date );
+    public void addTransaction (String transactionName, BigDecimal transactionAmount, String description, LocalDate transactionDate) {
+        transactionModel.addTransaction(transactionName, transactionAmount,description,transactionDate );
     }
     public ObservableList<String> getTransactionList() {
         return transactionModel.getTransactionList();
