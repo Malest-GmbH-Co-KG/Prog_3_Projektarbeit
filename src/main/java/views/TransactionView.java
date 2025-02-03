@@ -36,6 +36,8 @@ public class TransactionView {
 
     private Label restAmmount;
     private Label restAmmount1;
+    private Label allUsersLabel;
+    private Label allUsersLabel1;
 
     public TransactionView(TransactionPresenter presenter) {
         this.presenter = presenter;
@@ -68,6 +70,7 @@ public class TransactionView {
          * 4. Zurückgehen zum vorherigen Fenster
          */
 
+
         Button addTransactButton = new Button("Add Transaction");
         Button showDescriptionButton = new Button("Show Description");
         Button deleteTransactionButton = new Button("Delete Transaction");
@@ -94,6 +97,10 @@ public class TransactionView {
         restAmmount1 = new Label((String.valueOf(getrestAmmount())));
 
         //Logik implementation für den Button zum Hinzufügen einer Transaktion
+        allUsersLabel = new Label("All Users:");
+        allUsersLabel1 = new Label((String.valueOf(presenter.getAllUsersforBudget())));
+
+
         addTransactButton.setOnAction(e -> {
             String transactionName = transactionNameField.getText();
             LocalDate transactiondate = LocalDate.now();
@@ -146,36 +153,30 @@ public class TransactionView {
         grid.setVgap(15);
         grid.setStyle("-fx-alignment: center;");
 
-        grid.add(transactionList, 0, 0, 2, 1);
+        grid.add(transactionList, 0, 0, 2, 2);
 
-        grid.add(showTransacDescrArea, 2, 0, 2, 1);
-        grid.add(showDescriptionButton, 0, 4);
+        grid.add(transactionNameField, 0, 3);
+        grid.add(transactionAmountField, 1, 3);
+        grid.add(transactionDescriptionField, 2, 3);
+        grid.add(transactionNameLabel, 0, 2);
+        grid.add(transactionAmountLabel, 1, 2);
+        grid.add(transactionDescriptionLabel, 2, 2);
+        grid.add(addTransactButton, 0, 4);
+        grid.add(backButton, 0, 5);
+        grid.add(deleteTransactionButton, 1, 5);
+        grid.add(messageLabel, 0, 6, 2, 1);
+        grid.add(BudgetAmmount, 0, 7);
+        grid.add(BudgetAmmount1, 1, 7);
+        grid.add(allTransactionAmmountLabel, 0, 8);
+        grid.add(allTransactionAmmountLabel1, 1, 8);
+        grid.add(restAmmount, 0, 9);
+        grid.add(restAmmount1, 1, 9);
+        grid.add(allUsersLabel, 2, 0);
+        grid.add(allUsersLabel1, 3, 0);
+        grid.add(showTransacDescrArea, 0, 10, 4, 1);
+        grid.add(showDescriptionButton, 1, 4);
 
-        grid.add(transactionNameField, 0, 2);
-        grid.add(transactionNameLabel, 0, 1);
-
-        grid.add(transactionAmountField, 1, 2);
-        grid.add(transactionAmountLabel, 1, 1);
-
-        grid.add(transactionDescriptionField, 2, 2);
-        grid.add(transactionDescriptionLabel, 2, 1);
-
-        grid.add(addTransactButton, 0, 3);
-        grid.add(backButton, 1, 4);
-        grid.add(deleteTransactionButton, 1, 3);
-
-        grid.add(messageLabel, 0, 5, 2, 1);
-
-        grid.add(BudgetAmmount, 0, 6);
-        grid.add(BudgetAmmount1, 1, 6);
-
-        grid.add(allTransactionAmmountLabel, 0, 7);
-        grid.add(allTransactionAmmountLabel1, 1, 7);
-
-        grid.add(restAmmount, 0, 8);
-        grid.add(restAmmount1, 1, 8);
-
-        Scene scene = new Scene(grid, 600, 400);
+        Scene scene = new Scene(grid, 800, 600);
         stage.setScene(scene);
         stage.setTitle("Transaction View");
         stage.show();

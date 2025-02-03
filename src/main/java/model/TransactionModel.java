@@ -1,12 +1,14 @@
 package model;
 
 import com.Prog_3_Projektarbeit.generated.tables.daos.TransactionsDao;
+import com.Prog_3_Projektarbeit.generated.tables.pojos.Budget;
 import com.Prog_3_Projektarbeit.generated.tables.pojos.Transactions;
 import com.Prog_3_Projektarbeit.generated.tables.daos.HaveDao;
 import com.Prog_3_Projektarbeit.generated.tables.pojos.Have;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import presenters.TransactionPresenter;
+
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

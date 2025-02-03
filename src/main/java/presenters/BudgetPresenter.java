@@ -10,6 +10,7 @@ import com.Prog_3_Projektarbeit.generated.tables.daos.UserDao;
 import model.HaveModel;
 import views.BudgetView;
 
+import java.util.List;
 
 
 public class BudgetPresenter {
@@ -31,9 +32,10 @@ public class BudgetPresenter {
         this.view = new BudgetView(this);
         this.stage = stage;
         this.loginPresenter = loginPresenter;
-        this.budgetModel = new BudgetModel(budgetDao,haveDao,this, haveModel);
+        this.budgetModel = new BudgetModel(budgetDao,haveDao,this, haveModel, userDao);
         this.transactionPresenter = new TransactionPresenter(userDao,this, haveModel, stage);
         view.setTransactionPresenter(transactionPresenter);
+        this.haveModel = haveModel;
 
     }
 
@@ -77,4 +79,12 @@ public class BudgetPresenter {
     }
 
     public Float getRestAmmount(int budgetId){ return transactionPresenter.getRestAmmount(budgetId);}
+
+    public boolean addUserToBudget(String username, int budgetId) {
+        return budgetModel.addUserToBudget(username, budgetId);
+    }
+
+    public List<String> getAllUsersforBudget(int budgetId) {
+        return haveModel.getAllUsersforBudget(budgetId);
+    }
 }

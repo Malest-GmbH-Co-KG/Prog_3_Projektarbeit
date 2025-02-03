@@ -1,6 +1,7 @@
 package model;
 
 import com.Prog_3_Projektarbeit.generated.tables.daos.BudgetDao;
+import com.Prog_3_Projektarbeit.generated.tables.daos.UserDao;
 import com.Prog_3_Projektarbeit.generated.tables.pojos.Budget;
 import com.Prog_3_Projektarbeit.generated.tables.daos.HaveDao;
 import com.Prog_3_Projektarbeit.generated.tables.pojos.Have;
@@ -15,6 +16,7 @@ import java.util.List;
 public class BudgetModel {
     private final BudgetDao budgetDao;
     private final HaveModel haveModel ;
+    private final UserDao userDao;
 
     public String getUsername() {
         return username;
@@ -24,11 +26,12 @@ public class BudgetModel {
     private BudgetPresenter presenter;
     private String username;
 
-    public BudgetModel(BudgetDao budgetDao, HaveDao haveDao, BudgetPresenter presenter, HaveModel haveModel) {
+    public BudgetModel(BudgetDao budgetDao, HaveDao haveDao, BudgetPresenter presenter, HaveModel haveModel, UserDao userDao) {
         this.budgetDao = budgetDao;
         this.haveDao = haveDao;
         this.presenter = presenter;
         this.haveModel = haveModel;
+        this.userDao = userDao;
     }
 
     public int addBudget(String name, float amount, String username) {
@@ -78,5 +81,17 @@ public class BudgetModel {
     }
     public Float getBudgetAmmount(int budgetId) {
         return budgetDao.fetchOneByBudgetId(budgetId).getAmmount();
+    }
+
+    public boolean addUserToBudget(String username, int budgetId) {
+        if (userDao.fetchOneByUserName(username) == null) {
+            return false;
+        }else {
+            Have newHave = new Have();
+            newHave.setUserName(username);
+            newHave.setBudgetId(budgetId);
+            haveDao.insert(newHave);
+            return true;
+        }
     }
 }

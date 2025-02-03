@@ -118,4 +118,9 @@ public class TransactionPresenter {
     public Float getRestAmmount(int budgetId) {
         this.budgetId = budgetId;
         return view.getrestAmmount(); }
+
+    public List<String> getAllUsersforBudget() {
+        List<String> users = budgetPresenter.getAllUsersforBudget(budgetId);
+        return users;
+    }
 }

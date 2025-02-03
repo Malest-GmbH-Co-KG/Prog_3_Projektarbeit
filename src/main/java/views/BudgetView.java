@@ -17,6 +17,7 @@ public class BudgetView {
     private Label messageLabel;
     private Label budgetNameLabel;
     private Label budgetAmountLabel;
+    private Label addUsertoBudgetLabel;
 
     public BudgetView(BudgetPresenter presenter) {
         this.presenter = presenter;
@@ -37,15 +38,20 @@ public class BudgetView {
 
         TextField budgetNameField = new TextField();
         TextField budgetAmountField = new TextField();
+        TextField addUsertoBudgetField = new TextField();
+
 
         Button addBudgetButton = new Button("Add Budget");
         Button backButton = new Button("Back");
         Button viewMovementsButton = new Button("View Transactions");
         Button deleteBudgetButton = new Button("Delete Budget");
+        Button addUsertoBudgetButton = new Button("Add User to Budget");
+        Button addUsertoBudgetButton1 = new Button("Add");
 
         messageLabel = new Label();
         budgetNameLabel = new Label("Budget Name:");
         budgetAmountLabel = new Label("Budget Amount:");
+        addUsertoBudgetLabel = new Label("Username:");
         //Aktionen für die Buttons
         addBudgetButton.setOnAction(e -> {
             String budgetName = budgetNameField.getText();
@@ -83,6 +89,40 @@ public class BudgetView {
                 showError("Please select a budget to delete.");
             }
         });
+        addUsertoBudgetButton.setOnAction(e -> {
+            if (budgetList.getSelectionModel().getSelectedItem() != null) {
+                showMessage("Please enter the username of the user you want to add to the budget.");
+                addUsertoBudgetButton1.setVisible(true);
+                addUsertoBudgetField.setVisible(true);
+                addUsertoBudgetLabel.setVisible(true);
+                addUsertoBudgetButton.setVisible(false);
+
+
+            }
+            else {
+                showError("Please select a budget to add a user.");
+            }
+        });
+
+        addUsertoBudgetButton1.setOnAction(e -> {
+            if (budgetList.getSelectionModel().getSelectedItem() != null) {
+                int budgetId = getBudgetIdfromList();
+                String username = addUsertoBudgetField.getText();
+                if (presenter.addUserToBudget(username, budgetId) == false) {
+                    showError("User does not exist or is already added to the budget.");
+                } else {
+                    showMessage("User added to budget.");
+                }
+                addUsertoBudgetButton.setVisible(true);
+                addUsertoBudgetButton1.setVisible(false);
+                addUsertoBudgetField.setVisible(false);
+                addUsertoBudgetLabel.setVisible(false);
+            }
+        });
+
+
+
+
         //Layout für die Budgets
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(15));
@@ -101,9 +141,22 @@ public class BudgetView {
         grid.add(backButton, 0, 4);
         grid.add(messageLabel, 0, 5, 2, 1);
         grid.add(deleteBudgetButton, 1, 4);
+        grid.add(addUsertoBudgetButton, 0, 6);
+        grid.add(addUsertoBudgetLabel, 0, 7);
+        grid.add(addUsertoBudgetField, 1, 7);
+        grid.add(addUsertoBudgetButton1, 0, 8);
+        addUsertoBudgetButton1.setVisible(false);
+        addUsertoBudgetField.setVisible(false);
+        addUsertoBudgetLabel.setVisible(false);
 
 
-        Scene scene = new Scene(grid, 600, 400);
+
+
+
+
+
+
+        Scene scene = new Scene(grid, 800, 600);
         stage.setScene(scene);
         stage.setTitle("User Budgets");
         stage.show();

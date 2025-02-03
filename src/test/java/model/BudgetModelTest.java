@@ -1,5 +1,6 @@
 package model;
 
+import com.Prog_3_Projektarbeit.generated.tables.daos.UserDao;
 import com.Prog_3_Projektarbeit.generated.tables.pojos.Budget;
 import com.Prog_3_Projektarbeit.generated.tables.pojos.Have;
 import org.junit.jupiter.api.Test;
@@ -32,6 +33,7 @@ class BudgetModelTest {
     private HaveDao haveDao;
     private BudgetPresenter presenter;
     private HaveModel haveModel;
+    private UserDao userDao;
 
 
     @BeforeEach
@@ -63,15 +65,29 @@ class BudgetModelTest {
     )
 """).execute();
 
+        dslContext.query("""
+    CREATE TABLE IF NOT EXISTS user (
+        user_name TEXT PRIMARY KEY,
+        vorname TEXT,
+        nachname TEXT,
+        password TEXT NOT NULL,
+        salt TEXT ,
+        created_at TEXT
+
+    )
+""").execute();
+
 
 
         // DAO und Presenter initialisieren
         budgetDao = new BudgetDao(dslContext.configuration());
         haveDao = new HaveDao(dslContext.configuration());
         haveModel = new HaveModel(dslContext);
+        userDao = new UserDao(dslContext.configuration());
+
 
         presenter = mock(BudgetPresenter.class); // Mocking the presenter
-        budgetModel = new BudgetModel(budgetDao,haveDao ,presenter, haveModel);
+        budgetModel = new BudgetModel(budgetDao,haveDao ,presenter, haveModel, userDao);
     }
 
     @AfterEach
