@@ -76,6 +76,13 @@ public class TransactionView {
         Button deleteTransactionButton = new Button("Delete Transaction");
         Button backButton = new Button("Back");
 
+        //Buttons, Textfelder und Labels für Änderung der Beschreibung
+
+        Button changeDescriptionButton = new Button("Change Description");
+        Button changeDescriptionButton1 = new Button("Change");
+        TextField changeDescriptionField = new TextField();
+        Label changeDescriptionLabel = new Label("New Description:");
+
         // Zeigt die Error-Message an
         messageLabel = new Label();
 
@@ -100,7 +107,7 @@ public class TransactionView {
         allUsersLabel = new Label("All Users:");
         allUsersLabel1 = new Label((String.valueOf(presenter.getAllUsersforBudget())));
 
-
+        //Logik implementation für den Button zum Hinzufügen einer Transaktion
         addTransactButton.setOnAction(e -> {
             String transactionName = transactionNameField.getText();
             LocalDate transactiondate = LocalDate.now();
@@ -146,6 +153,35 @@ public class TransactionView {
             }
         });
 
+        //Logik implementation für den Button zum Ändern der Beschreibung
+        changeDescriptionButton.setOnAction(e -> {
+            if (transactionList.getSelectionModel().getSelectedItem() != null) {
+                changeDescriptionButton1.setVisible(true);
+                changeDescriptionField.setVisible(true);
+                changeDescriptionLabel.setVisible(true);
+                changeDescriptionButton.setVisible(false);
+            }
+            else{
+                showError("Select a transaction to change");
+            }
+        });
+
+        changeDescriptionButton1.setOnAction(e -> {
+            if(transactionList.getSelectionModel().getSelectedItem() != null) {
+                String description = changeDescriptionField.getText();
+                int transactionId = getTransactionId();
+                if (transactionId != -1) {
+                    presenter.changeDescription(transactionId,description);
+                    String newDescription = presenter.getTransactionDescription(transactionId);
+                    showTransactionDescription(newDescription);
+                } else {
+                    showError("Could not determine transaction ID.");
+                }
+            } else {
+                showError("Select a transaction first!");
+            }
+        });
+
         //Ersteller des GUI's
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(15));
@@ -175,6 +211,13 @@ public class TransactionView {
         grid.add(allUsersLabel1, 3, 0);
         grid.add(showTransacDescrArea, 0, 10, 4, 1);
         grid.add(showDescriptionButton, 1, 4);
+        grid.add(changeDescriptionButton, 2, 4);
+        grid.add(changeDescriptionButton1, 3, 5);
+        changeDescriptionButton1.setVisible(false);
+        grid.add(changeDescriptionField, 2, 5);
+        changeDescriptionField.setVisible(false);
+        grid.add(changeDescriptionLabel, 2, 4);
+        changeDescriptionLabel.setVisible(false);
 
         Scene scene = new Scene(grid, 800, 600);
         stage.setScene(scene);

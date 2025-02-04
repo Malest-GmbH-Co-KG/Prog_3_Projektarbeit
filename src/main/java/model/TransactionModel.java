@@ -53,7 +53,6 @@ public class TransactionModel {
         newTransaction.setBudgetId(budgetId);
         newTransaction.setUserId(username);
         newTransaction.setAmmount(amount);
-
         newTransaction.setDescription(description);
         newTransaction.setDate(transactiondate);
         transactionsDao.insert(newTransaction);
@@ -124,6 +123,12 @@ public class TransactionModel {
      */
     public Transactions getTransactionById(int transactionId) {
         return transactionsDao.fetchOneByTransactionId(transactionId);
+    }
+
+    public void changeDescription(int transactionID, String description) {
+        Transactions transaction = getTransactionById(transactionID);
+        transaction.setDescription(description);
+        transactionsDao.update(transaction);
     }
 
 }

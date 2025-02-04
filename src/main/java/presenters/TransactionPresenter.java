@@ -123,4 +123,9 @@ public class TransactionPresenter {
         List<String> users = budgetPresenter.getAllUsersforBudget(budgetId);
         return users;
     }
+
+    public void changeDescription(int transactionId, String description) {
+        transactionModel.changeDescription(transactionId, description);
+    }
+
 }
