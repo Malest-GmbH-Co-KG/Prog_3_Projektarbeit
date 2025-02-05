@@ -27,6 +27,15 @@ public class TransactionModel {
     private final TransactionsDao transactionsDao;
     private final HaveDao haveDao;
     private final HaveModel haveModel;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public int getBudgetId() {
+        return budgetId;
+    }
+
     private TransactionPresenter presenter;
     private String username;
     private int budgetId;

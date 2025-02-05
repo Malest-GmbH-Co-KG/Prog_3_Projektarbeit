@@ -174,6 +174,10 @@ public class TransactionView {
                     presenter.changeDescription(transactionId,description);
                     String newDescription = presenter.getTransactionDescription(transactionId);
                     showTransactionDescription(newDescription);
+                    changeDescriptionButton1.setVisible(false);
+                    changeDescriptionField.setVisible(false);
+                    changeDescriptionLabel.setVisible(false);
+                    changeDescriptionButton.setVisible(true);
                 } else {
                     showError("Could not determine transaction ID.");
                 }
