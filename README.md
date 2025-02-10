@@ -1,7 +1,8 @@
 # Prog_3_Projektarbeit
 
 + IDE Requirements:
-+ java 21
++ Java 21
++ Maven 4.0.0
 ---
 # Quick Start Anleitung: 
 + IDE Terminal öffnen
