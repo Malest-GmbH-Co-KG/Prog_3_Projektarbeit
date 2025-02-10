@@ -124,18 +124,7 @@ public class TransactionView {
 
         //Logik implementation für den Button zum Anzeigen einer Beschreibung
         showDescriptionButton.setOnAction(e -> {
-            String selectedTransaction = transactionList.getSelectionModel().getSelectedItem();
-            if (selectedTransaction != null) {
-                int transactionId = getTransactionId();
-                if (transactionId != -1) {
-                    String description = presenter.getTransactionDescription(transactionId);
-                    showTransactionDescription(description);
-                } else {
-                    showError("Could not determine transaction ID.");
-                }
-            } else {
-                showError("Select a transaction first!");
-            }
+            showTransactionDescription();
         });
 
         //Logik implementation für den Button zum Zurückgehen ins vorherige Fenster
@@ -172,8 +161,8 @@ public class TransactionView {
                 int transactionId = getTransactionId();
                 if (transactionId != -1) {
                     presenter.changeDescription(transactionId,description);
-                    String newDescription = presenter.getTransactionDescription(transactionId);
-                    showTransactionDescription(newDescription);
+
+                    showTransactionDescription();
                     changeDescriptionButton1.setVisible(false);
                     changeDescriptionField.setVisible(false);
                     changeDescriptionLabel.setVisible(false);
@@ -229,6 +218,8 @@ public class TransactionView {
         stage.show();
 
         presenter.loadTransactions();
+
+
     }
 
     public void showError(String message) {
@@ -240,8 +231,20 @@ public class TransactionView {
         return presenter.getBudgetAmmount() + (Float.parseFloat(String.valueOf(presenter.getAllTransactions())));
     }
 
-    private void showTransactionDescription(String description) {
-        showTransacDescrArea.setText(description);
+    private void showTransactionDescription() {
+        String selectedTransaction = transactionList.getSelectionModel().getSelectedItem();
+        if (selectedTransaction != null) {
+            int transactionId = getTransactionId();
+            if (transactionId != -1) {
+                String description = presenter.getTransactionDescription(transactionId);
+                showTransacDescrArea.setText(description);
+            } else {
+                showError("Could not determine transaction ID.");
+            }
+        } else {
+            showError("Select a transaction first!");
+        }
+
     }
 
     public int getTransactionId(){
