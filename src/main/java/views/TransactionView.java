@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.TextBoundsType;
+import javafx.stage.Popup;
+import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
 import org.jooq.Transaction;
 import presenters.BudgetPresenter;
@@ -256,6 +258,35 @@ public class TransactionView {
         } else {
             return -1;
         }
+
+    }
+
+    public void lowBudgetWarning(){
+        final Stage popup = new Stage();
+
+        //Button und Felder erstellung
+        Label warning = new Label("!Budget Low!");
+        Button okButton = new Button("OK");
+
+        //Logik des Buttons
+        okButton.setOnAction(e -> {
+            popup.close();
+        });
+
+        //Ersteller des GUI
+        GridPane grid = new GridPane();
+        grid.setPadding(new Insets(15));
+        grid.setHgap(15);
+        grid.setVgap(15);
+        grid.setStyle("-fx-alignment: center;");
+
+        grid.add(warning, 0, 0);
+        grid.add(okButton, 0, 1);
+
+        Scene scene = new Scene(grid, 200, 100);
+        popup.setScene(scene);
+        popup.setTitle("Low Budget Warning");
+        popup.show();
 
     }
 }

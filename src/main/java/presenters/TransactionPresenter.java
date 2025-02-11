@@ -62,6 +62,9 @@ public class TransactionPresenter {
      */
     public void addTransaction (String transactionName, BigDecimal transactionAmount, String description, LocalDate transactionDate) {
         transactionModel.addTransaction(transactionName, transactionAmount,description,transactionDate );
+        if(getRestAmmount(budgetId) < (getBudgetAmmount()*0.2)){
+            view.lowBudgetWarning();
+        }
     }
 
     /**
