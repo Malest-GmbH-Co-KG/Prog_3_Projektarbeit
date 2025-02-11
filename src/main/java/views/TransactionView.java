@@ -9,6 +9,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.TextBoundsType;
 import javafx.stage.Stage;
 import org.jooq.Transaction;
+import presenters.BudgetPresenter;
 import presenters.TransactionPresenter;
 import views.CustomListCell;
 
@@ -18,6 +19,7 @@ import java.time.LocalDate;
 
 public class TransactionView {
     private final TransactionPresenter presenter;
+    private BudgetPresenter budgetPresenter;
     private ListView<String> transactionList;
 
     private TextArea showTransacDescrArea;
@@ -39,15 +41,16 @@ public class TransactionView {
     private Label allUsersLabel;
     private Label allUsersLabel1;
 
-    public TransactionView(TransactionPresenter presenter) {
+    public TransactionView(TransactionPresenter presenter, BudgetPresenter budgetPresenter) {
         this.presenter = presenter;
+        this.budgetPresenter = budgetPresenter;
     }
 
     public void show(Stage stage) {
 
         // Liste der ausgeführten Transaktionen
         transactionList = new ListView<>();
-        transactionList.setCellFactory(param -> new CustomListCell());
+        transactionList.setCellFactory(param -> new CustomListCell(budgetPresenter));
         ObservableList<String> transactions = presenter.getTransactionList();
         transactionList.setItems(transactions);
         transactionList.refresh();
@@ -227,8 +230,6 @@ public class TransactionView {
         stage.setScene(scene);
         stage.setTitle("Transaction View");
         stage.show();
-
-        presenter.loadTransactions();
     }
 
     public void showError(String message) {

@@ -35,7 +35,7 @@ public class TransactionPresenter {
 
         this.transactionsDao = new TransactionsDao(userDao.configuration());
         this.haveDao = new HaveDao(userDao.configuration());
-        this.view = new TransactionView(this);
+        this.view = new TransactionView(this,budgetPresenter);
         this.stage = stage;
         this.budgetPresenter = budgetPresenter;
         this.transactionModel = new TransactionModel(haveDao,transactionsDao,this, haveModel);
@@ -52,8 +52,6 @@ public class TransactionPresenter {
         transactionModel.setCurrentUser(Username, budgetId);
         view.show(stage);
     }
-
-    public void loadTransactions() {}
 
     /** <h3>Übergibt die hinzuzufügende Transaktion</h3>
      *

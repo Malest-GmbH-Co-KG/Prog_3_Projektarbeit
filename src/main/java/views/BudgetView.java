@@ -32,7 +32,7 @@ public class BudgetView {
     public void show(Stage stage) {
         // Layout für die Budgets
         budgetList = new ListView<>();
-        budgetList.setCellFactory(param -> new CustomListCell());
+        budgetList.setCellFactory(param -> new CustomListCell(presenter));
         budgetList.setItems(presenter.getBudgetList());
 
 
