@@ -99,7 +99,5 @@ class LoginPresenterTest {
     }
 
 
-    @Test
-    void updateUser() {
-    }
+
 }

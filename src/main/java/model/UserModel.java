@@ -73,13 +73,13 @@ public class UserModel {
         return null;
     }
 
-    public boolean updateUser(String oldusername, String newusername, String newpassword) {
+    public boolean updateUser(String oldusername, String newusername) {
         List<User> user = userDao.fetchByUserName(oldusername);
 
         if (!user.isEmpty() && isUsernameAvailable(newusername)) {
             userDao.delete(user.get(0));
             user.get(0).setUserName(newusername);
-            user.get(0).setPassword(newpassword);
+
             userDao.insert(user.get(0));
 
             return true;

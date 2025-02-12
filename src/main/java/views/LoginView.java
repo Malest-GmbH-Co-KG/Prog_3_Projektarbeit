@@ -29,6 +29,9 @@ public class LoginView {
     private Label messageLabel;
     private Stage primaryStage;
 
+    private TextField oldUsernameField;
+    private TextField newUserNameField;
+
     public LoginView(Stage stage) {
         this.primaryStage = stage;
     }
@@ -87,20 +90,62 @@ public class LoginView {
         // Update User Section
         Button updateUserButton = new Button("Update User");
         grid.add(updateUserButton, 1, 8);
+        Button updateUserButton1 = new Button("Update User now");
+        Label oldUsernameLabel = new Label("Old Username:");
+        Label newUserNameLabel = new Label("New Username:");
+        oldUsernameField = new TextField();
+        newUserNameField = new TextField();
+        updateUserButton1.setVisible(false);
+
+
+        grid.add(oldUsernameLabel, 0, 9);
+        grid.add(oldUsernameField, 1, 9);
+        grid.add(newUserNameLabel, 0, 10);
+        grid.add(newUserNameField, 1, 10);
+        grid.add(updateUserButton1, 1, 11);
+
+        oldUsernameField.setVisible(false);
+        newUserNameField.setVisible(false);
+        oldUsernameLabel.setVisible(false);
+        newUserNameLabel.setVisible(false);
+
+        updateUserButton.setOnAction(e -> {
+            oldUsernameField.setVisible(true);
+            newUserNameField.setVisible(true);
+            oldUsernameLabel.setVisible(true);
+            newUserNameLabel.setVisible(true);
+            updateUserButton.setVisible(false);
+            updateUserButton1.setVisible(true);
+        });
+
+        updateUserButton1.setOnAction(e -> {
+            String oldUsername = oldUsernameField.getText();
+            String newUsername = newUserNameField.getText();
+            presenter.updateUser(oldUsername, newUsername);
+            oldUsernameField.setVisible(false);
+            newUserNameField.setVisible(false);
+            oldUsernameLabel.setVisible(false);
+            newUserNameLabel.setVisible(false);
+            updateUserButton1.setVisible(false);
+            updateUserButton.setVisible(true);
+        });
+
+
+
 
         // Message Label
         messageLabel = new Label();
         messageLabel.setVisible(true);
-        grid.add(messageLabel, 0, 9, 2, 1);
+        grid.add(messageLabel, 0, 12, 2, 1);
 
         // Button Actions
         loginButton.setOnAction(e -> authenticateUser());
         createUserButton.setOnAction(e -> createUser());
-        updateUserButton.setOnAction(e -> updateUser());
+
 
         // Set Scene
 
-        Scene scene = new Scene(grid, 600, 400);
+        Scene scene = new Scene(grid, 800, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -119,11 +164,7 @@ public class LoginView {
         presenter.createUser(newUsername, newVorname, newNachname, newPassword);
     }
 
-    private void updateUser() {
-        String newUsername = newUsernameField.getText();
-        String newPassword = newPasswordField.getText();
-        presenter.updateUser("beispeil", newUsername, newPassword); // Example userId (1) for testing
-    }
+
 
     public void showSuccess(String message) {
         messageLabel.setText(message);

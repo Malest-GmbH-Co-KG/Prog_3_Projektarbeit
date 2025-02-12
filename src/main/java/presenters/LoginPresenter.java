@@ -87,8 +87,8 @@ public class LoginPresenter {
         return false;
     }
 
-    public boolean updateUser(String oldusername, String newUsername, String newPassword) {
-        boolean success = userModel.updateUser(oldusername, newUsername, newPassword);
+    public boolean updateUser(String oldusername, String newUsername) {
+        boolean success = userModel.updateUser(oldusername, newUsername);
         if (success) {
             view.showSuccess("User updated successfully");
             return true;
