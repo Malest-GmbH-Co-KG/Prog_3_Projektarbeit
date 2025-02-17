@@ -81,42 +81,42 @@ public class TransactionView {
          */
 
 
-        Button addTransactButton = new Button("Add Transaction");
-        Button showDescriptionButton = new Button("Show Description");
-        Button deleteTransactionButton = new Button("Delete Transaction");
-        Button backButton = new Button("Back");
+        Button addTransactButton = new Button("Transaktion hinzufügen");
+        Button showDescriptionButton = new Button("Beschreibung anzeigen");
+        Button deleteTransactionButton = new Button("Transaktion löschen");
+        Button backButton = new Button("Zurück");
 
         //Buttons, Textfelder und Labels für Änderung der Beschreibung
 
-        Button changeDescriptionButton = new Button("Change Description");
-        Button changeDescriptionButton1 = new Button("Change");
+        Button changeDescriptionButton = new Button("Beschreibung ändern");
+        Button changeDescriptionButton1 = new Button("ändern");
         TextField changeDescriptionField = new TextField();
-        Label changeDescriptionLabel = new Label("New Description:");
+        Label changeDescriptionLabel = new Label("Neue Beschreibung:");
 
         // Zeigt die Error-Message an
         messageLabel = new Label();
 
         //Labels für das Hinzufügen einer Transaktion
-        transactionNameLabel = new Label("Transaction Name:");
-        transactionAmountLabel = new Label("Transaction Amount:");
-        transactionDescriptionLabel = new Label("Transaction Description:");
+        transactionNameLabel = new Label("Transaktionsname:");
+        transactionAmountLabel = new Label("Transaktionsbetrag:");
+        transactionDescriptionLabel = new Label("Transaktionsbeschreibung:");
 
         //Label zum Anzeigen des Budgets
-        BudgetAmmount = new Label("Budget Ammount:");
+        BudgetAmmount = new Label("Budgetsumme:");
         BudgetAmmount1 = new Label((String.valueOf(presenter.getBudgetAmmount())));
 
         //Label zum Anzeigen der Gesamttransaktionen
-        allTransactionAmmountLabel = new Label("All Transaction Ammount:");
+        allTransactionAmmountLabel = new Label("Summe aller Transaktionen:");
         allTransactionAmmountLabel1 = new Label((String.valueOf(presenter.getAllTransactions())));
 
         //Label zum Anzeigen des Restbetrags
-        restAmmount = new Label("Rest Ammount:");
+        restAmmount = new Label("Restsumme:");
         restAmmount1 = new Label();
         restAmmount1.setText(restAmmount_Fun());
 
 
         //Logik implementation für den Button zum Hinzufügen einer Transaktion
-        allUsersLabel = new Label("All Users:");
+        allUsersLabel = new Label("Alle Nutzer:");
         allUsersLabel1 = new Label((String.valueOf(presenter.getAllUsersforBudget())));
 
         //Logik implementation für den Button zum Hinzufügen einer Transaktion
@@ -128,7 +128,7 @@ public class TransactionView {
             try {
                 transactionAmount = Float.parseFloat(transactionAmountField.getText());
             } catch (NumberFormatException ex) {
-                showError("Transaction Amount is not a valid number");
+                showError("Transaktionsbetrag ist keine gültige Zahl");
                 return;
             }
             presenter.addTransaction(transactionName,transactionAmount, transactionDescription, transactiondate);
@@ -150,7 +150,7 @@ public class TransactionView {
                 int transactionId = getTransactionId();
                 presenter.deleteTransaction(transactionId, presenter.getBudgetId());
             } else {
-                showError("Select a transaction to delete");
+                showError("Wähle eine Transaktion, die gelöscht werden soll");
             }
         });
 
@@ -163,7 +163,7 @@ public class TransactionView {
                 changeDescriptionButton.setVisible(false);
             }
             else{
-                showError("Select a transaction to change");
+                showError("Wähle eine Transaktion, die geändert werden soll");
             }
         });
 
@@ -179,10 +179,10 @@ public class TransactionView {
                     changeDescriptionLabel.setVisible(false);
                     changeDescriptionButton.setVisible(true);
                 } else {
-                    showError("Could not determine transaction ID.");
+                    showError("Die Transaktions Id konnte nicht gefunden werden");
                 }
             } else {
-                showError("Select a transaction first!");
+                showError("Wähle zuerst eine Transaktion!");
             }
         });
 
@@ -249,10 +249,10 @@ public class TransactionView {
                 String description = presenter.getTransactionDescription(transactionId);
                 showTransacDescrArea.setText(description);
             } else {
-                showError("Could not determine transaction ID.");
+                showError("Die Transaktions Id konnte nicht gefunden werden.");
             }
         } else {
-            showError("Select a transaction first!");
+            showError("Wähle zuerst eine Transaktion!");
         }
 
     }
@@ -274,7 +274,7 @@ public class TransactionView {
         final Stage popup = new Stage();
 
         //Button und Felder erstellung
-        Label warning = new Label("!Budget Low!");
+        Label warning = new Label("!Budget Niedrig!");
         Button okButton = new Button("OK");
 
         //Logik des Buttons
@@ -294,7 +294,7 @@ public class TransactionView {
 
         Scene scene = new Scene(grid, 200, 100);
         popup.setScene(scene);
-        popup.setTitle("Low Budget Warning");
+        popup.setTitle("Niedriges Budget Warnung");
         popup.show();
 
     }
@@ -323,8 +323,8 @@ public class TransactionView {
 
         // Erstelle die Daten für das Pie Chart
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-                new PieChart.Data("Rest Amount", restAmount),
-                new PieChart.Data("Budget Amount", budgetAmount - restAmount)
+                new PieChart.Data("Restsumme", restAmount),
+                new PieChart.Data("Budgetsumme", budgetAmount - restAmount)
         );
 
         // erstelle das Pie Chart
@@ -332,7 +332,7 @@ public class TransactionView {
 
         // Farben für die Daten
         for (PieChart.Data data : pieChart.getData()) {
-            if (data.getName().equals("Rest Amount")) {
+            if (data.getName().equals("Restsumme")) {
                 data.getNode().setStyle("-fx-pie-color: green;");
             } else {
                 data.getNode().setStyle("-fx-pie-color: red;");
@@ -357,7 +357,7 @@ public class TransactionView {
     }
 
     public void highBudgetWarning() {
-        showError("Budget is too high");
+        showError("Budget ist zu groß");
 
 
 

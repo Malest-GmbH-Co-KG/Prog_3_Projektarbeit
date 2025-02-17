@@ -44,7 +44,7 @@ public class LoginView {
 
     public void start() {
 
-        primaryStage.setTitle("User Management");
+        primaryStage.setTitle("Nutzer Management");
 
         // Layout for the login form
         GridPane grid = new GridPane();
@@ -54,11 +54,11 @@ public class LoginView {
         grid.setStyle("-fx-alignment: center;");
 
         // Login Section
-        Label usernameLabel = new Label("Username:");
+        Label usernameLabel = new Label("Nutzername:");
         usernameField = new TextField();
-        Label passwordLabel = new Label("Password:");
+        Label passwordLabel = new Label("Passwort:");
         passwordField = new PasswordField();
-        Button loginButton = new Button("Login");
+        Button loginButton = new Button("Einloggen");
 
         grid.add(usernameLabel, 0, 0);
         grid.add(usernameField, 1, 0);
@@ -67,15 +67,15 @@ public class LoginView {
         grid.add(loginButton, 1, 2);
 
         // Create User Section
-        Label newUsernameLabel = new Label("New Username:");
+        Label newUsernameLabel = new Label("Neuer Nutzername:");
         newUsernameField = new TextField();
         Label newVornameLabel = new Label("Vorname:");
         newVornameField = new TextField();
         Label newNachnameLabel = new Label("Nachname:");
         newNachnameField = new TextField();
-        Label newPasswordLabel = new Label("New Password:");
+        Label newPasswordLabel = new Label("Neues Passwort:");
         newPasswordField = new PasswordField();
-        Button createUserButton = new Button("Create User");
+        Button createUserButton = new Button("Nutzer erstellen");
 
         grid.add(newUsernameLabel, 0, 3);
         grid.add(newUsernameField, 1, 3);
@@ -88,11 +88,11 @@ public class LoginView {
         grid.add(createUserButton, 1, 7);
 
         // Update User Section
-        Button updateUserButton = new Button("Update User");
+        Button updateUserButton = new Button("Nutzer updaten");
         grid.add(updateUserButton, 1, 8);
-        Button updateUserButton1 = new Button("Update User now");
-        Label oldUsernameLabel = new Label("Old Username:");
-        Label newUserNameLabel = new Label("New Username:");
+        Button updateUserButton1 = new Button("Jetzt Nutzer updaten");
+        Label oldUsernameLabel = new Label("Alter Nutzername:");
+        Label newUserNameLabel = new Label("Neuer Nutzername:");
         oldUsernameField = new TextField();
         newUserNameField = new TextField();
         updateUserButton1.setVisible(false);

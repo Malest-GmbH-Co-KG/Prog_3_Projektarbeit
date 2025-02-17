@@ -41,17 +41,17 @@ public class BudgetView {
         TextField addUsertoBudgetField = new TextField();
 
 
-        Button addBudgetButton = new Button("Add Budget");
-        Button backButton = new Button("Logout");
-        Button viewMovementsButton = new Button("View Transactions");
-        Button deleteBudgetButton = new Button("Delete Budget");
-        Button addUsertoBudgetButton = new Button("Add User to Budget");
-        Button addUsertoBudgetButton1 = new Button("Add");
+        Button addBudgetButton = new Button("Budget hinzufügen");
+        Button backButton = new Button("Ausloggen");
+        Button viewMovementsButton = new Button("Transaktionen ansehen");
+        Button deleteBudgetButton = new Button("Budget löschen");
+        Button addUsertoBudgetButton = new Button("Nutzer zu Budget hinzufügen");
+        Button addUsertoBudgetButton1 = new Button("Hinzufügen");
 
         messageLabel = new Label();
         budgetNameLabel = new Label("Budget Name:");
-        budgetAmountLabel = new Label("Budget Amount:");
-        addUsertoBudgetLabel = new Label("Username:");
+        budgetAmountLabel = new Label("Budgetsumme:");
+        addUsertoBudgetLabel = new Label("Nutzername:");
         //Aktionen für die Buttons
         addBudgetButton.setOnAction(e -> {
             String budgetName = budgetNameField.getText();
@@ -59,7 +59,7 @@ public class BudgetView {
             try {
                 budgetAmount = Float.parseFloat(budgetAmountField.getText());
             } catch (NumberFormatException ex) {
-                showError("Amount must be a valid number.");
+                showError("Der Betrag ist keine gültige Zahl.");
                 return;
             }
             presenter.addBudget(budgetName, budgetAmount);
@@ -75,7 +75,7 @@ public class BudgetView {
                 //Aufruf der Methode um die Bewegungen anzuzeigen
                 transactionPresenter.showTransactions(budgetId, presenter.getUsername());
             } else {
-                showError("Please select a budget to view transactions.");
+                showError("Bitte wählen Sie ein Budget um die Transaktionen zu sehen.");
             }
         }
 
@@ -86,12 +86,12 @@ public class BudgetView {
                 int budgetId = getBudgetIdfromList();
                 presenter.deleteBudget(budgetId);
             } else {
-                showError("Please select a budget to delete.");
+                showError("Bitte wählen Sie ein Budget, das gelöscht werden soll.");
             }
         });
         addUsertoBudgetButton.setOnAction(e -> {
             if (budgetList.getSelectionModel().getSelectedItem() != null) {
-                showMessage("Please enter the username of the user you want to add to the budget.");
+                showMessage("Bitte geben Sie den Benutzernamen ein, den Sie zum Budget hinzufügen möchten.");
                 addUsertoBudgetButton1.setVisible(true);
                 addUsertoBudgetField.setVisible(true);
                 addUsertoBudgetLabel.setVisible(true);
@@ -100,7 +100,7 @@ public class BudgetView {
 
             }
             else {
-                showError("Please select a budget to add a user.");
+                showError("Bitte wählen Sie ein Budget aus, um einen Benutzer hinzuzufügen.");
             }
         });
 
@@ -109,9 +109,9 @@ public class BudgetView {
                 int budgetId = getBudgetIdfromList();
                 String username = addUsertoBudgetField.getText();
                 if (presenter.addUserToBudget(username, budgetId) == false) {
-                    showError("User does not exist or is already added to the budget.");
+                    showError("Der Nutzer existiert nicht oder ist bereits im Budget.");
                 } else {
-                    showMessage("User added to budget.");
+                    showMessage("Benutzer zum Budget hinzugefügt.");
                 }
                 addUsertoBudgetButton.setVisible(true);
                 addUsertoBudgetButton1.setVisible(false);
