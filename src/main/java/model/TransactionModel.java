@@ -55,7 +55,7 @@ public class TransactionModel {
      * @param description Beschreibeung der Transaktion
      * @param transactiondate Datum der Transaktion
      */
-    public int addTransaction (String name, BigDecimal amount, String description, LocalDate transactiondate) {
+    public int addTransaction (String name, float amount, String description, LocalDate transactiondate) {
         Transactions newTransaction = new Transactions();
         newTransaction.setTransactionName(name);
         newTransaction.setCategory("General");

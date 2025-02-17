@@ -5,7 +5,6 @@ package com.Prog_3_Projektarbeit.generated.tables.pojos;
 
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 
@@ -22,7 +21,7 @@ public class Transactions implements Serializable {
     private Integer budgetId;
     private String userId;
     private String category;
-    private BigDecimal ammount;
+    private Float ammount;
     private LocalDate date;
     private String description;
 
@@ -45,7 +44,7 @@ public class Transactions implements Serializable {
         Integer budgetId,
         String userId,
         String category,
-        BigDecimal ammount,
+        Float ammount,
         LocalDate date,
         String description
     ) {
@@ -132,14 +131,14 @@ public class Transactions implements Serializable {
     /**
      * Getter for <code>Transactions.ammount</code>.
      */
-    public BigDecimal getAmmount() {
+    public Float getAmmount() {
         return this.ammount;
     }
 
     /**
      * Setter for <code>Transactions.ammount</code>.
      */
-    public void setAmmount(BigDecimal ammount) {
+    public void setAmmount(Float ammount) {
         this.ammount = ammount;
     }
 

@@ -50,7 +50,9 @@ public class TransactionPresenter {
         this.Username = username;
         this.budgetId = budgetId;
         transactionModel.setCurrentUser(Username, budgetId);
+        view.setStageMaximized(stage);
         view.show(stage);
+
     }
 
     /** <h3>Übergibt die hinzuzufügende Transaktion</h3>
@@ -60,10 +62,21 @@ public class TransactionPresenter {
      * @param description Beschreibung der Transaktion
      * @param transactionDate Datum der Transaktion
      */
-    public void addTransaction (String transactionName, BigDecimal transactionAmount, String description, LocalDate transactionDate) {
-        transactionModel.addTransaction(transactionName, transactionAmount,description,transactionDate );
+    public void addTransaction (String transactionName, float transactionAmount, String description, LocalDate transactionDate) {
+
         if(getRestAmmount(budgetId) < (getBudgetAmmount()*0.2)){
             view.lowBudgetWarning();
+
+        }
+        if (transactionAmount > getBudgetAmmount()) {
+            view.highBudgetWarning();
+            view.setStageMaximized(stage);
+        }else if (getAllTransactions()+transactionAmount > getBudgetAmmount()) {
+            view.highBudgetWarning();
+            view.setStageMaximized(stage);
+
+        }else{
+            transactionModel.addTransaction(transactionName, transactionAmount,description,transactionDate );
         }
     }
 
@@ -102,11 +115,11 @@ public class TransactionPresenter {
     /**
      * @return Eine Liste aller Transaktionen
      */
-    public BigDecimal getAllTransactions() {
-        BigDecimal sum = new BigDecimal(0);
+    public float getAllTransactions() {
+        float sum = 0;
         List<Transactions> transactions = transactionsDao.fetchByBudgetId(budgetId);
         for (Transactions transaction : transactions) {
-            sum = sum.add(transaction.getAmmount());
+            sum = sum + transaction.getAmmount().floatValue();
         }
         return sum;
     }

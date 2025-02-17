@@ -6,7 +6,6 @@ package com.Prog_3_Projektarbeit.generated.tables.records;
 
 import com.Prog_3_Projektarbeit.generated.tables.Transactions;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import org.jooq.Record1;
@@ -94,15 +93,15 @@ public class TransactionsRecord extends UpdatableRecordImpl<TransactionsRecord> 
     /**
      * Setter for <code>Transactions.ammount</code>.
      */
-    public void setAmmount(BigDecimal value) {
+    public void setAmmount(Float value) {
         set(5, value);
     }
 
     /**
      * Getter for <code>Transactions.ammount</code>.
      */
-    public BigDecimal getAmmount() {
-        return (BigDecimal) get(5);
+    public Float getAmmount() {
+        return (Float) get(5);
     }
 
     /**
@@ -156,7 +155,7 @@ public class TransactionsRecord extends UpdatableRecordImpl<TransactionsRecord> 
     /**
      * Create a detached, initialised TransactionsRecord
      */
-    public TransactionsRecord(Integer transactionId, String transactionName, Integer budgetId, String userId, String category, BigDecimal ammount, LocalDate date, String description) {
+    public TransactionsRecord(Integer transactionId, String transactionName, Integer budgetId, String userId, String category, Float ammount, LocalDate date, String description) {
         super(Transactions.TRANSACTIONS);
 
         setTransactionId(transactionId);

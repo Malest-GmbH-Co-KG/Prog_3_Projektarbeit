@@ -7,7 +7,6 @@ package com.Prog_3_Projektarbeit.generated.tables.daos;
 import com.Prog_3_Projektarbeit.generated.tables.Transactions;
 import com.Prog_3_Projektarbeit.generated.tables.records.TransactionsRecord;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -134,14 +133,14 @@ public class TransactionsDao extends DAOImpl<TransactionsRecord, com.Prog_3_Proj
      * Fetch records that have <code>ammount BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<com.Prog_3_Projektarbeit.generated.tables.pojos.Transactions> fetchRangeOfAmmount(BigDecimal lowerInclusive, BigDecimal upperInclusive) {
+    public List<com.Prog_3_Projektarbeit.generated.tables.pojos.Transactions> fetchRangeOfAmmount(Float lowerInclusive, Float upperInclusive) {
         return fetchRange(Transactions.TRANSACTIONS.AMMOUNT, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>ammount IN (values)</code>
      */
-    public List<com.Prog_3_Projektarbeit.generated.tables.pojos.Transactions> fetchByAmmount(BigDecimal... values) {
+    public List<com.Prog_3_Projektarbeit.generated.tables.pojos.Transactions> fetchByAmmount(Float... values) {
         return fetch(Transactions.TRANSACTIONS.AMMOUNT, values);
     }
 

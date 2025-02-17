@@ -1,9 +1,12 @@
 package views;
 
 import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Side;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.TextBoundsType;
@@ -49,6 +52,8 @@ public class TransactionView {
     }
 
     public void show(Stage stage) {
+
+
 
         // Liste der ausgeführten Transaktionen
         transactionList = new ListView<>();
@@ -106,7 +111,9 @@ public class TransactionView {
 
         //Label zum Anzeigen des Restbetrags
         restAmmount = new Label("Rest Ammount:");
-        restAmmount1 = new Label((String.valueOf(getrestAmmount())));
+        restAmmount1 = new Label();
+        restAmmount1.setText(restAmmount_Fun());
+
 
         //Logik implementation für den Button zum Hinzufügen einer Transaktion
         allUsersLabel = new Label("All Users:");
@@ -116,10 +123,10 @@ public class TransactionView {
         addTransactButton.setOnAction(e -> {
             String transactionName = transactionNameField.getText();
             LocalDate transactiondate = LocalDate.now();
-            BigDecimal transactionAmount;
+            float transactionAmount;
             String transactionDescription = transactionDescriptionField.getText();
             try {
-                transactionAmount = new BigDecimal(transactionAmountField.getText());
+                transactionAmount = Float.parseFloat(transactionAmountField.getText());
             } catch (NumberFormatException ex) {
                 showError("Transaction Amount is not a valid number");
                 return;
@@ -186,39 +193,41 @@ public class TransactionView {
         grid.setVgap(15);
         grid.setStyle("-fx-alignment: center;");
 
-        grid.add(transactionList, 0, 0, 2, 2);
+        grid.add(transactionList, 0, 0, 2, 3);
 
-        grid.add(transactionNameField, 0, 3);
-        grid.add(transactionAmountField, 1, 3);
-        grid.add(transactionDescriptionField, 2, 3);
-        grid.add(transactionNameLabel, 0, 2);
-        grid.add(transactionAmountLabel, 1, 2);
-        grid.add(transactionDescriptionLabel, 2, 2);
-        grid.add(addTransactButton, 0, 4);
-        grid.add(backButton, 0, 5);
-        grid.add(deleteTransactionButton, 1, 5);
-        grid.add(messageLabel, 0, 6, 2, 1);
-        grid.add(BudgetAmmount, 0, 7);
-        grid.add(BudgetAmmount1, 1, 7);
-        grid.add(allTransactionAmmountLabel, 0, 8);
-        grid.add(allTransactionAmmountLabel1, 1, 8);
-        grid.add(restAmmount, 0, 9);
-        grid.add(restAmmount1, 1, 9);
+        grid.add(transactionNameField, 0, 4);
+        grid.add(transactionAmountField, 1, 4);
+        grid.add(transactionDescriptionField, 2, 4);
+        grid.add(transactionNameLabel, 0, 3);
+        grid.add(transactionAmountLabel, 1, 3);
+        grid.add(transactionDescriptionLabel, 2, 3);
+        grid.add(addTransactButton, 0, 5);
+        grid.add(backButton, 0, 6);
+        grid.add(deleteTransactionButton, 1, 6);
+        grid.add(messageLabel, 0,7 , 2, 1);
+        grid.add(BudgetAmmount, 0, 8);
+        grid.add(BudgetAmmount1, 0, 9);
+        grid.add(allTransactionAmmountLabel, 1, 8);
+        grid.add(allTransactionAmmountLabel1, 1, 9);
+        grid.add(restAmmount, 2, 8);
+        grid.add(restAmmount1, 2, 9);
         grid.add(allUsersLabel, 2, 0);
         grid.add(allUsersLabel1, 3, 0);
-        grid.add(showTransacDescrArea, 0, 10, 4, 1);
-        grid.add(showDescriptionButton, 1, 4);
-        grid.add(changeDescriptionButton, 2, 4);
-        grid.add(changeDescriptionButton1, 3, 5);
+        grid.add(showTransacDescrArea, 3, 8, 2, 1);
+        grid.add(showDescriptionButton, 1, 5);
+        grid.add(changeDescriptionButton, 2, 5);
+        grid.add(changeDescriptionButton1, 3, 6);
         changeDescriptionButton1.setVisible(false);
-        grid.add(changeDescriptionField, 2, 5);
+        grid.add(changeDescriptionField, 2, 6);
         changeDescriptionField.setVisible(false);
-        grid.add(changeDescriptionLabel, 2, 4);
+        grid.add(changeDescriptionLabel, 2, 5);
         changeDescriptionLabel.setVisible(false);
+        showPieChart(grid);
 
-        Scene scene = new Scene(grid, 800, 600);
+        Scene scene = new Scene(grid, 1200, 1000);
         stage.setScene(scene);
         stage.setTitle("Transaction View");
+        stage.setMaximized(true);
         stage.show();
 
     }
@@ -289,4 +298,72 @@ public class TransactionView {
         popup.show();
 
     }
+    public String restAmmount_Fun() {
+        Float restAmmount = getrestAmmount();
+        String restAmmountText = String.valueOf(restAmmount);
+        restAmmount1.setText(restAmmountText);
+        restAmmount1.setStyle(restAmmount_setStyle(restAmmount));
+        return restAmmountText;
+    }
+
+    public String restAmmount_setStyle(Float restAmmount) {
+        if (restAmmount < 0) {
+            return "-fx-text-fill: red;";
+        } else if (restAmmount == 0) {
+            return "-fx-text-fill: blue;";
+        } else if (restAmmount < (presenter.getBudgetAmmount() * 0.2) && restAmmount > 0) {
+            return "-fx-text-fill: yellow;";
+        } else {
+            return "-fx-text-fill: green;";
+        }
+    }
+    public void showPieChart(GridPane grid) {
+        float restAmount = Float.parseFloat(restAmmount1.getText());
+        float budgetAmount = Float.parseFloat(BudgetAmmount1.getText());
+
+        // Erstelle die Daten für das Pie Chart
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
+                new PieChart.Data("Rest Amount", restAmount),
+                new PieChart.Data("Budget Amount", budgetAmount - restAmount)
+        );
+
+        // erstelle das Pie Chart
+        PieChart pieChart = new PieChart(pieChartData);
+
+        // Farben für die Daten
+        for (PieChart.Data data : pieChart.getData()) {
+            if (data.getName().equals("Rest Amount")) {
+                data.getNode().setStyle("-fx-pie-color: green;");
+            } else {
+                data.getNode().setStyle("-fx-pie-color: red;");
+            }
+
+            // Anzeige der Prozentwerte
+            data.nameProperty().bind(
+                    Bindings.concat(
+                            data.getName(), " ", String.format("%.1f%%", (data.getPieValue() / budgetAmount) * 100)
+                    )
+            );
+        }
+
+        // Legende anzeigen
+        pieChart.setLegendVisible(true);
+
+
+        pieChart.setLegendSide(Side.BOTTOM);
+
+
+        grid.add(pieChart, 0, 10, 2, 1);
+    }
+
+    public void highBudgetWarning() {
+        showError("Budget is too high");
+
+
+
+    }
+    public void setStageMaximized(Stage stage) {
+        stage.setMaximized(true);
+    }
 }
+

@@ -10,7 +10,6 @@ import com.Prog_3_Projektarbeit.generated.tables.Budget.BudgetPath;
 import com.Prog_3_Projektarbeit.generated.tables.User.UserPath;
 import com.Prog_3_Projektarbeit.generated.tables.records.TransactionsRecord;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collection;
@@ -88,7 +87,7 @@ public class Transactions extends TableImpl<TransactionsRecord> {
     /**
      * The column <code>Transactions.ammount</code>.
      */
-    public final TableField<TransactionsRecord, BigDecimal> AMMOUNT = createField(DSL.name("ammount"), SQLDataType.NUMERIC(10, 2).nullable(false), this, "");
+    public final TableField<TransactionsRecord, Float> AMMOUNT = createField(DSL.name("ammount"), SQLDataType.REAL.nullable(false), this, "");
 
     /**
      * The column <code>Transactions.date</code>.

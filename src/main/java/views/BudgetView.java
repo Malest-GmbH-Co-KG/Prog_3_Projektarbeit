@@ -42,7 +42,7 @@ public class BudgetView {
 
 
         Button addBudgetButton = new Button("Add Budget");
-        Button backButton = new Button("Back");
+        Button backButton = new Button("Logout");
         Button viewMovementsButton = new Button("View Transactions");
         Button deleteBudgetButton = new Button("Delete Budget");
         Button addUsertoBudgetButton = new Button("Add User to Budget");
