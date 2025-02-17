@@ -71,7 +71,7 @@ public class TransactionPresenter {
         if (transactionAmount > getBudgetAmmount()) {
             view.highBudgetWarning();
             view.setStageMaximized(stage);
-        }else if (getAllTransactions()+transactionAmount > getBudgetAmmount()) {
+        }else if (getBudgetAmmount()+transactionAmount > getBudgetAmmount()) {
             view.highBudgetWarning();
             view.setStageMaximized(stage);
 

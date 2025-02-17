@@ -357,7 +357,7 @@ public class TransactionView {
     }
 
     public void highBudgetWarning() {
-        showError("Budget ist zu groß");
+        showError("Transaktion ist zu groß");
 
 
 
