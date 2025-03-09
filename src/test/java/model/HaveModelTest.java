@@ -1,42 +1,35 @@
 package model;
 
-import com.Prog_3_Projektarbeit.generated.tables.daos.UserDao;
-import com.Prog_3_Projektarbeit.generated.tables.pojos.Budget;
-import com.Prog_3_Projektarbeit.generated.tables.pojos.Have;
-import org.junit.jupiter.api.Test;
-
-
 import com.Prog_3_Projektarbeit.generated.tables.daos.BudgetDao;
 import com.Prog_3_Projektarbeit.generated.tables.daos.HaveDao;
-import presenters.BudgetPresenter;
+import com.Prog_3_Projektarbeit.generated.tables.daos.UserDao;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-
+import org.junit.jupiter.api.Test;
 import org.sqlite.SQLiteDataSource;
-import static org.mockito.Mockito.mock;
+import presenters.BudgetPresenter;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
-
-class BudgetModelTest {
+class HaveModelTest {
     private DSLContext dslContext;
     private Connection connection;
-    private BudgetDao budgetDao;
+    private HaveModel haveModel;
     private BudgetModel budgetModel;
     private HaveDao haveDao;
-    private BudgetPresenter presenter;
-    private HaveModel haveModel;
     private UserDao userDao;
+    private BudgetDao budgetDao;
+    private BudgetPresenter presenter;
 
 
-    //Vor jedem Test wird eine In-Memory SQLite-Datenbank eingerichtet
+
     @BeforeEach
     void setUp() throws SQLException {
         // In-Memory SQLite-Datenbank einrichten
@@ -85,10 +78,10 @@ class BudgetModelTest {
         userDao = new UserDao(dslContext.configuration());
 
 
-        presenter = mock(BudgetPresenter.class); // Mocking vom Presenter
+        presenter = mock(BudgetPresenter.class); // Mocking the presenter
         budgetModel = new BudgetModel(budgetDao,haveDao ,presenter, haveModel, userDao);
-    }
 
+    }
     @AfterEach
     void tearDown() throws SQLException {
         if (connection != null) {
@@ -96,45 +89,20 @@ class BudgetModelTest {
         }
     }
 
+
+
     @Test
-    void addBudget() {
-        //Testdaten
-        String budget_name = "TestBudget";
-        float amount = 100;
-        String username = "TestUser";
-
-
-        int budget_id = budgetModel.addBudget(budget_name, amount, username);
-
-        List<Have> checkHave = haveDao.fetchByUserName(username);
-        assertEquals(1, checkHave.size());
-        //Überprüfen ob Budget in der Datenbank vorhanden ist
-        Budget checkBudget = budgetDao.fetchOneByBudgetId(budget_id);
-        assertEquals(budget_name, checkBudget.getBudgetName());
-        assertEquals(amount, checkBudget.getAmmount());
+    void deleteByBudgetId() {
+        int budgetId = budgetModel.addBudget("Test", 100, "Test");
+        haveModel.deleteByBudgetId(budgetId);
+        assertEquals(haveDao.fetchByBudgetId(budgetId).size(), 0);
     }
 
     @Test
-    void setCurrentUser() {
-
-        String username = "TestUser";
-        budgetModel.setCurrentUser(username);
-        assertEquals(username, budgetModel.getUsername());
+    void getAllUsersforBudget_true() {
+        int budgetId = budgetModel.addBudget("Test", 100, "Test");
+        haveModel.getAllUsersforBudget(budgetId);
+        assertEquals(haveDao.fetchByBudgetId(budgetId).size(), 1);
     }
-
-    @Test
-    void deleteBudget_true() {
-        String budget_name = "TestBudget";
-        float amount = 100;
-        String username = "TestUser";
-
-
-        int budget_id = budgetModel.addBudget(budget_name, amount, username);
-        budgetModel.deleteBudget(budget_id);
-
-        assertEquals(0, haveDao.fetchByBudgetId(budget_id).size());
-    }
-
-
 
 }

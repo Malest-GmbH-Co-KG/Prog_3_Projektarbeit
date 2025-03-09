@@ -20,11 +20,7 @@ public class HaveModel {
                 .execute();
     }
 
-    public void deleteByTransactionId(int transactionId) {
-        dslContext.deleteFrom(HAVE)
-                .where(HAVE.BUDGET_ID.eq(transactionId))
-                .execute();
-    }
+
 
     public List<String> getAllUsersforBudget(int budgetId) {
         return dslContext.select(HAVE.USER_NAME)

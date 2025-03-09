@@ -87,8 +87,7 @@ public class TransactionModel {
     public boolean deleteTransaction (int transactionID, int budgetID) {
         //Löschen der Transaktion
         transactionsDao.deleteById(transactionID);
-        //Löschen der Transaktion aus der Tabelle "Have"
-        haveModel.deleteByTransactionId(transactionID);
+
         presenter.showTransactions(budgetID, username);
         return true;
     }
