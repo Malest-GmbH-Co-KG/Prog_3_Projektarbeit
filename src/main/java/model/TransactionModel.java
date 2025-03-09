@@ -84,12 +84,13 @@ public class TransactionModel {
      * @param transactionID welche Transaktion gelöscht werden soll
      * @param budgetID aus welchem Budget es gelöscht werden soll
      */
-    public void deleteTransaction (int transactionID, int budgetID) {
+    public boolean deleteTransaction (int transactionID, int budgetID) {
         //Löschen der Transaktion
         transactionsDao.deleteById(transactionID);
         //Löschen der Transaktion aus der Tabelle "Have"
         haveModel.deleteByTransactionId(transactionID);
         presenter.showTransactions(budgetID, username);
+        return true;
     }
 
     /**<h3>Nutzer der Transaktion zuordnen</h3>

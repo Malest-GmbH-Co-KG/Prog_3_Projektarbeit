@@ -84,7 +84,7 @@ class TransactionModelTest {
         int budgetId = 1;
         String username = "test";
         transactionModel.setCurrentUser(username, budgetId);
-        int transactionId = transactionModel.addTransaction("Test", BigDecimal.valueOf(100), "Test", LocalDate.now() );
+        int transactionId = transactionModel.addTransaction("Test", 10.0f, "Test", LocalDate.now() );
         assertNotNull(haveDao.fetchByBudgetId(budgetId));
         assertNotNull(transactionModel.getTransactionById(transactionId));
     }
@@ -95,7 +95,7 @@ class TransactionModelTest {
         int budgetId = 1;
         String username = "test";
         transactionModel.setCurrentUser(username, budgetId);
-        int transactionId = transactionModel.addTransaction("Test", BigDecimal.valueOf(100), "Test", null);
+        int transactionId = transactionModel.addTransaction("Test", 10.0f, "Test", null);
         transactionModel.deleteTransaction(transactionId, budgetId);
         assertEquals(0, haveDao.fetchByBudgetId(budgetId).size());
         assertNull(transactionModel.getTransactionById(transactionId));
@@ -113,7 +113,7 @@ class TransactionModelTest {
     void getTransactionList_true() {
         int budgetId = 1;
         transactionModel.setCurrentUser(username, budgetId);
-        transactionModel.addTransaction("Test", BigDecimal.valueOf(100), "Test", LocalDate.now());
+        transactionModel.addTransaction("Test", 10.0f, "Test", LocalDate.now());
         List<String> transactionList = transactionModel.getTransactionList();
         assertNotNull(transactionList);
     }
@@ -122,7 +122,7 @@ class TransactionModelTest {
     void getTransactionById_true() {
         int budgetId = 1;
         transactionModel.setCurrentUser(username, budgetId);
-        int transactionId = transactionModel.addTransaction("Test", BigDecimal.valueOf(100), "Test", null);
+        int transactionId = transactionModel.addTransaction("Test", 10.0f, "Test", null);
         assertNotNull(transactionModel.getTransactionById(transactionId));
     }
 
@@ -130,7 +130,7 @@ class TransactionModelTest {
     void changeDescription_true() {
         int budgetId = 1;
         transactionModel.setCurrentUser(username, budgetId);
-        int transactionId = transactionModel.addTransaction("Test", BigDecimal.valueOf(100), "Test", null);
+        int transactionId = transactionModel.addTransaction("Test", 10.0f, "Test", null);
         transactionModel.changeDescription(transactionId, "New Description");
         assertEquals("New Description", transactionModel.getTransactionById(transactionId).getDescription());
     }

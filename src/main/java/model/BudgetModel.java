@@ -57,10 +57,11 @@ public class BudgetModel {
         this.username = username;
     }
 
-    public void deleteBudget(int budgetId) {
+    public boolean deleteBudget(int budgetId) {
         budgetDao.deleteById(budgetId);
         haveModel.deleteByBudgetId(budgetId);
         presenter.showBudgets(username);
+        return true;
     }
 
     public ObservableList<String> getBudgetList(String username) {

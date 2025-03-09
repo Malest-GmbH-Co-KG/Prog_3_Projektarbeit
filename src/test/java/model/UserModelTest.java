@@ -94,26 +94,23 @@ class UserModelTest {
     void updateUser_validCredentials_returnsTrue() {
         userModel.addUser("testuser", "vor", "nach", "password123");
         String newUsername = "newuser";
-        String newPassword = "newpassword";
         String oldUsername = "testuser";
 
-        boolean result = userModel.updateUser(oldUsername, newUsername, newPassword);
+        boolean result = userModel.updateUser(oldUsername, newUsername);
 
         assertEquals(true, result, "The result should be true for valid credentials");
         List<User> updatedUser = userDao.fetchByUserName(newUsername);
         assertNotNull(updatedUser, "The updated user should not be null");
         assertEquals(newUsername, updatedUser.get(0).getUserName(), "The username should match");
-        assertEquals(newPassword, updatedUser.get(0).getPassword(), "The password should match");
     }
 
     @Test
     void updateUser_invalidCredentials_returnsFalse() {
         userModel.addUser("testuser", "vor", "nach", "password123");
         String newUsername = "testuser"; // This username already exists
-        String newPassword = "newpassword";
         String oldUsername = "testuser";
 
-        boolean result = userModel.updateUser(oldUsername, newUsername, newPassword);
+        boolean result = userModel.updateUser(oldUsername, newUsername);
         assertEquals(false, result, "The result should be false for invalid credentials");
 
     }
