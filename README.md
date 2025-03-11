@@ -1,23 +1,64 @@
 # Prog_3_Projektarbeit
 
-+ IDE Requirements:
+# **IDE Requirements:**
 + java 21
 + Maven Version 3.19.15
+
 ---
+
 # Quick Start Anleitung: 
 
 + IDE Terminal öffnen
 <br>![Image](https://github.com/user-attachments/assets/32ba5036-5775-4de7-bcb4-bab8614c4ae9)
 + Command  | mvn javafx:run | ausführen
 <br>![Image](https://github.com/user-attachments/assets/469880bf-a46e-4233-a2b6-3cbd2bcdb9b5)
-+ Entweder neuer Nutzer anlegen, Nutzer updaten oder mit einem bestehenden Nutzer anmelden
-<br>![Image](https://github.com/user-attachments/assets/2a05c892-e554-405c-884f-6bb5b7b4cd25)
+
 ---
+
+# Fenster Erläuterungen
+## **Loginfenster**
++ [Anmelden](#3-mit-bestehendem-nutzer-anmelden)
++ [Registrieren](#1-nutzer-anlegen)
++ [Daten updaten](#2-nutzer-updaten)
+
+<br>![Image](https://github.com/user-attachments/assets/2a05c892-e554-405c-884f-6bb5b7b4cd25)
+
+## **Budgetfenster**
++ Liste aller Budgets:
+  <br> -> Hier werden alle angelegten Budgets sowie diejenigen angezeigt, an denen man beteiligt ist.
+  <br> -> Jedes Budget besteht aus dem Budgetnamen, der Budget-ID und dem verfügbaren Betrag.
++ [Budgetoptionen](#budgetoptionen)
+
+<br>![Image](https://github.com/user-attachments/assets/413a558f-37b8-485e-82bd-ef11b9f86ee6)
+
+## **Transaktionsfenster**
++ **Liste aller Transaktionen:**
+  <br> ->  Hier werden alle getätigten Transaktionen angezeigt.
+  <br> -> Eine Transaktion enthält folgende Informationen:
+  <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + **Nutzer**, der die Transaktion durchgeführt hat
+  <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + **Name**, **ID** und **Betrag** der Transaktion
+  <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + **Datum**, an dem die Transaktion eingetragen wurde
++ **Nutzer im Budget:**
+  <br> -> Liste aller Nutzer, die im Budget mitwirken.
++ [Transaktionsoptionen](#transaktionsoptionen)
++ **Beschreibungsfeld:**
+  <br> ->Hier werden die Beschreibungen der Transaktionen angezeigt
++ **Übersicht der Transaktionen:**
+   <br> -> **Budgetsumme:** Die Höhe des anfänglichen Budgets
+   <br> -> **Summe aller Transaktionen:** Der Gesamtbetrag der ausgegeben wurde
+   <br> -> **Restsumme:** Das noch zur verfügung stehende Budget
+   <br> ->  Das **Kuchendiagramm** stellt die **Budgetsumme** und die **Restsumme** visuell sowie prozentual dar.
+  
+<br>![Image](https://github.com/user-attachments/assets/2b6330b7-9e8f-4012-90d1-5e4b69651652)
+
+---
+
 # Program Walktrough
 
 ## **Anmeldeoptionen:**
 
 ### 1. Nutzer anlegen:
+
 + Nutzername eingeben
 + Vorname eingeben
 + Nachname eingeben
@@ -26,12 +67,14 @@
 <br> ![Image](https://github.com/user-attachments/assets/d19a7c60-dd34-41e9-8edf-eee8a38b5cd2)
 
 ### 2. Nutzer updaten:
+
 + Alter Nutzername eingeben
 + Neuer Nutzername eingeben
 + Auf Jetzt Nutzer updaten Button drücken
 <br> ![Image](https://github.com/user-attachments/assets/c48ece43-06c9-4e99-8890-a774fa24fea1)
 
 ### 3. Mit bestehendem Nutzer anmelden:
+
 + Nutzername eingeben
 + Passwort eingeben
 + Auf Einloggen Button drücken
@@ -40,17 +83,20 @@
 ## **Budgetoptionen:**
 
 ### 1. Budget erstellen:
+
 + Budget Name eingeben
 + Budgetsumme eingeben
 + Auf Budget hinzufügen Button drücken
 <br> ![Image](https://github.com/user-attachments/assets/8d3be914-0e34-47ee-9e36-053170c4f7cd)
 
 ### 2. Budget Löschen:
+
 + Budget im Menü auswählen
 + Auf Budget löschen Button drücken
 <br> ![Image](https://github.com/user-attachments/assets/d5d936eb-396c-4052-a4bd-590335fc0c00)
 
 ### 3. Nutzer zu Budget hinzufügen:
+
 + Ein Budget im Menü auswählen
 + Auf Nutzer zu Budget hinzufügen Button drücken
 + Nutzername eingeben
@@ -58,12 +104,13 @@
 <br> ![Image](https://github.com/user-attachments/assets/59a9ae53-84a2-4190-8ed2-4dd9bf86946c)
 
 ### 4. Transaktionen ansehen:
+
 + Ein Budget im Menü auswählen
 <br> ![Image](https://github.com/user-attachments/assets/87dee55e-a8f0-4f2b-8727-fdbf9f4d5c71)
 + Auf Transaktion ansehen Button drücken
 <br> ![Image](https://github.com/user-attachments/assets/b325c14b-14a1-409e-b158-5be65071419a)
 
-<h2><b>Transaktionsoptionen:</b></h2>
+## **Transaktionsoptionen:**
 
 ### 1. Transaktion hinzufügen:
 
@@ -77,6 +124,7 @@
 <br> ![Image](https://github.com/user-attachments/assets/ea3aa16a-6c97-457e-b137-3644ffe25cb3)
 
 ### 2. Transaktion löschen:
+
 + Transaktion auswählen
 <br> ![Image](https://github.com/user-attachments/assets/a6c547b4-48ee-4d7e-8826-4f8c2e709008)
 + Auf Transaktion löschen Button drücken
@@ -91,8 +139,10 @@
 <br> ![Image](https://github.com/user-attachments/assets/c5c70e72-0e1e-44a9-8454-05e151fbed3f)
 
 ### 4. Beschreibung ändern:
+
 + Transaktion auswählen
 <br> ![Image](https://github.com/user-attachments/assets/a6c547b4-48ee-4d7e-8826-4f8c2e709008)
 + Auf Bescreibung ändern Button drücken
 + Neue Beschreibung eingeben und auf ändern Button drücken
 <br>![Image](https://github.com/user-attachments/assets/916533dd-679a-4a3c-81a0-2d2d416fb47a)
+
