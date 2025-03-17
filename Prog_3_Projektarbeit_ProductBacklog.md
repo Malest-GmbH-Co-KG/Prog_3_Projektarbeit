@@ -99,7 +99,7 @@
 
 ---
 
-Das Backlog kann je nach Projektfortschritt erweitert werden.
+
 Grundlegende Funktionen sind hiermit aber abgedeckt
 
 
