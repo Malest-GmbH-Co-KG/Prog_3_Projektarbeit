@@ -6,6 +6,23 @@
 
 ---
 
+# Repository klonen
+
++ Navigieren Sie auf GitHub zur Hauptseite des Repositorys.
++ Klicke oberhalb der Liste der Dateien auf <> **Code**.
+<br> <img width="356" alt="Image" src="https://github.com/user-attachments/assets/572d9893-81e9-4c61-b413-59a7a54320a7" />
++ Kopiere die URL für das Repository.
+<br> <img width="305" alt="Image" src="https://github.com/user-attachments/assets/cede2f5e-27ca-403f-a09b-c29ee3dae182" />
++ Öffne Git Bash.
++ Ändere das aktuelle Arbeitsverzeichnis zum Speicherort, in dem Du das geklonte Verzeichnis haben willst.
++ Gib git clone ein, und füge dann die zuvor kopierte URL ein.
+<br> ![Image](https://github.com/user-attachments/assets/1a1f13ee-1367-4f7b-b517-ebd36d456131)
++ Drücke die EINGABETASTE, um den lokalen Klon zu erstellen.
+
+Für weitere informationen besuche https://docs.github.com/de/repositories/creating-and-managing-repositories/cloning-a-repository
+
+---
+
 # Quick Start Anleitung: 
 
 + IDE Terminal öffnen
