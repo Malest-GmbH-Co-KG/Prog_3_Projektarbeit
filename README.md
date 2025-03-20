@@ -2,7 +2,7 @@
 
 # **IDE Requirements:**
 + java 21
-+ Maven Version 3.19.15
++ Maven Version 3.9
 
 ---
 
